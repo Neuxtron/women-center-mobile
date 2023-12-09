@@ -19,6 +19,7 @@ import 'package:women_center_mobile/View/profil_page/profil_user.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 import 'package:women_center_mobile/View/riwayat/batal.dart';
 import 'package:women_center_mobile/View/sesi_konseling/sesi_konseling.dart';
+import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
 import 'View/bottomnavigationbar/main_page.dart';
 import 'View/career/detail_job.dart';
 import 'View/career/career.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ArtikelViewModel()),
+        ChangeNotifierProvider(create: (context) => CareerViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -57,7 +59,7 @@ class MyApp extends StatelessWidget {
           '/homepagenotif3': (context) => HomepageNotifikasi3(),
           '/artikelku': (context) => const ArtikelKu(),
           '/artikel': (context) => const Artikel(),
-          '/profil_user':(context) => ProfilPage(),
+          '/profil_user': (context) => ProfilPage(),
           '/payment': (context) => HomePage(),
           '/pembayaran1': (context) => const MetodePembayaran1(),
           '/editprofile': (context) => EditProfile(),

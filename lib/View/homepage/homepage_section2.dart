@@ -1,4 +1,6 @@
 //punya juhar
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
@@ -6,6 +8,7 @@ import 'package:women_center_mobile/Models/artikel_model/artikelku_model.dart';
 import 'package:women_center_mobile/Models/karir_model/karir_model.dart';
 import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
+import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
 
 class Home2 extends StatefulWidget {
   const Home2({super.key});
@@ -16,21 +19,27 @@ class Home2 extends StatefulWidget {
 
 class _Home2State extends State<Home2> {
   ArtikelModel? _artikel;
-  final List<KarirModel> listKarir = [];
 
   void fetchLatestArtikel() async {
     final artikel = await context.read<ArtikelViewModel>().fetchLatestArtikel();
     setState(() => _artikel = artikel);
   }
 
+  void fetchCareers() {
+    context.read<CareerViewModel>().fetchAllCareer();
+  }
+
   @override
   void initState() {
     super.initState();
     fetchLatestArtikel();
+    fetchCareers();
   }
 
   @override
   Widget build(BuildContext context) {
+    final listKarir = context.watch<CareerViewModel>().listKarir;
+
     return Column(
       children: [
         Row(
@@ -48,11 +57,11 @@ class _Home2State extends State<Home2> {
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               final model = listKarir[index];
-              // return KarirItem(
-              //   gambar: model.gambar,
-              //   judul: model.judul,
-              //   keterangan: model.keterangan,
-              // );
+              return KarirItem(
+                titleJob: model.titleJob,
+                logo: model.logo,
+                companyName: model.companyName,
+              );
             },
           ),
         ),
@@ -70,15 +79,16 @@ class _Home2State extends State<Home2> {
 }
 
 class KarirItem extends StatelessWidget {
-  final String gambar;
-  final String judul;
-  final String keterangan;
+  final String titleJob;
+  final String logo;
+  final String companyName;
 
-  const KarirItem(
-      {super.key,
-      required this.gambar,
-      required this.judul,
-      required this.keterangan});
+  const KarirItem({
+    super.key,
+    required this.titleJob,
+    required this.logo,
+    required this.companyName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +98,12 @@ class KarirItem extends StatelessWidget {
       },
       child: Column(
         children: [
-          Image.asset(
-            gambar,
+          Image.network(
+            logo,
             height: 130,
           ),
-          Text(judul),
-          Text(keterangan),
+          Text(titleJob),
+          Text(companyName),
         ],
       ),
     );
