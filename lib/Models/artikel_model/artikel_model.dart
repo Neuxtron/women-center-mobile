@@ -31,12 +31,12 @@ class ArtikelModel {
 
   factory ArtikelModel.fromJson(Map<String, dynamic> json) {
     return ArtikelModel(
-      id: json["id"],
+      id: json["id"] ?? 0,
       title: json["title"],
       thumbnail: json["thumbnail"],
       slug: json["slug"],
       author: Author.fromJson(json["author"]),
-      status: json["status"],
+      status: json["status"] ?? "",
       publishedAt:
           DateFormat("dd MMM yyyy hh:mm:ss").parse(json["published_at"]),
       content: json["content"],
