@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/',
+        initialRoute: '/riwayat_batal',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
           '/topik_konseling': (context) => KonselingTopikKonseling(),
           '/riwayat_konseling': (context) => const RiwayatKonseling(),
           '/booking': (context) => const Booking(),
+          '/riwayat_batal': (context) => const RiwayatBatal(),
         },
       ),
     );

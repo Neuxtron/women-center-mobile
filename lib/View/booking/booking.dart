@@ -21,10 +21,9 @@ class Booking extends StatelessWidget {
                 Text("Psikologi • Universitas Indonesia"),
                 Row(
                   children: [
-                    Image.asset('Assets/images/welcome.jpg',
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.cover),
+                    Image.asset('Assets/images/ig_icon.png',
+                       
+                    ),
                     Text("@stefaniersl"),
                   ],
                 ),
