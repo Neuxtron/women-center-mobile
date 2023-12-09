@@ -81,13 +81,27 @@ class MingguItem extends StatelessWidget {
         TextField(
           readOnly: true,
           onTap: pilihTanggal,
-          decoration: const InputDecoration(
-            suffixIcon: Icon(Icons.date_range),
+          decoration: InputDecoration(
+            suffixIcon: const Icon(Icons.date_range),
+            suffixIconColor: const Color(0xFFF4518D),
+            fillColor: Colors.white,
+            filled: true,
+            isDense: true,
+            hintText: "Pilih tanggal",
+            enabledBorder: borderSaya(),
+            focusedBorder: borderSaya(),
           ),
         ),
         const Text("Jam"),
         const PilihJam(),
       ],
+    );
+  }
+
+  InputBorder borderSaya() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide.none,
     );
   }
 }
@@ -100,7 +114,7 @@ class PilihJam extends StatefulWidget {
 }
 
 class _PilihJamState extends State<PilihJam> {
-  List<String> _listJam = [
+  final List<String> _listJam = [
     "09.00",
     "11.00",
     "13.00",
@@ -128,16 +142,16 @@ class _PilihJamState extends State<PilihJam> {
           groupValue: _selectedJam,
           onChanged: changeJam,
         ),
-        // JamItem(
-        //   value: _listJam[2],
-        //   groupValue: _selectedJam,
-        //   onChanged: changeJam,
-        // ),
-        // JamItem(
-        //   value: _listJam[3],
-        //   groupValue: _selectedJam,
-        //   onChanged: changeJam,
-        // ),
+        JamItem(
+          value: _listJam[2],
+          groupValue: _selectedJam,
+          onChanged: changeJam,
+        ),
+        JamItem(
+          value: _listJam[3],
+          groupValue: _selectedJam,
+          onChanged: changeJam,
+        ),
         JamItem(
           value: _listJam[4],
           groupValue: _selectedJam,
@@ -168,17 +182,24 @@ class JamItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
-      width: 120,
+      height: 30,
+      width: 60,
       child: MaterialButton(
         onPressed: enabled
             ? () {
                 onChanged(value);
               }
             : null,
+        elevation: 0,
+        highlightElevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         color: _selected ? const Color(0xFFF4518D) : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: _selected || !enabled
+              ? BorderSide.none
+              : const BorderSide(color: Color(0xFFC9C9C9)),
+        ),
         disabledColor: const Color(0xFFDFDFDF),
         textColor: _selected ? Colors.white : Colors.black,
         disabledTextColor: const Color(0xFF646464),

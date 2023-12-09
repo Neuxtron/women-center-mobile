@@ -13,7 +13,7 @@ class Booking extends StatelessWidget {
           SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xFFF9F5F6),
                 borderRadius: BorderRadius.circular(20),
               ),
               padding:
