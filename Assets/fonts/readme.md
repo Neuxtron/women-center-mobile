@@ -1,0 +1,1 @@
+Font yang dipakai diaplikasi women center adalah releway (https://fonts.google.com/specimen/Raleway?preview.text=Example%20text&query=Raleway)
