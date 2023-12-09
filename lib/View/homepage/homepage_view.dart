@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/View/homepage/homepage_section1.dart';
+import 'package:women_center_mobile/View/homepage/homepage_section2.dart';
+import 'package:women_center_mobile/View/homepage/homepage_section3.dart';
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class HomepageSection extends StatefulWidget {
+  const HomepageSection({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<HomepageSection> createState() => _HomepageSectionState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
+class _HomepageSectionState extends State<HomepageSection> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        // panggil halaman section disini
+    return const SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          // panggil halaman section disini
+          children: [
+              //homepage 1
+              // HomePage1(),
+              //homepage 2
+              Home2(),
+              //homepage 3
+              Home3(),
+          ],
+          
+        ),
       ),
     );
   }
