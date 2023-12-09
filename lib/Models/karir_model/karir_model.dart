@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class KarirModel {
   final int id;
   final String titleJob;
@@ -22,7 +24,8 @@ class KarirModel {
       logo: json["logo"],
       companyName: json["company_name"],
       location: json["location"],
-      publishedAt: json["published_at"],
+      publishedAt:
+          DateFormat("dd MMM yyyy hh:mm:ss").parse(json["published_at"]),
     );
   }
 }
