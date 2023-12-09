@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/View/booking/views/tentang_psikolog.dart';
 
 class Booking extends StatelessWidget {
   const Booking({super.key});
@@ -9,26 +10,32 @@ class Booking extends StatelessWidget {
       body: Stack(
         children: [
           Image.asset("Assets/images/booking.png"),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: EdgeInsets.only(top: 32, bottom: 10, left: 16, right: 16),
-            child: Column(
-              children: [
-                Text("Stenafie Russel, M.Psi., Psikolog"),
-                Text("Psikologi • Universitas Indonesia"),
-                Row(
-                  children: [
-                    Image.asset('Assets/images/welcome.jpg',
-                        height: double.infinity,
-                        width: double.infinity,
-                        fit: BoxFit.cover),
-                    Text("@stefaniersl"),
-                  ],
-                ),
-              ],
+          SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding:
+                  EdgeInsets.only(top: 32, bottom: 10, left: 16, right: 16),
+              margin: EdgeInsets.only(top: 433),
+              child: Column(
+                children: [
+                  Text("Stenafie Russel, M.Psi., Psikolog"),
+                  Text("Psikologi • Universitas Indonesia"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'Assets/images/ig_icon.png',
+                        width: 20,
+                      ),
+                      Text("@stefaniersl"),
+                    ],
+                  ),
+                  const PsikologTabView(),
+                ],
+              ),
             ),
           ),
         ],
@@ -44,8 +51,7 @@ class PsikologTabView extends StatefulWidget {
   State<PsikologTabView> createState() => _PsikologTabViewState();
 }
 
-class _PsikologTabViewState extends State<PsikologTabView>
-    with SingleTickerProviderStateMixin {
+class _PsikologTabViewState extends State<PsikologTabView> {
   final List<Tab> _tabs = [
     Tab(
       child: Text("Tentang Psikolog"),
@@ -55,29 +61,28 @@ class _PsikologTabViewState extends State<PsikologTabView>
     ),
   ];
   final List<Widget> _views = [
-    Center(
-      child: Text("Tentang Psikolog"),
-    ),
-    Center(
-      child: Text("Review"),
-    ),
+    TentangPsikolog(),
+    Text("Review"),
   ];
-  late TabController _tabController;
+
+  int _selectedIndex = 0;
+
+  void changeViews(index) {
+    setState(() => _selectedIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TabBar(
-          controller: _tabController,
-          tabs: _tabs,
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: _views,
+        DefaultTabController(
+          length: _tabs.length,
+          child: TabBar(
+            tabs: _tabs,
+            onTap: changeViews,
           ),
         ),
+        _views[_selectedIndex],
       ],
     );
   }
