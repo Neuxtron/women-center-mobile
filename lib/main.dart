@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
           '/topik_konseling': (context) => KonselingTopikKonseling(),
           '/riwayat_konseling': (context) => const RiwayatKonseling(),
           '/booking': (context) => const Booking(),
+          '/riwayat_batal': (context) => const RiwayatBatal(),
         },
       ),
     );
