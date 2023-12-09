@@ -16,6 +16,7 @@ import 'package:women_center_mobile/View/metode_pembayaran/pembayaran_widget_tab
 import 'package:women_center_mobile/View/login/login_view.dart';
 import 'package:women_center_mobile/View/onboarding/onboarding.dart';
 import 'package:women_center_mobile/View/profil_page/profil_user.dart';
+import 'package:women_center_mobile/View/riwayat/riwayat_konseling.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 import 'package:women_center_mobile/View/riwayat/batal.dart';
 import 'package:women_center_mobile/View/sesi_konseling/sesi_konseling.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/',
+        initialRoute: '/riwayat_konseling',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
           '/payment': (context) => HomePage(),
           '/pembayaran1': (context) => const MetodePembayaran1(),
           '/editprofile': (context) => EditProfile(),
+          '/riwayat_konseling': (context) => RiwayatKonseling(),
         },
       ),
     );
