@@ -18,17 +18,18 @@ class ArtikelViewModel extends ChangeNotifier {
 
   // TODO: token sementara
   final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDE3ODU0OTZ9.qKW40Yww31qf8-qehLyPvaRkx_0pG8RdqcoS3sJ1hIE";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDIxMzQ0NTB9.cAMshcM_qi3lP09Bv6-l1eISEdtv-feVWG8J_Pc1O8o";
 
   Future fetchAlllArtikel() async {
     const endpoint = "/articles";
 
     try {
-
-      final response =
-          await http.get(Uri.parse("$_baseUrl$endpoint"), headers: {
-        "Authorization": "Bearer $token",
-      },);
+      final response = await http.get(
+        Uri.parse("$_baseUrl$endpoint"),
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+      );
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)["data"] as List;
         _listArtikel = jsonData.map((e) => ArtikelModel.fromJson(e)).toList();
@@ -60,6 +61,25 @@ class ArtikelViewModel extends ChangeNotifier {
             return newArtikel;
           }
         }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
+
+  Future<ArtikelModel?> fetchLatestArtikel() async {
+    try {
+      final response = await http.get(
+        Uri.parse("$_baseUrl/article/latest"),
+        headers: {
+          "Authorization": "Bearer $token",
+        },
+      );
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body)["data"];
+        ArtikelModel artikel = ArtikelModel.fromJson(jsonData);
+        return artikel;
       }
     } catch (e) {
       log(e.toString());

@@ -1,22 +1,11 @@
 //punya juhar
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
+import 'package:women_center_mobile/Models/artikel_model/artikelku_model.dart';
 import 'package:women_center_mobile/Models/karir_model/karir_model.dart';
 import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
 class Home2 extends StatefulWidget {
   const Home2({super.key});
@@ -26,26 +15,19 @@ class Home2 extends StatefulWidget {
 }
 
 class _Home2State extends State<Home2> {
-  List<KarirModel> listKarir = [
-    KarirModel(
-      id: 0,
-      gambar: "Assets/images/home_3.jpg",
-      judul: "judul",
-      keterangan: "keterangan",
-    ),
-    KarirModel(
-      id: 0,
-      gambar: "Assets/images/home_3.jpg",
-      judul: "judul",
-      keterangan: "keterangan",
-    ),
-    KarirModel(
-      id: 0,
-      gambar: "Assets/images/home_3.jpg",
-      judul: "judul",
-      keterangan: "keterangan",
-    ),
-  ];
+  ArtikelModel? _artikel;
+  final List<KarirModel> listKarir = [];
+
+  void fetchLatestArtikel() async {
+    final artikel = await context.read<ArtikelViewModel>().fetchLatestArtikel();
+    setState(() => _artikel = artikel);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLatestArtikel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +48,11 @@ class _Home2State extends State<Home2> {
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               final model = listKarir[index];
-              return KarirItem(
-                gambar: model.gambar,
-                judul: model.judul,
-                keterangan: model.keterangan,
-              );
+              // return KarirItem(
+              //   gambar: model.gambar,
+              //   judul: model.judul,
+              //   keterangan: model.keterangan,
+              // );
             },
           ),
         ),
@@ -81,15 +63,7 @@ class _Home2State extends State<Home2> {
             TextButton(onPressed: () {}, child: Text('Selengkapnya')),
           ],
         ),
-        Image.network(DummyArtikel.artikelUntukmu.thumbnail),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(DummyArtikel.artikelUntukmu.author.name),
-            Text(DummyArtikel.artikelUntukmu.formatJam()),
-          ],
-        ),
-        Text(DummyArtikel.artikelUntukmu.title),
+        LatestArtikel(artikel: _artikel),
       ],
     );
   }
@@ -126,4 +100,24 @@ class KarirItem extends StatelessWidget {
   }
 }
 
-//jika gambar dari API 
+class LatestArtikel extends StatelessWidget {
+  final ArtikelModel? artikel;
+  const LatestArtikel({super.key, required this.artikel});
+
+  @override
+  Widget build(BuildContext context) {
+    if (artikel == null) return const SizedBox();
+    return Column(
+      children: [
+        Image.network(artikel!.thumbnail),
+        Row(
+          children: [
+            Text(artikel!.author.name),
+            Text(artikel!.formatJam()),
+          ],
+        ),
+        Text(artikel!.title),
+      ],
+    );
+  }
+}
