@@ -1,80 +1,75 @@
-// //PUNYA DANIA
+import 'package:flutter/material.dart';
 
-// import 'package:flutter/material.dart';
+class KonselingTopikKonseling extends StatefulWidget {
+  @override
+  _KonselingTopikKonselingState createState() =>
+      _KonselingTopikKonselingState();
+}
 
-// // class konseling_topik_konseling extends StatelessWidget {
-// //   const konseling_topik_konseling({super.key});
+class _KonselingTopikKonselingState extends State<KonselingTopikKonseling> {
+  List<String> selectedTopics = [];
+  List<String> konselingTopics = [
+    'Trauma',
+    'Depresi',
+    'Kekerasan Fisik/Seksual',
+    'Hubungan',
+    'Karir',
+    'Phobia',
+    'Pernikahan',
+    'Keluarga',
+    'Anak & Remaja',
+    'Gangguan Kepribadian',
+    'Perilaku',
+    'Perkembangan Diri',
+    'Masalah Diri',
+    'Kecemasan',
+    'Konflik Keluarga',
+    // Tambahkan topik konseling lainnya di sini
+  ];
 
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return const Placeholder();
-// //   }
-// // }
-
-// class konseling_topik_konseling extends StatelessWidget {
-//   @override
-//   _konseling_topik_konseling createState() => _konseling_topik_konseling();
-// }
-
-
-// class _konseling_topik_konseling extends State<konseling_topik_konseling> {
-//   List<String> selectedTopics = [];
-//   List<String> konselingTopics = [
-//     'Trauma',
-//     'Depresi',
-//     'Kekerasan Fisik/Seksual',
-//     'Hubungan',
-//     'Karir',
-//     'Phobia',
-//     'Pernikahan',
-//     'Keluarga',
-//     'Anak & Remaja',
-//     'Gangguan Kepribadian',
-//     'Perilaku',
-//     'Perkembangan Diri',
-//     'Masalah Diri',
-//     'Kecemasan',
-//     'Konflik Keluarga',
-//     // Tambahkan topik konseling lainnya di sini
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Pilih Topik Konseling'),
-//       ),
-//       body: ListView.builder(
-//         itemCount: konselingTopics.length,
-//         itemBuilder: (context, index) {
-//           return CheckboxListTile(
-//             title: Text(konselingTopics[index]),
-//             value: selectedTopics.contains(konselingTopics[index]),
-//             onChanged: (bool value) {
-//               setState(() {
-//                 if (value) {
-//                   selectedTopics.add(konselingTopics[index]);
-//                 } else {
-//                   selectedTopics.remove(konselingTopics[index]);
-//                 }
-//               });
-//             },
-//           );
-//         },
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           // Lakukan sesuatu dengan topik konseling yang dipilih, contohnya:
-//           print('Topik yang dipilih: $selectedTopics');
-//         },
-//         child: Icon(Icons.check),
-//       ),
-//       );
-//   }
-// }
-
-// void main() {
-//   runApp(MaterialApp(
-//     home: KonselingTopics(),
-//   ));
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Text(
+            'Pilihan Topik',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: konselingTopics.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: selectedTopics.contains(konselingTopics[index]),
+                        onChanged: (bool? value) {
+                          setState(() {
+                            if (value != null) {
+                              if (value) {
+                                selectedTopics.add(konselingTopics[index]);
+                              } else {
+                                selectedTopics.remove(konselingTopics[index]);
+                              }
+                            }
+                          });
+                        },
+                      ),
+                      Text(konselingTopics[index]),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

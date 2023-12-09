@@ -24,6 +24,7 @@ import 'package:women_center_mobile/ViewModel/career_view_model/career_view_mode
 import 'View/bottomnavigationbar/main_page.dart';
 import 'View/career/detail_job.dart';
 import 'View/career/career.dart';
+import 'View/konseling/konseling_topik_konseling.dart';
 import 'View/login/login_view.dart';
 import 'View/register/register.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/riwayat_konseling',
+        initialRoute: '/topik_konseling',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -65,6 +66,8 @@ class MyApp extends StatelessWidget {
           '/pembayaran1': (context) => const MetodePembayaran1(),
           '/editprofile': (context) => EditProfile(),
           '/riwayat_konseling': (context) => RiwayatKonseling(),
+          '/topik_konseling': (context) => KonselingTopikKonseling(),
+
         },
       ),
     );
