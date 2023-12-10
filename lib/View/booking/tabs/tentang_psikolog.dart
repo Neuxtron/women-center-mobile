@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../metode_pembayaran/metode_pembayaran_1.dart';
 
 class TentangPsikolog extends StatefulWidget {
   const TentangPsikolog({super.key});
@@ -14,6 +17,12 @@ class _TentangPsikologState extends State<TentangPsikolog> {
     "Seksualitas",
     "Hubungan",
   ];
+
+  List<DateTime?> _listTanggal = [null, null, null];
+
+  void updateTanggal(int index, DateTime tgl) {
+    _listTanggal[index] = tgl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +45,35 @@ class _TentangPsikologState extends State<TentangPsikolog> {
         const Text("Pendidikan"),
         const Text(" • S2 Universitas Indonesia"),
         const Text("Atur Jadwal"),
-        const MingguItem(mingguKe: 1),
-        const MingguItem(mingguKe: 2),
-        const MingguItem(mingguKe: 3),
+        MingguItem(
+          index: 0,
+          onChange: updateTanggal,
+        ),
+        MingguItem(
+          index: 1,
+          onChange: updateTanggal,
+        ),
+        MingguItem(
+          index: 2,
+          onChange: updateTanggal,
+        ),
+        MaterialButton(
+          minWidth: double.infinity,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MetodePembayaran1(),
+              ),
+            );
+          },
+          color: Color(0xFFF4518D),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+          textColor: Colors.white,
+          child: Text("Booking"),
+        ),
       ],
     );
   }
@@ -65,22 +100,51 @@ class TopikKeahlianItem extends StatelessWidget {
   }
 }
 
-class MingguItem extends StatelessWidget {
-  final int mingguKe;
-  const MingguItem({super.key, required this.mingguKe});
+class MingguItem extends StatefulWidget {
+  final int index;
+  final Function(int index, DateTime tgl) onChange;
 
-  void pilihTanggal() {}
+  const MingguItem({
+    super.key,
+    required this.index,
+    required this.onChange,
+  });
+
+  @override
+  State<MingguItem> createState() => _MingguItemState();
+}
+
+class _MingguItemState extends State<MingguItem> {
+  final _tglController = TextEditingController();
+
+  void pilihTanggal() async {
+    final tgl = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(DateTime.now().year + 1),
+    );
+
+    if (tgl != null) {
+      setState(() {
+        _tglController.text = DateFormat("EEEE, d MMMM yyyy").format(tgl);
+      });
+      widget.onChange(widget.index, tgl);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Minggu ke-$mingguKe"),
+        Text("Minggu ke-${widget.index + 1}"),
         const Text("Tanggal"),
         TextField(
           readOnly: true,
           onTap: pilihTanggal,
+          controller: _tglController,
+          style: TextStyle(fontSize: 14),
           decoration: InputDecoration(
             suffixIcon: const Icon(Icons.date_range),
             suffixIconColor: const Color(0xFFF4518D),

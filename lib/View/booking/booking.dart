@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:women_center_mobile/View/booking/views/tentang_psikolog.dart';
+import 'package:women_center_mobile/View/booking/tabs/review.dart';
+import 'package:women_center_mobile/View/booking/tabs/tentang_psikolog.dart';
 
 class Booking extends StatelessWidget {
   const Booking({super.key});
@@ -13,16 +14,16 @@ class Booking extends StatelessWidget {
           SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFFF9F5F6),
-                borderRadius: BorderRadius.circular(20),
+                color: const Color(0xFFF9F5F6),
+                borderRadius: BorderRadius.circular(32),
               ),
-              padding:
-                  EdgeInsets.only(top: 32, bottom: 10, left: 16, right: 16),
-              margin: EdgeInsets.only(top: 433),
+              padding: const EdgeInsets.only(
+                  top: 32, bottom: 10, left: 16, right: 16),
+              margin: const EdgeInsets.only(top: 433),
               child: Column(
                 children: [
-                  Text("Stenafie Russel, M.Psi., Psikolog"),
-                  Text("Psikologi • Universitas Indonesia"),
+                  const Text("Stenafie Russel, M.Psi., Psikolog"),
+                  const Text("Psikologi • Universitas Indonesia"),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -30,7 +31,7 @@ class Booking extends StatelessWidget {
                         'Assets/images/ig_icon.png',
                         width: 20,
                       ),
-                      Text("@stefaniersl"),
+                      const Text("@stefaniersl"),
                     ],
                   ),
                   const PsikologTabView(),
@@ -53,16 +54,16 @@ class PsikologTabView extends StatefulWidget {
 
 class _PsikologTabViewState extends State<PsikologTabView> {
   final List<Tab> _tabs = [
-    Tab(
+    const Tab(
       child: Text("Tentang Psikolog"),
     ),
-    Tab(
+    const Tab(
       child: Text("Review"),
     ),
   ];
   final List<Widget> _views = [
-    TentangPsikolog(),
-    Text("Review"),
+    const TentangPsikolog(),
+    const Review(),
   ];
 
   int _selectedIndex = 0;
