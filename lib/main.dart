@@ -1,6 +1,7 @@
 // JUHARMAN YANG MINTA
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/View/booking/booking.dart';
+import 'package:women_center_mobile/View/chat_konseling/chat_konseling.dart';
 import 'package:women_center_mobile/View/edit_profile/edit_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/View/artikel_2/artikel_2.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/booking',
+        initialRoute: '/chat_konseling',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -70,6 +71,7 @@ class MyApp extends StatelessWidget {
           '/riwayat_konseling': (context) => const RiwayatKonseling(),
           '/booking': (context) => const Booking(),
           '/riwayat_batal': (context) => const RiwayatBatal(),
+          '/chat_konseling': (context) => const ChatKonseling(),
         },
       ),
     );
