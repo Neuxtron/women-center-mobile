@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 
 class PengaturanPrivasi extends StatelessWidget {
   const PengaturanPrivasi({super.key});
@@ -27,8 +29,8 @@ class PengaturanPrivasi extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        titleTextStyle: TextStyle(fontSize: 16, color: Colors.black),
-        title: Text("Pengaturan Privasi"),
+        titleTextStyle: const TextStyle(fontSize: 16, color: Colors.black),
+        title: const Text("Pengaturan Privasi"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -36,21 +38,26 @@ class PengaturanPrivasi extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  NavigationService.navigatorKey.currentContext ?? context,
+                  "/perbarui_kata_sandi",
+                );
+              },
               style: ButtonStyle(
-                surfaceTintColor: MaterialStatePropertyAll(Colors.white),
-                foregroundColor: MaterialStatePropertyAll(Colors.black),
+                surfaceTintColor: const MaterialStatePropertyAll(Colors.white),
+                foregroundColor: const MaterialStatePropertyAll(Colors.black),
                 shape: MaterialStatePropertyAll(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 shadowColor: MaterialStatePropertyAll(
-                  Color(0xFF212121).withOpacity(.1),
+                  const Color(0xFF212121).withOpacity(.1),
                 ),
-                elevation: MaterialStatePropertyAll(20),
+                elevation: const MaterialStatePropertyAll(20),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -89,12 +96,27 @@ class PengaturanItem extends StatefulWidget {
 class _PengaturanItemState extends State<PengaturanItem> {
   bool _enabled = true;
   final _trackColor = MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.selected)) return Color(0xFFF4518D);
+    if (states.contains(MaterialState.selected)) return const Color(0xFFF4518D);
     return null;
   });
 
-  void onChanged(value) {
+  void onChanged(value) async {
+    final prefs = await SharedPreferences.getInstance();
     setState(() => _enabled = !_enabled);
+    prefs.setBool(widget.pengaturan["key"], _enabled);
+  }
+
+  void readSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _enabled = prefs.getBool(widget.pengaturan["key"]) ?? true;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readSharedPreferences();
   }
 
   @override
@@ -102,7 +124,7 @@ class _PengaturanItemState extends State<PengaturanItem> {
     return ListTile(
       title: Text(
         widget.pengaturan["title"],
-        style: TextStyle(fontSize: 14),
+        style: const TextStyle(fontSize: 14),
       ),
       trailing: SizedBox(
         height: 24,

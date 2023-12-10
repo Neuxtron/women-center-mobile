@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 
+import 'package:women_center_mobile/Models/utils/navigation_service.dart';
+
 class CustomShapeClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -217,7 +219,10 @@ class _ProfilPageState extends State<ProfilPage> {
           // Tambahkan aksi untuk menangani ketika bagian notifikasi ditekan
           // Anda dapat menampilkan dialog atau halaman pengaturan notifikasi di sini
         } else {
-          Navigator.pushNamed(context, route);
+          Navigator.pushNamed(
+            NavigationService.navigatorKey.currentContext ?? context,
+            route,
+          );
         }
       },
       child: Padding(

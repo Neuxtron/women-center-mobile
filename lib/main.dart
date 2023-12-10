@@ -1,5 +1,6 @@
 // JUHARMAN YANG MINTA
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 import 'package:women_center_mobile/View/booking/booking.dart';
 import 'package:women_center_mobile/View/chat_konseling/chat_konseling.dart';
 import 'package:women_center_mobile/View/edit_profile/edit_profile.dart';
@@ -18,6 +19,7 @@ import 'package:women_center_mobile/View/metode_pembayaran/pembayaran_widget_tab
 import 'package:women_center_mobile/View/login/login_view.dart';
 import 'package:women_center_mobile/View/onboarding/onboarding.dart';
 import 'package:women_center_mobile/View/profil_page/pengaturan_privasi/pengaturan_privasi.dart';
+import 'package:women_center_mobile/View/profil_page/pengaturan_privasi/perbarui_kata_sandi.dart';
 import 'package:women_center_mobile/View/profil_page/profil_user.dart';
 import 'package:women_center_mobile/View/riwayat/riwayat_konseling.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
@@ -50,10 +52,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'women center',
+        navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/main_page',
+        initialRoute: '/',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -75,6 +78,7 @@ class MyApp extends StatelessWidget {
           '/chat_konseling': (context) => const ChatKonseling(),
           '/main_page': (context) => const MainPage(),
           '/pengaturan': (context) => const PengaturanPrivasi(),
+          '/perbarui_kata_sandi': (context) => const PerbaruiKataSandi(),
         },
       ),
     );
