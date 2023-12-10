@@ -24,12 +24,30 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 20,
+        backgroundColor: Color(0xffFDCEDF),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FotoProfil(),
             SizedBox(width: 10),
-            Text('Real Chat'),
+            Text(
+              'Stenafie Russel, M.Psi., Psikolog',
+              style: TextStyle(
+                color: (Color(0xff1f1f1f)),
+                fontSize: 14,
+              ),
+            ),
           ],
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Column(
@@ -57,27 +75,60 @@ class _ChatState extends State<Chat> {
           Flexible(
             child: TextField(
               controller: _textController,
-              decoration: InputDecoration.collapsed(
-                hintText: 'Type a message',
+              decoration: InputDecoration(
+                hintText: 'Kirim pesan',
+                 // Atur padding di dalam TextField
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(
+                    color: Colors.black,
+                  ),
+                ),
+                suffixIcon: Icon(
+                  Icons.mic,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-              _handleSubmitted(_textController.text, 'User 1');
-            },
-          ),
+          Container(
+            width: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: (Color(0xffF4518D)),
+            ),
+            padding: EdgeInsets.all(5.0), // Padding lingkaran
+            child: IconButton(
+              icon: Transform.rotate(
+                angle: 45 * 3.14 / 12, // Rotasi sebesar 45 derajat
+                child: Icon(
+                  Icons.send,
+                  color: Colors.white, // Warna ikon send sesuai keinginan
+                ),
+              ),
+              onPressed: () {
+                _handleSubmitted(_textController.text);
+              },
+              iconSize: 30.0, // Atur ukuran ikon send sesuai keinginan
+              color: Colors
+                  .transparent, // Warna latar belakang ikon send menjadi transparan
+              splashColor: Colors.transparent, // Hilangkan efek klik ikon send
+              highlightColor:
+                  Colors.transparent, // Hilangkan efek klik ikon send
+              tooltip: 'Send', // Tampilkan tooltip sesuai keinginan
+            ),
+          )
         ],
       ),
     );
   }
 
-  void _handleSubmitted(String text, String user) {
+  void _handleSubmitted(String text) {
+    DateTime currentTime = DateTime.now();
     setState(() {
       ChatMessage message = ChatMessage(
         text: text,
-        user: user,
+        time: currentTime,
       );
       _messages.insert(0, message);
       _textController.clear();
@@ -87,9 +138,12 @@ class _ChatState extends State<Chat> {
 
 class ChatMessage extends StatelessWidget {
   final String text;
-  final String user;
+  final DateTime time;
 
-  ChatMessage({required this.text, required this.user});
+  ChatMessage({
+    required this.text,
+    required this.time,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,17 +171,15 @@ class ChatMessage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                    text,
+                    style: TextStyle(color: Colors.white),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: Text(
-                      text,
-                      style: TextStyle(color: Colors.white),
+                  SizedBox(height: 5.0),
+                  Text(
+                    _formatTime(time),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10.0,
                     ),
                   ),
                 ],
@@ -137,6 +189,10 @@ class ChatMessage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatTime(DateTime time) {
+    return "${time.hour}:${time.minute}";
   }
 }
 
