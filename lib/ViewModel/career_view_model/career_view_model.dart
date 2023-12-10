@@ -11,7 +11,7 @@ class CareerViewModel extends ChangeNotifier {
   List<KarirModel> get listKarir => _listKarir;
 
   final String _token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDIxMzQ0NTB9.cAMshcM_qi3lP09Bv6-l1eISEdtv-feVWG8J_Pc1O8o";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDIyMjQ2MTZ9.EB6vJaIH3SUoiScdn_n-hVHhc86uzeS6WpwezStqjpI";
 
   Future fetchAllCareer() async {
     try {
