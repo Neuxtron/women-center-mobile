@@ -1,12 +1,7 @@
 //punya juhar
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
-import 'package:women_center_mobile/Models/artikel_model/artikelku_model.dart';
-import 'package:women_center_mobile/Models/karir_model/karir_model.dart';
-import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
 
@@ -18,13 +13,6 @@ class Home2 extends StatefulWidget {
 }
 
 class _Home2State extends State<Home2> {
-  ArtikelModel? _artikel;
-
-  void fetchLatestArtikel() async {
-    final artikel = await context.read<ArtikelViewModel>().fetchLatestArtikel();
-    setState(() => _artikel = artikel);
-  }
-
   void fetchCareers() {
     context.read<CareerViewModel>().fetchAllCareer();
   }
@@ -32,7 +20,6 @@ class _Home2State extends State<Home2> {
   @override
   void initState() {
     super.initState();
-    fetchLatestArtikel();
     fetchCareers();
   }
 
@@ -45,8 +32,8 @@ class _Home2State extends State<Home2> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Rekomendasi Karir'),
-            TextButton(onPressed: () {}, child: Text('Selengkapnya')),
+            const Text('Rekomendasi Karir'),
+            TextButton(onPressed: () {}, child: const Text('Selengkapnya')),
           ],
         ),
         SizedBox(
@@ -65,14 +52,7 @@ class _Home2State extends State<Home2> {
             },
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Artikel Untukmu'),
-            TextButton(onPressed: () {}, child: Text('Selengkapnya')),
-          ],
-        ),
-        LatestArtikel(artikel: _artikel),
+        const LatestArtikel(),
       ],
     );
   }
@@ -110,23 +90,55 @@ class KarirItem extends StatelessWidget {
   }
 }
 
-class LatestArtikel extends StatelessWidget {
-  final ArtikelModel? artikel;
-  const LatestArtikel({super.key, required this.artikel});
+class LatestArtikel extends StatefulWidget {
+  const LatestArtikel({super.key});
+
+  @override
+  State<LatestArtikel> createState() => _LatestArtikelState();
+}
+
+class _LatestArtikelState extends State<LatestArtikel> {
+  ArtikelModel? _artikel;
+
+  void fetchLatestArtikel() async {
+    final artikel = await context.read<ArtikelViewModel>().fetchLatestArtikel();
+    setState(() => _artikel = artikel);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLatestArtikel();
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (artikel == null) return const SizedBox();
     return Column(
       children: [
-        Image.network(artikel!.thumbnail),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(artikel!.author.name),
-            Text(artikel!.formatJam()),
+            const Text('Artikel Untukmu'),
+            TextButton(onPressed: () {}, child: const Text('Selengkapnya')),
           ],
         ),
-        Text(artikel!.title),
+        fromAPI(),
+      ],
+    );
+  }
+
+  Widget fromAPI() {
+    if (_artikel == null) return const SizedBox();
+    return Column(
+      children: [
+        Image.network(_artikel!.thumbnail),
+        Row(
+          children: [
+            Text(_artikel!.author.name),
+            Text(_artikel!.formatJam()),
+          ],
+        ),
+        Text(_artikel!.title),
       ],
     );
   }

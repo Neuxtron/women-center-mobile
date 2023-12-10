@@ -27,91 +27,88 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.pink.shade200,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+    // appBar: AppBar(
+    //   backgroundColor: Colors.pink.shade200,
+    //   leading: IconButton(
+    //     icon: Icon(Icons.arrow_back),
+    //     onPressed: () {},
+    //   ),
+    //   title: Text(
+    //     'Pembayaran',
+    //     textAlign: TextAlign.center,
+    //   ),
+    //   centerTitle: true,
+    // ),
+    return Column(
+      children: [
+        // PaymentCard(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 23, right: 23),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pilih Pembayaran',
+                    style: TextStyle(),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        title: Text(
-          'Pembayaran',
-          textAlign: TextAlign.center,
+        TabBar(
+          controller: _tabController,
+          tabs: [
+            Tab(text: 'M-Banking'),
+            Tab(text: 'ATM'),
+          ],
+          onTap: (index) {
+            setState(() {
+              _currentTabIndex = index;
+            });
+          },
+          labelPadding: EdgeInsets.only(left: 20),
+          labelStyle: TextStyle(fontSize: 16),
+          unselectedLabelStyle: TextStyle(fontSize: 14),
         ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          PaymentCard(),
-          //
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 23, right: 23),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pilih Pembayaran',
-                      style: TextStyle(),
+              _mBanking(),
+              _atm(),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        //--------------------BUTTOM SELESAI -----------------
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8, left: 23, right: 23),
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.pink[300],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35),
                     ),
-                  ],
+                  ),
+                  child: Text(
+                    'Selesai',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                 ),
               ),
             ],
           ),
-          TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(text: 'M-Banking'),
-              Tab(text: 'ATM'),
-            ],
-            onTap: (index) {
-              setState(() {
-                _currentTabIndex = index;
-              });
-            },
-            labelPadding: EdgeInsets.only(left: 20),
-            labelStyle: TextStyle(fontSize: 16),
-            unselectedLabelStyle: TextStyle(fontSize: 14),
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _mBanking(),
-                _atm(),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          //--------------------BUTTOM SELESAI -----------------
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8, left: 23, right: 23),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.pink[300],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
-                    ),
-                    child: Text(
-                      'Selesai',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 

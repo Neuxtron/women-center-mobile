@@ -22,14 +22,13 @@ class _Payment2State extends State<Payment2> {
           title: Text('Pembayaran'),
           // bottom: TabBarPayment(), // Use TabBarPayment directly
         ),
-        body: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // PaymentWidget2(),
-              // HomePage()
-            ],
-          ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // PaymentWidget2(),
+            // Text("AAAAAAAAAAAAAA"),
+            Expanded(child: HomePage())
+          ],
         ),
       ),
     );

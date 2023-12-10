@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 
 import '../../metode_pembayaran/metode_pembayaran_1.dart';
 
@@ -60,11 +61,9 @@ class _TentangPsikologState extends State<TentangPsikolog> {
         MaterialButton(
           minWidth: double.infinity,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MetodePembayaran1(),
-              ),
+            Navigator.pushNamed(
+              NavigationService.navigatorKey.currentContext ?? context,
+              "/pembayaran1",
             );
           },
           color: Color(0xFFF4518D),

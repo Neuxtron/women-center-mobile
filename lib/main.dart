@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
-        initialRoute: '/',
+        initialRoute: '/main_page',
         routes: {
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
@@ -70,6 +70,7 @@ class MyApp extends StatelessWidget {
           '/profil_user': (context) => ProfilPage(),
           '/payment': (context) => HomePage(),
           '/pembayaran1': (context) => const MetodePembayaran1(),
+          '/pembayaran2': (context) => const Payment2(),
           '/editprofile': (context) => EditProfile(),
           '/topik_konseling': (context) => KonselingTopikKonseling(),
           '/riwayat_konseling': (context) => const RiwayatKonseling(),
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           '/main_page': (context) => const MainPage(),
           '/pengaturan': (context) => const PengaturanPrivasi(),
           '/perbarui_kata_sandi': (context) => const PerbaruiKataSandi(),
+          '/sesi_konseling': (context) => SesiKonseling(),
         },
       ),
     );

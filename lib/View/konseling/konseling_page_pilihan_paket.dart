@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/paket_model/paket.dart';
 
-import 'konseling_pilihan_konselor_1.dart';
+import 'konseling_view.dart';
 
 class PilihanPaket extends StatefulWidget {
   const PilihanPaket({super.key});
@@ -203,7 +203,7 @@ class Paket extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => konseling_pilihan_konselor_1(),
+                      builder: (context) => KonselingSection(),
                     ),
                   );
                 },
