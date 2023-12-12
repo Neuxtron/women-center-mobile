@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 250),
+                  padding: const EdgeInsets.only(top: 120),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 10.0, left: 10.0),
                     child: Stack(
@@ -61,73 +61,79 @@ class Welcome extends StatelessWidget {
                   width: 300,
                   height: 50,
                   borderRadius: BorderRadius.circular(10),
+                  borderColor: Color(0xFFF2BED1),
+                  borderWidth: 1,
                   blur: 10,
                   alignment: Alignment.center,
                   frostedOpacity: 0.1,
                   color: Colors.white
                       .withOpacity(0.2), // Atur warna latar belakang di sini
-                  borderGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Colors.white.withOpacity(0.2),
-                      Colors.white.withOpacity(0.2),
-                    ],
-                  ),
+                  // borderGradient: LinearGradient(
+                  //   begin: Alignment.topLeft,
+                  //   end: Alignment.bottomRight,
+                  //   colors: [
+                  //     Colors.white.withOpacity(0.2),
+                  //     Colors.white.withOpacity(0.2),
+                  //   ],
+                  // ),
                   child: MaterialButton(
                     onPressed: () {
                       // Aksi yang akan dijalankan saat tombol ditekan
                       Navigator.pushNamed(context, "/login");
                     },
+                    
                     child: Text(
                       'Login',
+                      
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        color: Color(0XFFF2BED1),
-                        endIndent: 10,
-                      ),
-                    ),
-                    Text(
-                      'Or',
-                      style: TextStyle(color: Color(0XFFF2BED1)),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        color: Color(0XFFF2BED1),
-                        indent: 10, //jarak kiri
-                      ),
-                    ),
-                  ],
-                ),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    side: BorderSide(color: Colors.white),
-                  ),
-                  onPressed: () {},
-                  color: Color(0XFF483E42),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'Assets/images/google.png',
-                        width: 25,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Login With Google',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
+                SizedBox(height: 100,),
+
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: Divider(
+                //         color: Color(0XFFF2BED1),
+                //         endIndent: 10,
+                //       ),
+                //     ),
+                //     Text(
+                //       'Or',
+                //       style: TextStyle(color: Color(0XFFF2BED1)),
+                //     ),
+                //     Expanded(
+                //       child: Divider(
+                //         color: Color(0XFFF2BED1),
+                //         indent: 10, //jarak kiri
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // MaterialButton(
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(6),
+                //     side: BorderSide(color: Colors.white),
+                //   ),
+                //   onPressed: () {},
+                //   color: Color(0XFF483E42),
+                //   child: Row(
+                //     children: [
+                //       Image.asset(
+                //         'Assets/images/google.png',
+                //         width: 25,
+                //       ),
+                //       SizedBox(
+                //         width: 10,
+                //       ),
+                //       Text(
+                //         'Login With Google',
+                //         style: TextStyle(color: Colors.white),
+                //       ),
+                //     ],
+                //   ),
+                
               ],
             ),
           ),
