@@ -37,7 +37,7 @@ class LoginViewModel {
           String fullName = responseData['data']['fullname'];
           String role = responseData['data']['role'] ?? "user";
           String email = responseData['data']['email'];
-          String token = responseData['data']['token'] ?? "";
+          String token = responseData['data']['token'];
 
           // Simpan data ke Shared Preferences
           await saveToSharedPreferences(fullName, role, email, token);

@@ -25,7 +25,7 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
   }
 
   final List screens = [
-    HomePageKonselor(),
+    HomepageSectionKonselor(),
     Center(
       child: Text("Artikel"),
     ),

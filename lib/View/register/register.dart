@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:women_center_mobile/View/register/register_widget.dart';
+import 'package:women_center_mobile/View/register/register_widget2.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
