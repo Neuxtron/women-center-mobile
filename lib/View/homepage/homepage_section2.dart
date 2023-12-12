@@ -13,16 +13,6 @@ class Home2 extends StatefulWidget {
 }
 
 class _Home2State extends State<Home2> {
-  void fetchCareers() {
-    context.read<CareerViewModel>().fetchAllCareer();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCareers();
-  }
-
   @override
   Widget build(BuildContext context) {
     final listKarir = context.watch<CareerViewModel>().listKarir;
@@ -98,18 +88,7 @@ class LatestArtikel extends StatefulWidget {
 }
 
 class _LatestArtikelState extends State<LatestArtikel> {
-  ArtikelModel? _artikel;
-
-  void fetchLatestArtikel() async {
-    final artikel = await context.read<ArtikelViewModel>().fetchLatestArtikel();
-    setState(() => _artikel = artikel);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchLatestArtikel();
-  }
+  ArtikelModel? get _artikel => context.watch<ArtikelViewModel>().latestArtikel;
 
   @override
   Widget build(BuildContext context) {

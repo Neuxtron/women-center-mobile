@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
 import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 
 class ArtikelViewModel extends ChangeNotifier {
   final String _baseUrl = "https://api-ferminacare.tech/api/v1";
@@ -13,12 +14,13 @@ class ArtikelViewModel extends ChangeNotifier {
   // List<ArtikelModel> _listArtikel = [];
   // TODO: dihapus atau comment
   List<ArtikelModel> _listArtikel = [DummyArtikel.artikelUntukmu];
+  ArtikelModel? _latestArtikel;
+  ArtikelModel? get latestArtikel => _latestArtikel;
 
   List<ArtikelModel> get listArtikel => _listArtikel;
 
   // TODO: token sementara
-  final String token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDIyMjQ2MTZ9.EB6vJaIH3SUoiScdn_n-hVHhc86uzeS6WpwezStqjpI";
+  String get token => AuthService.token;
 
   Future fetchAlllArtikel() async {
     const endpoint = "/articles";
@@ -69,6 +71,7 @@ class ArtikelViewModel extends ChangeNotifier {
   }
 
   Future<ArtikelModel?> fetchLatestArtikel() async {
+    log(token);
     try {
       final response = await http.get(
         Uri.parse("$_baseUrl/article/latest"),
@@ -79,7 +82,11 @@ class ArtikelViewModel extends ChangeNotifier {
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body)["data"];
         ArtikelModel artikel = ArtikelModel.fromJson(jsonData);
+        _latestArtikel = artikel;
+        notifyListeners();
         return artikel;
+      } else {
+        log(response.body);
       }
     } catch (e) {
       log(e.toString());

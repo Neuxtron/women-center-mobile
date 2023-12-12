@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'bottom_navigation_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:women_center_mobile/View/bottomnavigationbar/bottom_navigation_bar_konselor.dart';
+import 'package:women_center_mobile/View/homepage/homepage_konselor.dart';
+import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
 class MainPageKonselor extends StatefulWidget {
   const MainPageKonselor({super.key});
@@ -23,14 +25,9 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
   }
 
   final List screens = [
-    Center(
-      child: Text("Home"),
-    ),
+    HomePageKonselor(),
     Center(
       child: Text("Artikel"),
-    ),
-    Center(
-      child: Text("Karir"),
     ),
     Center(
       child: Text("Konseling"),
@@ -40,13 +37,7 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
     ),
   ];
 
-  List<String?> listAppBarTitle = [
-    null,
-    "Artikel",
-    "Karir",
-    "Konseling",
-    "Profil"
-  ];
+  List<String?> listAppBarTitle = [null, "Artikel", "Konseling", "Profil"];
 
   void pindahHalaman(index) {
     setState(() {
@@ -55,12 +46,17 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
     });
   }
 
+  void fetchData() {
+    context.read<ArtikelViewModel>().fetchLatestArtikel();
+  }
+
   @override
   Widget build(BuildContext context) {
+    fetchData();
     return Scaffold(
       appBar: appBar,
       body: screens[selectedIndex],
-      bottomNavigationBar: MyBottomNavigationBar(
+      bottomNavigationBar: BottomNavigationKonselor(
         selectedIndex: selectedIndex,
         onItemTapped: pindahHalaman,
       ),

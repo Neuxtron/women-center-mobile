@@ -5,13 +5,14 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/karir_model/karir_model.dart';
 
+import '../../Models/utils/auth_service.dart';
+
 class CareerViewModel extends ChangeNotifier {
   final String _baseUrl = "https://api-ferminacare.tech/api/v1";
   List<KarirModel> _listKarir = [];
   List<KarirModel> get listKarir => _listKarir;
 
-  final String _token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZnVsbF9uYW1lIjoiYWd1bmdiaGFza2FyYSIsImVtYWlsIjoiYWd1bmcxMjNAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDIyMjQ2MTZ9.EB6vJaIH3SUoiScdn_n-hVHhc86uzeS6WpwezStqjpI";
+  final String _token = AuthService.token;
 
   Future fetchAllCareer() async {
     try {

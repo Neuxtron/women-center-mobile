@@ -65,6 +65,14 @@ class _LoginWidgetState extends State<LoginWidget> {
   final LoginViewModel _loginViewModel = LoginViewModel(); //import login api
 
   @override
+  void initState() {
+    super.initState();
+    // TODO: tes login akun konselor
+    _emailController.text = "iger123@gmail.com";
+    _passwordController.text = "iger123";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -281,13 +289,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                       if (loginResponse.sucess) {
                         print('ke halaman on boarding');
                         AuthService.token = loginResponse.token;
+                        AuthService.role = loginResponse.role;
 
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MainPage(),
-                          ),
-                        );
+                        if (loginResponse.role == "user") {
+                          Navigator.pushReplacementNamed(context, "/main_page");
+                        } else if (loginResponse.role == "counselor") {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            "/main_page_konselor",
+                          );
+                        }
                       } else {
                         // Tampilkan pesan kesalahan jika login gagal
                         setState(() {

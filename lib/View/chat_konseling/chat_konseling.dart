@@ -1,22 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ChatKonseling extends StatelessWidget {
-  const ChatKonseling({Key? key}) : super(key: key);
-
+class ChatKonseling extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Chat(),
-    );
-  }
+  _ChatKonselingState createState() => _ChatKonselingState();
 }
 
-class Chat extends StatefulWidget {
-  @override
-  _ChatState createState() => _ChatState();
-}
-
-class _ChatState extends State<Chat> {
+class _ChatKonselingState extends State<ChatKonseling> {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _messages = [];
 
@@ -77,7 +66,7 @@ class _ChatState extends State<Chat> {
               controller: _textController,
               decoration: InputDecoration(
                 hintText: 'Kirim pesan',
-                 // Atur padding di dalam TextField
+                // Atur padding di dalam TextField
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                   borderSide: BorderSide(

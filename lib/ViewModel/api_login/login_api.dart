@@ -19,10 +19,10 @@ class LoginViewModel {
 
       final response = await http.post(
         Uri.parse('https://api-ferminacare.tech/api/v1/auth'),
-        // headers: <String, String>{
-        //   'Authorization': 'Bearer $token',
-        //   'Content-Type': 'application/json',
-        // },
+        headers: <String, String>{
+          // 'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(data),
       );
       // Map<String, dynamic> responseData = json.decode(response.body);
@@ -35,7 +35,7 @@ class LoginViewModel {
             responseData['message'] == 'Authentication Success') {
           // Ambil data dari respons
           String fullName = responseData['data']['fullname'];
-          String role = responseData['data']['role'];
+          String role = responseData['data']['role'] ?? "user";
           String email = responseData['data']['email'];
           String token = responseData['data']['token'] ?? "";
 
@@ -43,22 +43,22 @@ class LoginViewModel {
           await saveToSharedPreferences(fullName, role, email, token);
 
           // Kembalikan true karena login berhasil
-          return LoginResponse(true, token);
+          return LoginResponse(sucess: true, token: token, role: role);
         } else {
           // Jika verifikasi gagal
           print('salah email dan password');
-          return LoginResponse(false, "");
+          return LoginResponse(sucess: true, token: "", role: "");
         }
       } else {
         // Penanganan jika status code bukan 200
         print(
             'Response Status code bukan 200: tapi bernilai ${response.statusCode}');
-        return LoginResponse(false, "");
+        return LoginResponse(sucess: true, token: "", role: "");
       }
     } catch (e) {
       // Tangani error yang terjadi selama pemanggilan API
       print('Error: $e');
-      return LoginResponse(false, "");
+      return LoginResponse(sucess: true, token: "", role: "");
     }
   }
 
@@ -81,8 +81,13 @@ class LoginViewModel {
 class LoginResponse {
   final bool sucess;
   final String token;
+  final String role;
 
-  LoginResponse(this.sucess, this.token);
+  LoginResponse({
+    required this.sucess,
+    required this.token,
+    required this.role,
+  });
 }
 
 // //
