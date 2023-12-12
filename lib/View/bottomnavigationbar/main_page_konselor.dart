@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/View/homepage/homepage_konselor.dart';
 
 import 'bottom_navigation_bar.dart';
 
@@ -23,9 +24,7 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
   }
 
   final List screens = [
-    Center(
-      child: Text("Home"),
-    ),
+    HomepageSectionKonselor(),
     Center(
       child: Text("Artikel"),
     ),

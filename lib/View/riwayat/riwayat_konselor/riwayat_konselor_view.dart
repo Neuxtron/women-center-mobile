@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/View/profil_page/favorit/artikel_favorit.dart';
+import 'package:women_center_mobile/View/riwayat/riwayat_konselor/riwayat_konselor_selesai.dart';
 
 void main() {
-  runApp(FavoritView());
+  runApp(RiwayarKonselurView());
 }
 
-class FavoritView extends StatelessWidget {
+class RiwayarKonselurView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +14,7 @@ class FavoritView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color(0xFFF9F5F6),
           elevation: 0,
-          title: const Text('Favorit',
+          title: const Text('Riwayat Konseling',
               style: TextStyle(
                 color: Color(0xFF0B0B0B),
                 fontSize: 16,
@@ -32,10 +33,21 @@ class FavoritView extends StatelessWidget {
             },
           ),
         ),
-        body: Center(
-            child: Column(
-          children: [Choice()],
-        )),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Choice(),
+                    // Add more widgets here if needed
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,7 +84,7 @@ class _ChoiceState extends State<Choice> {
                     newValue!; // Mengubah nilai dropdown saat dipilih
               });
             },
-            items: <String>['Semua', 'Konselor', 'Artikel', 'Karier']
+            items: <String>['Semua', 'Selesai', 'Dibatalkan']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -107,19 +119,14 @@ class ContentBasedOnDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (dropdownValue == 'Artikel') {
-      return ArtikelFav();
-    } else if (dropdownValue == 'Semua') {
+    if (dropdownValue == 'Semua') {
       return Container(
         alignment: Alignment.center,
         child: Text('Konten untuk $dropdownValue belum diimplementasikan'),
       );
-    } else if (dropdownValue == 'Konselor') {
-      return Container(
-        alignment: Alignment.center,
-        child: Text('Konten untuk $dropdownValue belum diimplementasikan'),
-      );
-    } else if (dropdownValue == 'Karier') {
+    } else if (dropdownValue == 'Selesai') {
+      return RiwayatKonselorSelesai();
+    } else if (dropdownValue == 'Dibatalkan') {
       return Container(
         alignment: Alignment.center,
         child: Text('Konten untuk $dropdownValue belum diimplementasikan'),

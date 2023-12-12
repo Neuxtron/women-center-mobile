@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   final List screens = [
-    const HomepageSection(),
+    HomepageSection(),
     const Artikel(),
     Career(),
     const PilihanPaket(),

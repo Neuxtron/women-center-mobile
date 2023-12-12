@@ -1,5 +1,6 @@
 // JUHARMAN YANG MINTA
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/View/chatbot/chatbot_cs_view.dart';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 import 'package:women_center_mobile/View/booking/booking.dart';
 import 'package:women_center_mobile/View/chat_konseling/chat_konseling.dart';
@@ -26,7 +27,7 @@ import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_mo
 import 'package:women_center_mobile/View/riwayat/batal.dart';
 import 'package:women_center_mobile/View/sesi_konseling/sesi_konseling.dart';
 import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
-import 'View/FAQ/bantuan_user.dart';
+import 'package:women_center_mobile/ViewModel/register_view_model/register_view_model.dart';
 import 'View/bottomnavigationbar/main_page.dart';
 import 'View/career/detail_job.dart';
 import 'View/career/career.dart';
@@ -49,12 +50,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ArtikelViewModel()),
         ChangeNotifierProvider(create: (context) => CareerViewModel()),
+        ChangeNotifierProvider(create: (context) => RegisterViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'women center',
         navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
+            fontFamily: 'Raleway',
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
         initialRoute: '/',
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
           '/register': (context) => const Register(),
           '/onboarding': (context) => const Onboarding(),
           '/notifikasi': (context) => const HomepageNotifikasi(),
-          '/homepageview': (context) => const HomepageSection(),
+          '/homepageview': (context) => HomepageSection(),
           '/homepagenotif3': (context) => HomepageNotifikasi3(),
           '/artikelku': (context) => const ArtikelKu(),
           '/artikel': (context) => const Artikel(),
@@ -73,6 +76,7 @@ class MyApp extends StatelessWidget {
           '/pembayaran1': (context) => const MetodePembayaran1(),
           '/pembayaran2': (context) => const Payment2(),
           '/editprofile': (context) => EditProfile(),
+          '/chatbotcs': (context) => ChatScreen(),
           '/topik_konseling': (context) => KonselingTopikKonseling(),
           '/riwayat_konseling': (context) => const RiwayatKonseling(),
           '/booking': (context) => const Booking(),
@@ -82,8 +86,6 @@ class MyApp extends StatelessWidget {
           '/pengaturan': (context) => const PengaturanPrivasi(),
           '/perbarui_kata_sandi': (context) => const PerbaruiKataSandi(),
           '/sesi_konseling': (context) => SesiKonseling(),
-          '/edit_profil': (context) => EditProfile(),
-          '/bantuan': (context) => FAQUSER(),
         },
       ),
     );
