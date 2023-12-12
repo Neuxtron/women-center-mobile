@@ -12,10 +12,93 @@ class WidgetHome1 extends StatefulWidget {
 }
 
 class _WidgetHome1State extends State<WidgetHome1> {
+  String getGreeting() {
+    var currentTime = DateTime.now();
+    var formattedTime = DateFormat.H().format(currentTime);
+
+    if (currentTime.hour >= 5 && currentTime.hour < 11) {
+      return 'Selamat Pagi';
+    } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
+      return 'Selamat Siang';
+    } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
+      return 'Selamat Sore';
+    } else {
+      return 'Selamat Malam';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          toolbarHeight: 70,
+          automaticallyImplyLeading: false,
+          flexibleSpace: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 20,
+                sigmaY: 30,
+              ),
+              child: Container(
+                color: Colors.white.withOpacity(0.1),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 68, left: 19),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '👋',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            getGreeting(),
+                            style: const TextStyle(
+                              color: Color(0xFF636363),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Raleway',
+                              height: 0,
+                            ),
+                          ),
+                          const Text(
+                            'Sherly Prameswari',
+                            style: TextStyle(
+                              color: Color(0xFF0B0B0B),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Raleway',
+                              height: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 140,
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.notifications_none_outlined,
+                          color: Color(0xFF0B0B0B),
+                          size: 29,
+                        ),
+                        onPressed: () {
+                          ///onpress ke notifikasi
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(height: 40),
         Container(
           width: 360,
@@ -412,10 +495,93 @@ class WidgetHomeKonselor extends StatefulWidget {
 }
 
 class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
+  String getGreeting() {
+    var currentTime = DateTime.now();
+    var formattedTime = DateFormat.H().format(currentTime);
+
+    if (currentTime.hour >= 5 && currentTime.hour < 11) {
+      return 'Selamat Pagi';
+    } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
+      return 'Selamat Siang';
+    } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
+      return 'Selamat Sore';
+    } else {
+      return 'Selamat Malam';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          toolbarHeight: 70,
+          automaticallyImplyLeading: false,
+          flexibleSpace: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 20,
+                sigmaY: 30,
+              ),
+              child: Container(
+                color: Colors.white.withOpacity(0.1),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 68, left: 19),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '👋',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            getGreeting(),
+                            style: const TextStyle(
+                              color: Color(0xFF636363),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Raleway',
+                              height: 0,
+                            ),
+                          ),
+                          const Text(
+                            'Sherly Prameswari',
+                            style: TextStyle(
+                              color: Color(0xFF0B0B0B),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Raleway',
+                              height: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 140,
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.notifications_none_outlined,
+                          color: Color(0xFF0B0B0B),
+                          size: 29,
+                        ),
+                        onPressed: () {
+                          ///onpress ke notifikasi
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         const SizedBox(height: 40),
         Container(
           width: 360,
