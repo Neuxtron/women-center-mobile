@@ -1,6 +1,7 @@
 //Rafi Taufiqurahman Create LoginWidget
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/login_model/model_login.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 import 'package:women_center_mobile/View/bottomnavigationbar/main_page.dart';
 import 'package:women_center_mobile/View/onboarding/onboarding.dart';
 import 'package:women_center_mobile/View/register/register.dart';
@@ -276,15 +277,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                     // Buat objek LoginData dari input pengguna
                     LoginData loginData =
                         LoginData(email: email, password: password);
-                    _loginViewModel
-                        .loginUser(loginData)
-                        .then((isLoginSuccessful) {
-                      if (isLoginSuccessful) {
+                    _loginViewModel.loginUser(loginData).then((loginResponse) {
+                      if (loginResponse.sucess) {
                         print('ke halaman on boarding');
+                        AuthService.token = loginResponse.token;
 
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => const MainPage()),
+                          MaterialPageRoute(
+                            builder: (context) => const MainPage(),
+                          ),
                         );
                       } else {
                         // Tampilkan pesan kesalahan jika login gagal
