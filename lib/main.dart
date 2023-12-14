@@ -1,5 +1,6 @@
 // JUHARMAN YANG MINTA
 import 'package:flutter/material.dart';
+import 'package:women_center_mobile/View/artikel/artikel_konselor/hapus_artikel.dart';
 import 'package:women_center_mobile/View/chatbot/chatbot_cs_view.dart';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 import 'package:women_center_mobile/View/booking/booking.dart';
@@ -8,12 +9,13 @@ import 'package:women_center_mobile/View/chat_konseling/chat_konseling.dart';
 import 'package:women_center_mobile/View/edit_profile/edit_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/View/artikel_2/artikel_2.dart';
+import 'package:women_center_mobile/View/homepage/homepage_section3.dart';
 import 'package:women_center_mobile/View/homepage/homepage_view.dart';
 import 'package:women_center_mobile/View/FAQ/bantuan.dart';
 import 'package:women_center_mobile/View/konseling/konseling_pilihan_konselor_2.dart';
-import 'package:women_center_mobile/View/artikel/artikel_view.dart';
+import 'package:women_center_mobile/View/artikel/artikel_user/artikel_view.dart';
 import 'package:women_center_mobile/View/homepage/notifikasi/homepage_notifikasi.dart';
-import 'package:women_center_mobile/View/artikel/artikel_ku.dart';
+import 'package:women_center_mobile/View/artikel/artikel_user/artikel_ku.dart';
 import 'package:women_center_mobile/View/homepage/notifikasi/homepage_notifikasi_3.dart';
 import 'package:women_center_mobile/View/metode_pembayaran/metode_pembayaran_1.dart';
 import 'package:women_center_mobile/View/metode_pembayaran/metode_pembayaran_2.dart';
@@ -63,6 +65,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)),
         initialRoute: '/',
         routes: {
+          // '/': (context) => Home3(),
           '/': (context) => const Welcome(),
           '/login': (context) => const LoginView(),
           '/register': (context) => const Register(),
@@ -88,6 +91,7 @@ class MyApp extends StatelessWidget {
           '/pengaturan': (context) => const PengaturanPrivasi(),
           '/perbarui_kata_sandi': (context) => const PerbaruiKataSandi(),
           '/sesi_konseling': (context) => SesiKonseling(),
+          '/hapus_artikel': (context) => ArticleListPage(),
         },
       ),
     );

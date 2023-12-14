@@ -14,43 +14,43 @@ class _MetodePembayaran1State extends State<MetodePembayaran1> {
   int? selectedPaymentIndex;
   List<PaymentMethod> paymentMethods = [
     PaymentMethod(
-      image: 'assets/images/dana.png',
+      image: 'Assets/images/dana.png',
       name: 'Dana',
     ),
     PaymentMethod(
-      image: 'assets/images/gopay.png',
+      image: 'Assets/images/gopay.png',
       name: 'Gopay',
     ),
     PaymentMethod(
-      image: 'assets/images/link.png',
+      image: 'Assets/images/link.png',
       name: 'LinkAja',
     ),
     PaymentMethod(
-      image: 'assets/images/ovo.png',
+      image: 'Assets/images/ovo.png',
       name: 'Ovo',
     ),
     PaymentMethod(
-      image: 'assets/images/qris.png',
+      image: 'Assets/images/qris.png',
       name: 'Qris',
     ),
     PaymentMethod(
-      image: 'assets/images/BSI.png',
+      image: 'Assets/images/BSI.png',
       name: 'Bank Syariah Indonesia',
     ),
     PaymentMethod(
-      image: 'assets/images/Mandiri.png',
+      image: 'Assets/images/mandiri.png',
       name: 'Bank Mandiri',
     ),
     PaymentMethod(
-      image: 'assets/images/BCA.png',
+      image: 'Assets/images/BCA.png',
       name: 'Bank Central Asia',
     ),
     PaymentMethod(
-      image: 'assets/images/BRI.png',
+      image: 'Assets/images/BRI.png',
       name: 'Bank Republik Indonesia',
     ),
     PaymentMethod(
-      image: 'assets/images/BNI.png',
+      image: 'Assets/images/BNI.png',
       name: 'Bank Nasional Indonesia',
     ),
   ];

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage>
     // ),
     return Column(
       children: [
-        // PaymentCard(),
+        PaymentCard(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
