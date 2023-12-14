@@ -284,14 +284,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         AuthService.token = loginResponse.token;
                         AuthService.role = loginResponse.role;
 
-                        if (loginResponse.role == "user") {
-                          Navigator.pushReplacementNamed(context, "/main_page");
-                        } else if (loginResponse.role == "counselor") {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            "/main_page_konselor",
-                          );
-                        }
+                        Navigator.pushReplacementNamed(context, "/onboarding");
                       } else {
                         // Tampilkan pesan kesalahan jika login gagal
                         setState(() {

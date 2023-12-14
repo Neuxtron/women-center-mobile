@@ -8,15 +8,6 @@ class UserProfile {
   UserProfile({required this.username, required this.profilePictureUrl});
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ChatScreen(),
-    );
-  }
-}
-
 class ChatScreen extends StatefulWidget {
   @override
   _ChatScreenState createState() => _ChatScreenState();

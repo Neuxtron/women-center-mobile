@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 import 'package:women_center_mobile/View/bottomnavigationbar/main_page.dart';
 import 'package:women_center_mobile/View/homepage/homepage_view.dart';
 
@@ -47,12 +48,12 @@ class _OnboardingState extends State<Onboarding> {
               left: 300,
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MainPage(),
-                    ),
-                  );
+                  if (AuthService.role == "user") {
+                    Navigator.pushReplacementNamed(context, '/main_page');
+                  } else if (AuthService.role == "counselor") {
+                    Navigator.pushReplacementNamed(
+                        context, '/main_page_konselor');
+                  }
                 },
                 child: Text(
                   'Lanjutkan >>',

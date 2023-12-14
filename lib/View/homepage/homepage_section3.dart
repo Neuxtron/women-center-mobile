@@ -5,7 +5,8 @@ import 'package:women_center_mobile/View/bottomnavigationbar/bottom_navigation_b
 import 'package:women_center_mobile/View/konseling/konseling_page_pilihan_paket.dart';
 
 class Home3 extends StatefulWidget {
-  const Home3({super.key});
+  final Function(int index) pindahHalaman;
+  const Home3({super.key, required this.pindahHalaman});
 
   @override
   State<Home3> createState() => _Home3State();
@@ -58,8 +59,9 @@ class _Home3State extends State<Home3> {
                       AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.fastOutSlowIn,
-                        height:
-                            isExpanded ? 300 : 0, // Tentukan tinggi teks tambahan
+                        height: isExpanded
+                            ? 300
+                            : 0, // Tentukan tinggi teks tambahan
                         color: Color(0xFFF8E8EE),
                         width: 360,
                         child: SingleChildScrollView(
@@ -80,9 +82,11 @@ class _Home3State extends State<Home3> {
                                         color: Color(0xFFF4518D),
                                         fontWeight: FontWeight.bold)),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -91,7 +95,8 @@ class _Home3State extends State<Home3> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Masa Aktif Paket Selama 2 Minggu')
+                                          Text(
+                                              'Masa Aktif Paket Selama 2 Minggu')
                                         ],
                                       )
                                     ],
@@ -99,9 +104,11 @@ class _Home3State extends State<Home3> {
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -118,9 +125,11 @@ class _Home3State extends State<Home3> {
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -137,9 +146,11 @@ class _Home3State extends State<Home3> {
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -147,16 +158,20 @@ class _Home3State extends State<Home3> {
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: [Text('1 on 1 dengan konselor')],
+                                        children: [
+                                          Text('1 on 1 dengan konselor')
+                                        ],
                                       )
                                     ],
                                   ),
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -164,16 +179,20 @@ class _Home3State extends State<Home3> {
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: [Text('Tes Kesehatan Mental')],
+                                        children: [
+                                          Text('Tes Kesehatan Mental')
+                                        ],
                                       )
                                     ],
                                   ),
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -188,9 +207,11 @@ class _Home3State extends State<Home3> {
                                 ),
                                 SizedBox(height: 5),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10, top: 10),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 10),
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Image.asset('Assets/images/cek_ijo.png',
                                           scale: 4),
@@ -240,17 +261,14 @@ class _Home3State extends State<Home3> {
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  Navigator.push(
-                                    context, 
-                                    MaterialPageRoute(builder: (context) => PilihanPaket()),
-                                  );
+                                  widget.pindahHalaman(3);
                                 });
                               },
                               child: Text('Pilih Paket',
                                   style: TextStyle(color: Color(0xFFF4518D))),
                               style: ElevatedButton.styleFrom(
-                                primary: Color.fromRGBO(
-                                    250, 181, 207, 0.855), // Warna latar belakang
+                                primary: Color.fromRGBO(250, 181, 207,
+                                    0.855), // Warna latar belakang
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
                                       20), // Mengatur sudut tombol
@@ -310,8 +328,8 @@ class _Home3State extends State<Home3> {
                     children: [
                       Text(
                         'Rekomendasi Konselor',
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20),
                       Column(
@@ -359,7 +377,7 @@ class _Home3State extends State<Home3> {
                               //   itemBuilder: (context, _) => Icon(
                               //     Icons.star,
                               //     color: Colors.amber, // Warna bintang yang terisi
-      
+
                               // //   ),
                               //   unratedColor: Colors.white, // Warna bintang yang tidak terisi
                               //   onRatingUpdate: (rating) {
@@ -384,7 +402,8 @@ class _Home3State extends State<Home3> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text('Senin',
                                           style: TextStyle(
@@ -441,7 +460,8 @@ class _Home3State extends State<Home3> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text('Rabu',
                                           style: TextStyle(
@@ -483,7 +503,8 @@ class _Home3State extends State<Home3> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text('Jumat',
                                           style: TextStyle(
@@ -510,10 +531,7 @@ class _Home3State extends State<Home3> {
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context, 
-                                  MaterialPageRoute(builder: (context) => PilihanPaket()),
-                                );
+                                widget.pindahHalaman(3);
                               },
                               child: Text('Pilih Paket',
                                   style: TextStyle(
@@ -525,8 +543,9 @@ class _Home3State extends State<Home3> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(
-                                    Color.fromRGBO(244, 81, 141, 1)),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color.fromRGBO(244, 81, 141, 1)),
                               ),
                             ),
                           ),

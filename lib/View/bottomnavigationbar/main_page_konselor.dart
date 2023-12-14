@@ -25,16 +25,18 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
     );
   }
 
-  final List screens = [
-    HomepageSectionKonselor(),
-    artikelKonselor(),
-    Center(
-      child: Text("Konseling"),
-    ),
-    Center(
-      child: Text("Profil"),
-    ),
-  ];
+  List get screens => [
+        HomepageSectionKonselor(
+          pindahHalaman: pindahHalaman,
+        ),
+        artikelKonselor(),
+        Center(
+          child: Text("Konseling"),
+        ),
+        Center(
+          child: Text("Profil"),
+        ),
+      ];
 
   List<String?> listAppBarTitle = [null, "Artikel", "Konseling", "Profil"];
 

@@ -27,14 +27,16 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  final List screens = [
-    HomepageSection(),
-    const Artikel(),
-    Career(),
-    const PilihanPaket(),
-    ProfilPage(),
-    //kalau halaman sudah siap, setiap nama di ganti ke halaman aslinya
-  ];
+  List get screens => [
+        HomepageSection(
+          pindahHalaman: pindahHalaman,
+        ), // 0
+        const Artikel(), // 1
+        Career(), // 2
+        const PilihanPaket(), // 3
+        ProfilPage(), // 4
+        //kalau halaman sudah siap, setiap nama di ganti ke halaman aslinya
+      ];
 
   List<String?> listAppBarTitle = [
     null,

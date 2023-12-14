@@ -155,14 +155,15 @@ class _ProfilPageState extends State<ProfilPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       buildOption(context, Icons.history, 'Riwayat Konseling',
-                          '/riwayat'),
+                          '/riwayat', null),
                       buildOption(context, CupertinoIcons.bell, 'Notifikasi',
-                          '/notifikasi'),
+                          '/notifikasi', null),
                       buildOption(context, CupertinoIcons.checkmark_shield,
-                          'Pengaturan Privasi', '/pengaturan'),
-                      buildOption(context, Icons.language, 'Bahasa', '/bahasa'),
+                          'Pengaturan Privasi', '/pengaturan', null),
+                      buildOption(
+                          context, Icons.language, 'Bahasa', '/bahasa', null),
                       buildOption(context, Icons.favorite_outline, 'Favorit',
-                          '/favorit'),
+                          '/favorit', null),
                     ],
                   ),
                 ),
@@ -178,11 +179,11 @@ class _ProfilPageState extends State<ProfilPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       buildOption(context, Icons.feedback_outlined,
-                          'Tentang Kami', '/tentang'),
+                          'Tentang Kami', '/tentang', null),
                       buildOption(context, Icons.live_help_outlined,
-                          'Bantuan dan FAQ', '/bantuan'),
+                          'Bantuan dan FAQ', '/bantuan', null),
                       buildOption(context, Icons.headset_mic_outlined,
-                          'Layanan Pelanggan', '/layanan'),
+                          'Layanan Pelanggan', '/chatbots', null),
                     ],
                   ),
                 ),
@@ -198,7 +199,10 @@ class _ProfilPageState extends State<ProfilPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       buildOption(
-                          context, Icons.logout_outlined, 'Keluar', '/favorit'),
+                          context, Icons.logout_outlined, 'Keluar', null, () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/', (route) => false);
+                      }),
                     ],
                   ),
                 ),
@@ -211,18 +215,20 @@ class _ProfilPageState extends State<ProfilPage> {
     );
   }
 
-  Widget buildOption(
-      BuildContext context, IconData icon, String label, String route) {
+  Widget buildOption(BuildContext context, IconData icon, String label,
+      String? route, Function()? onPressed) {
     return InkWell(
       onTap: () {
         if (route == '/notifikasi') {
           // Tambahkan aksi untuk menangani ketika bagian notifikasi ditekan
           // Anda dapat menampilkan dialog atau halaman pengaturan notifikasi di sini
-        } else {
+        } else if (route != null) {
           Navigator.pushNamed(
             NavigationService.navigatorKey.currentContext ?? context,
             route,
           );
+        } else if (onPressed != null) {
+          onPressed();
         }
       },
       child: Padding(

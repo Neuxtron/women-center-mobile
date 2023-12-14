@@ -19,10 +19,7 @@ class _NotifikasiListTapState extends State<NotifikasiListTap> {
             title: const Text('Artikel'),
             subtitle: const Text('Ini adalah artikel'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotifikasiList()),
-              );
+              Navigator.pushNamed(context, '/homepagenotif3');
             },
           ),
           ListTile(
@@ -30,10 +27,7 @@ class _NotifikasiListTapState extends State<NotifikasiListTap> {
             title: const Text('Karir'),
             subtitle: const Text('Info karir dan pekerjaan'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotifikasiList()),
-              );
+              Navigator.pushNamed(context, '/homepagenotif3');
             },
           ),
           ListTile(
@@ -41,10 +35,7 @@ class _NotifikasiListTapState extends State<NotifikasiListTap> {
             title: const Text('Konseling'),
             subtitle: const Text('Bantuan konseling'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotifikasiList()),
-              );
+              Navigator.pushNamed(context, '/homepagenotif3');
             },
           ),
         ],

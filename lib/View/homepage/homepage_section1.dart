@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 import 'dart:ui';
 
 class WidgetHome1 extends StatefulWidget {
-  const WidgetHome1({Key? key}) : super(key: key);
+  final Function(int index) pindahHalaman;
+  const WidgetHome1({Key? key, required this.pindahHalaman}) : super(key: key);
 
   @override
   State<WidgetHome1> createState() => _WidgetHome1State();
@@ -79,9 +80,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        width: 140,
-                      ),
+                      Expanded(child: SizedBox()),
                       IconButton(
                         icon: const Icon(
                           Icons.notifications_none_outlined,
@@ -90,6 +89,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                         ),
                         onPressed: () {
                           ///onpress ke notifikasi
+                          Navigator.pushNamed(context, '/notifikasi');
                         },
                       ),
                     ],
@@ -237,10 +237,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                       GestureDetector(
                         onTap: () {
                           // Navigasi ke halaman baru ketika kontainer 1 ditekan
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => NewPage()),
-                          );
+                          widget.pindahHalaman(3);
                         },
                         child: Stack(
                           clipBehavior: Clip.none,
@@ -352,10 +349,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                       GestureDetector(
                         onTap: () {
                           // Navigasi ke halaman baru ketika kontainer 1 ditekan
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => NewPage()),
-                          );
+                          Navigator.pushNamed(context, '/chatbots');
                         },
                         child: Stack(
                           clipBehavior: Clip.none,

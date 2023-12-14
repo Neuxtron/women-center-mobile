@@ -6,7 +6,8 @@ import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_mo
 import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
 
 class Home2 extends StatefulWidget {
-  const Home2({super.key});
+  final Function(int index) pindahHalaman;
+  const Home2({super.key, required this.pindahHalaman});
 
   @override
   State<Home2> createState() => _Home2State();
@@ -23,7 +24,12 @@ class _Home2State extends State<Home2> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Rekomendasi Karir'),
-            TextButton(onPressed: () {}, child: const Text('Selengkapnya')),
+            TextButton(
+              onPressed: () {
+                widget.pindahHalaman(2);
+              },
+              child: const Text('Selengkapnya'),
+            ),
           ],
         ),
         SizedBox(
@@ -42,7 +48,9 @@ class _Home2State extends State<Home2> {
             },
           ),
         ),
-        const LatestArtikel(),
+        LatestArtikel(
+          pindahHalaman: widget.pindahHalaman,
+        ),
       ],
     );
   }
@@ -81,7 +89,8 @@ class KarirItem extends StatelessWidget {
 }
 
 class LatestArtikel extends StatefulWidget {
-  const LatestArtikel({super.key});
+  final Function(int index) pindahHalaman;
+  const LatestArtikel({super.key, required this.pindahHalaman});
 
   @override
   State<LatestArtikel> createState() => _LatestArtikelState();
@@ -98,7 +107,12 @@ class _LatestArtikelState extends State<LatestArtikel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Artikel Untukmu'),
-            TextButton(onPressed: () {}, child: const Text('Selengkapnya')),
+            TextButton(
+              onPressed: () {
+                widget.pindahHalaman(1);
+              },
+              child: const Text('Selengkapnya'),
+            ),
           ],
         ),
         fromAPI(),
