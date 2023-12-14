@@ -38,6 +38,7 @@ import 'View/konseling/konseling_topik_konseling.dart';
 import 'View/login/login_view.dart';
 import 'View/register/register.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'View/riwayat/riwayat_konselor/riwayat_konselor_view.dart';
 import 'View/welcome_page/welcome_page.dart';
 
 void main() {
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
           '/sesi_konseling': (context) => SesiKonseling(),
           '/hapus_artikel': (context) => ArticleListPage(),
           '/bantuan': (context) => FAQ(),
+          '/riwayat_konselor': (context) => RiwayarKonselurView(),
         },
       ),
     );
