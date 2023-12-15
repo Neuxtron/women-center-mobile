@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/bottom_navigation_bar.dart';
+import '../bottomnavigationbar/bottom_navigation_bar.dart';
 import 'detail_job.dart';
 
 class Career extends StatefulWidget {
@@ -209,7 +209,7 @@ class _CareerState extends State<Career> {
             SizedBox(height: 7),
             Divider(),
 
-            // setiap job dipasang inkwell seperti ini ya, juhar
+            // setiap job dipasang inkwell seperti ini ya, juhar 
             InkWell(
               onTap: () {
                 Navigator.push(

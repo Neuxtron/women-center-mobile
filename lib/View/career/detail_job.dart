@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/bottom_navigation_bar.dart';
-
 class DetailJob extends StatefulWidget {
   @override
   _DetailJobState createState() => _DetailJobState();
 }
 
 class _DetailJobState extends State<DetailJob> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink[100],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
-        ),
         title: Center(
           child: Text(
             "Detail Karir",
@@ -362,13 +354,6 @@ class _DetailJobState extends State<DetailJob> {
           ],
         ),
       ),
-      bottomNavigationBar: MyBottomNavigationBar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          }),
     );
   }
 }

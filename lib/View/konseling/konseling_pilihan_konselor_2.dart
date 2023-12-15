@@ -1,68 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 
-import '../../Models/utils/auth_service.dart';
-
-class KonselingPilihanKonselor2 extends StatefulWidget {
-  @override
-  _KonselingPilihanKonselor2State createState() =>
-      _KonselingPilihanKonselor2State();
-}
-
-class _KonselingPilihanKonselor2State extends State<KonselingPilihanKonselor2> {
-  List<dynamic> counselorData = [];
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData(); // Panggil fungsi untuk memuat data ketika widget pertama kali dibuat
-  }
- String get token => AuthService.token;
-
-  Future<void> fetchData() async {
-    final url = Uri.parse('https://api-ferminacare.tech/api/v1/counselors');
-   
-    final response = await http.get(
-      url,
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        counselorData = json.decode(response.body)['data'];
-      });
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
+class KonselingPilihanKonselor2 extends StatelessWidget {
+  const KonselingPilihanKonselor2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: counselorData.map<Widget>((counselor) {
-        return CardData(
-          judul: '${counselor['first_name']} ${counselor['last_name']}',
-          subtitleKanan: counselor[
-              'status'], //Ini nanti diubah ke data universitas karna belum ada di BE
-          imagePath: counselor['profile_picture'],
-        );
-      }).toList(),
+    // appBar: AppBar(
+    //   backgroundColor: const Color(0xFF14FDCEDF),
+    //   title: const Text(
+    //     'Konseling',
+    //     style: TextStyle(
+    //       fontWeight: FontWeight.bold,
+    //       fontSize: 20,
+    //       color: Colors.black,
+    //     ),
+    //   ),
+    //   centerTitle: true,
+    // ),
+    return const Column(
+      children: [
+        CardData(
+          judul: 'Stenafie Russel, M.Psi., Psikolog',
+          subtitleKiri: 'Psikolog',
+          subtitleKanan: 'Universitas Indonesia',
+          imagePath: 'Assets/images/konselor1.png',
+          lokasi: 'Jakarta',
+        ),
+        CardData(
+          judul: 'Stenafie Russel, M.Psi., Psikolog',
+          subtitleKiri: 'Psikolog',
+          subtitleKanan: 'Universitas Indonesia',
+          imagePath: 'Assets/images/konselor2.png',
+          lokasi: 'Jakarta',
+        ),
+      ],
     );
   }
 }
 
 class CardData extends StatelessWidget {
   final String judul;
+  final String subtitleKiri;
   final String subtitleKanan;
   final String imagePath;
+  final String lokasi;
 
   const CardData({
     Key? key,
     required this.judul,
+    required this.subtitleKiri,
     required this.subtitleKanan,
     required this.imagePath,
+    required this.lokasi,
   }) : super(key: key);
 
   @override
@@ -88,18 +78,8 @@ class CardData extends StatelessWidget {
                   width: 110,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.network(
-                      imagePath,
-                      loadingBuilder: (context, child, progress) {
-                        return progress == null
-                            ? child
-                            : Center(child: CircularProgressIndicator());
-                      },
-                      errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.error),
+                    image: DecorationImage(
+                      image: AssetImage(imagePath),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -121,9 +101,27 @@ class CardData extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              subtitleKanan,
+                              subtitleKiri,
                               style: const TextStyle(fontSize: 16),
                             ),
+                          ),
+                          Text(
+                            subtitleKanan,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on,
+                            color: Color.fromARGB(255, 159, 159, 159),
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            lokasi,
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ],
                       ),

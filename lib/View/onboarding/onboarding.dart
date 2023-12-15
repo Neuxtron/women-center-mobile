@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:women_center_mobile/Models/utils/auth_service.dart';
-import 'package:women_center_mobile/View/widgets/main_page.dart';
+import 'package:women_center_mobile/View/bottomnavigationbar/main_page.dart';
 import 'package:women_center_mobile/View/homepage/homepage_view.dart';
 
 class Onboarding extends StatefulWidget {
@@ -49,11 +49,7 @@ class _OnboardingState extends State<Onboarding> {
               child: TextButton(
                 onPressed: () {
                   if (AuthService.role == "user") {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainPage(),
-                        ));
+                    Navigator.pushReplacementNamed(context, '/main_page');
                   } else if (AuthService.role == "counselor") {
                     Navigator.pushReplacementNamed(
                         context, '/main_page_konselor');

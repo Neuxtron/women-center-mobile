@@ -20,7 +20,9 @@ class AlreadyHaveAccount extends StatelessWidget {
           ),
         ),
         TextButton(
-            onPressed: () async {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: const Text(
               'Login',
               style: TextStyle(

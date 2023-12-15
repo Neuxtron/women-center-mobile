@@ -1,7 +1,7 @@
 //punya om David
 import 'package:flutter/material.dart';
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:women_center_mobile/View/widgets/bottom_navigation_bar.dart';
+import 'package:women_center_mobile/View/bottomnavigationbar/bottom_navigation_bar.dart';
 import 'package:women_center_mobile/View/konseling/konseling_page_pilihan_paket.dart';
 
 class Home3 extends StatefulWidget {
