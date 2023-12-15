@@ -1,7 +1,12 @@
 //create artikel konselor widget
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:women_center_mobile/Models/artikel_konselor_model/artikel_konselor_model.dart';
+import 'package:women_center_mobile/View/homepage/homepage_section1.dart';
+import 'package:women_center_mobile/ViewModel/artikel_konselor_model/artikel_konselor_get.dart';
+import 'package:women_center_mobile/View/artikel/artikel_konselor/buat_artikel.dart';
 
-//widget serach
+//widget search
 class Search extends StatefulWidget {
   const Search({super.key});
 
@@ -60,7 +65,7 @@ class _SearchState extends State<Search> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: TextField(
                 controller: _textEditingController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Cari artikel',
                   hintStyle: TextStyle(
                     color: Color(0xFFA5A5A5),
@@ -71,7 +76,7 @@ class _SearchState extends State<Search> {
                   ),
                   border: InputBorder.none,
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 12,
                   fontFamily: 'Poppins',
@@ -87,6 +92,7 @@ class _SearchState extends State<Search> {
   }
 }
 
+//widget button buat artikel
 class CustomButton extends StatefulWidget {
   const CustomButton({Key? key}) : super(key: key);
 
@@ -99,16 +105,17 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Tambahkan aksi yang ingin dilakukan ketika tombol ditekan di sini
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => buat_artikel()));
       },
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 105, vertical: 1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),
-        primary: Color(0xFFF4518D),
+        primary: const Color(0xFFF4518D),
       ),
-      child: Text(
+      child: const Text(
         '+Buat Artikel',
         style: TextStyle(
           color: Colors.white,
@@ -122,23 +129,31 @@ class _CustomButtonState extends State<CustomButton> {
   }
 }
 
-// Model untuk menyimpan data artikel
-class Artikel {
-  final String title;
-  final String imageUrl;
-  final String by;
-  final String time;
+class ArtikelCardScrollable extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Menggunakan provider untuk mengakses artikel
+    final artikelProvider = Provider.of<ArtikelKonselorProvider>(context);
 
-  Artikel(
-      {required this.title,
-      required this.imageUrl,
-      required this.by,
-      required this.time});
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: artikelProvider.articles.map((article) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: ArtikelCard(
+              artikel: article,
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 }
 
 // Widget ArtikelCard yang menggunakan data dari model
 class ArtikelCard extends StatelessWidget {
-  final Artikel artikel;
+  final Article artikel;
 
   ArtikelCard({required this.artikel});
 
@@ -157,7 +172,8 @@ class ArtikelCard extends StatelessWidget {
             height: 178,
             decoration: ShapeDecoration(
               image: DecorationImage(
-                image: AssetImage(artikel.imageUrl),
+                image: NetworkImage(
+                    artikel.thumbnail), // Menggunakan URL gambar dari artikel
                 fit: BoxFit.fill,
               ),
               shape: RoundedRectangleBorder(
@@ -184,8 +200,8 @@ class ArtikelCard extends StatelessWidget {
                         child: Text.rich(
                           TextSpan(
                             children: [
-                              TextSpan(
-                                text: 'Oleh',
+                              const TextSpan(
+                                text: 'Oleh ',
                                 style: TextStyle(
                                   color: Color(0xFFA5A5A5),
                                   fontSize: 12,
@@ -195,18 +211,8 @@ class ArtikelCard extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: ' ',
-                                style: TextStyle(
-                                  color: Color(0xFF787878),
-                                  fontSize: 12,
-                                  fontFamily: 'Raleway',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.14,
-                                ),
-                              ),
-                              TextSpan(
-                                text: artikel.by,
-                                style: TextStyle(
+                                text: artikel.author['name'] ?? '',
+                                style: const TextStyle(
                                   color: Color(0xFF787878),
                                   fontSize: 12,
                                   fontFamily: 'Raleway',
@@ -218,12 +224,12 @@ class ArtikelCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 115),
+                      const SizedBox(width: 135),
                       Expanded(
                         child: SizedBox(
                           child: Text(
-                            artikel.time,
-                            style: TextStyle(
+                            artikel.publishedAt ?? '',
+                            style: const TextStyle(
                               color: Color(0xFFA5A5A5),
                               fontSize: 12,
                               fontFamily: 'Raleway',
@@ -236,17 +242,17 @@ class ArtikelCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 7),
                 SizedBox(
                   width: 328,
                   child: Text(
-                    artikel.title,
-                    style: TextStyle(
+                    artikel.title ?? '',
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w700,
-                      height: 0,
+                      height: 1.3,
                     ),
                   ),
                 ),
@@ -259,52 +265,31 @@ class ArtikelCard extends StatelessWidget {
   }
 }
 
-// Widget ArtikelCardScrollable yang menggunakan daftar Artikel
-class ArtikelCardScrollable extends StatefulWidget {
-  @override
-  _ArtikelCardScrollableState createState() => _ArtikelCardScrollableState();
-}
-
-class _ArtikelCardScrollableState extends State<ArtikelCardScrollable> {
-  // Daftar artikel
-  final List<Artikel> articles = [
-    Artikel(
-      title: 'Tanda Kekerasan Seksual pada Anak: Wajib Dikenali!',
-      imageUrl: 'Assets/images/pic_artikel1.png',
-      by: 'Dian Safitri',
-      time: '2 jam yang lalu',
-    ),
-    Artikel(
-        title: 'Jadi Wanita Karier, Gimana cara hadapi stress',
-        imageUrl: 'Assets/images/pic_artikel2.png',
-        by: 'Syifa Nur Rahmawati',
-        time: '1 hari yang lalu'),
-    Artikel(
-        title: 'Fakta depresi dimalam hari yang perlu kamu tahu',
-        imageUrl: 'Assets/images/pic_artikel3.png',
-        by: 'Julia Amalia',
-        time: '20 oktober 2023'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        children: articles.map((article) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: ArtikelCard(artikel: article),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
+//widegt kotak progress
 class Kotak extends StatelessWidget {
+  // final artikelProvider = Provider.of<ArtikelKonselorProvider>(context);
+
   @override
   Widget build(BuildContext context) {
+    //provider artikelkonselor
+    final artikelProvider = Provider.of<ArtikelKonselorProvider>(context);
+
+    //inisiasi objek article publish, article review dan article reject
+    var publish = artikelProvider.articlePublish;
+    var review = artikelProvider.articleReview;
+    var reject = artikelProvider.articleReject;
+    String ada = '';
+
+    //logika if else untuk nilai null
+    if (reject == null) {
+      ada = '0';
+    }
+    if (publish == null) {
+      publish = '0';
+    } else if (review == null) {
+      review = '0';
+    }
+
     return Column(
       children: [
         Container(
@@ -316,13 +301,13 @@ class Kotak extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             shadows: [
-              BoxShadow(
+              const BoxShadow(
                 color: Color(0x26000000),
                 blurRadius: 3,
                 offset: Offset(0, 1),
                 spreadRadius: 1,
               ),
-              BoxShadow(
+              const BoxShadow(
                 color: Color(0x4C000000),
                 blurRadius: 2,
                 offset: Offset(0, 1),
@@ -337,7 +322,7 @@ class Kotak extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     top: 25,
                   ), // Tambahkan padding untuk garis batas di sebelah kanan
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border(
                       right: BorderSide(
                         color:
@@ -353,13 +338,14 @@ class Kotak extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks1 diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
                         child: Text(
-                          '15',
-                          style: TextStyle(
+                          '$publish',
+                          style: const TextStyle(
                             color: Color(0xFFF4518D),
                             fontSize: 32,
                             fontFamily: 'Poppins',
@@ -371,11 +357,12 @@ class Kotak extends StatelessWidget {
                       const SizedBox(height: 9),
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
-                        child: Text(
+                        child: const Text(
                           'Publish',
                           style: TextStyle(
                             color: Color(0xff34c759),
@@ -395,7 +382,7 @@ class Kotak extends StatelessWidget {
                   padding: const EdgeInsets.only(
                     top: 25,
                   ), // Tambahkan padding untuk garis batas di sebelah kanan
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border(
                       right: BorderSide(
                         color:
@@ -411,13 +398,14 @@ class Kotak extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks1 diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
                         child: Text(
-                          '5',
-                          style: TextStyle(
+                          '$review',
+                          style: const TextStyle(
                             color: Color(0xFFF4518D),
                             fontSize: 32,
                             fontFamily: 'Poppins',
@@ -429,11 +417,12 @@ class Kotak extends StatelessWidget {
                       const SizedBox(height: 9),
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
-                        child: Text(
+                        child: const Text(
                           'Proses',
                           style: TextStyle(
                             color: Color(0xfffbd23f),
@@ -460,13 +449,14 @@ class Kotak extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks1 diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
                         child: Text(
-                          '3',
-                          style: TextStyle(
+                          '$ada',
+                          style: const TextStyle(
                             color: Color(0xFFF4518D),
                             fontSize: 32,
                             fontFamily: 'Poppins',
@@ -478,11 +468,12 @@ class Kotak extends StatelessWidget {
                       const SizedBox(height: 9),
                       GestureDetector(
                         onTap: () {
-                          // Aksi yang ingin dilakukan saat teks diklik
-                          print('Teks diklik!');
-                          // Tambahkan aksi yang diinginkan di sini
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NewPage()),
+                          );
                         },
-                        child: Text(
+                        child: const Text(
                           'Reject',
                           style: TextStyle(
                             color: Color(0xfff30000),

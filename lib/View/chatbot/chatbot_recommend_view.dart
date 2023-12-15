@@ -2,12 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class ChatBotApp extends StatefulWidget {
-  @override
-  _ChatBotAppState createState() => _ChatBotAppState();
+void main() {
+  runApp(ChatBotApp());
 }
 
-class _ChatBotAppState extends State<ChatBotApp> {
+class ChatBotApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ChatBotScreen(),
+    );
+  }
+}
+
+class ChatBotScreen extends StatefulWidget {
+  @override
+  _ChatBotScreenState createState() => _ChatBotScreenState();
+}
+
+class _ChatBotScreenState extends State<ChatBotScreen> {
   TextEditingController messageController = TextEditingController();
   List<ChatMessage> chatMessages = [];
 

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
+import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
 import 'package:women_center_mobile/View/artikel/artikel_user/artikel_widget.dart';
-import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
 class Artikel extends StatelessWidget {
   const Artikel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    context.read<ArtikelViewModel>().fetchAlllArtikel();
-
-    List<ArtikelModel> artikelList =
-        context.watch<ArtikelViewModel>().listArtikel;
-
+    List<ArtikelModel> artikelList = [
+      DummyArtikel.artikelUntukmu,
+      DummyArtikel.artikelUntukmu,
+      // Add more ArtikelModel objects as needed
+    ];
     return SingleChildScrollView(
       child: Container(
         child: Column(

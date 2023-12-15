@@ -2,37 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:women_center_mobile/View/profil_page/favorit/artikel_favorit.dart';
 import 'package:women_center_mobile/View/riwayat/riwayat_konselor/riwayat_konselor_selesai.dart';
 
+void main() {
+  runApp(RiwayarKonselurView());
+}
+
 class RiwayarKonselurView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF9F5F6),
-        elevation: 0,
-        title: const Text('Riwayat Konseling',
-            style: TextStyle(
-              color: Color(0xFF0B0B0B),
-              fontSize: 16,
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.w600,
-              height: 0,
-            )),
-        centerTitle: true, // Judul app bar
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Choice(),
-                  // Add more widgets here if needed
-                ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFFF9F5F6),
+          elevation: 0,
+          title: const Text('Riwayat Konseling',
+              style: TextStyle(
+                color: Color(0xFF0B0B0B),
+                fontSize: 16,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w600,
+                height: 0,
+              )),
+          centerTitle: true, // Judul app bar
+          leading: IconButton(
+            // Tombol kembali di sebelah kiri
+            icon: const Icon(Icons.arrow_back), color: Colors.black,
+            onPressed: () {
+              // Aksi ketika tombol kembali ditekan
+              // Misalnya, kembali ke layar sebelumnya
+              // Navigator.pop(context);
+            },
+          ),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Choice(),
+                    // Add more widgets here if needed
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
