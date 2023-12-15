@@ -37,8 +37,7 @@ class ArtikelModel {
       slug: json["slug"],
       author: Author.fromJson(json["author"]),
       status: json["status"] ?? "",
-      publishedAt:
-          DateFormat("dd MMM yyyy hh:mm:ss").parse(json["published_at"]),
+      publishedAt: DateFormat("dd MMM yyyy").parse(json["published_at"]),
       content: json["content"],
       comments: Comment.fromListJson(json["comments"] ?? []),
     );

@@ -6,6 +6,7 @@ import 'package:women_center_mobile/View/homepage/homepage_konselor.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
 import '../profil_page/profil_user.dart';
+import '../sesi_konseling/sesi_konseling.dart';
 
 class MainPageKonselor extends StatefulWidget {
   const MainPageKonselor({super.key});
@@ -22,7 +23,14 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
     if (appbarTitle == null) return null;
     return AppBar(
       backgroundColor: Colors.pink[100],
-      title: Center(child: Text(appbarTitle ?? "")),
+      title: Center(
+        child: Text(
+          appbarTitle ?? "",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       automaticallyImplyLeading: false,
     );
   }
@@ -31,14 +39,12 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
         HomepageSectionKonselor(
           pindahHalaman: pindahHalaman,
         ), // 0
-        artikelKonselor(), // 1
-        Center(
-          child: Text("Konseling"),
-        ), // 2
+        const artikelKonselor(), // 1
+        SesiKonseling(), // 2
         ProfilPage(), // 3
       ];
 
-  List<String?> listAppBarTitle = [null, "Artikel", "Konseling", "Profil"];
+  List<String?> listAppBarTitle = [null, null, "Konseling", "Profil"];
 
   void pindahHalaman(index) {
     setState(() {
@@ -55,7 +61,7 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
   Widget build(BuildContext context) {
     fetchData();
     return Scaffold(
-      // appBar: appBar,
+      appBar: appBar,
       body: screens[selectedIndex],
       bottomNavigationBar: BottomNavigationKonselor(
         selectedIndex: selectedIndex,
