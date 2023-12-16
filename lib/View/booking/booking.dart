@@ -27,10 +27,13 @@ class _BookingState extends State<Booking> {
   List<int> _schedule = [];
 
   void fetchSchedule() async {
-    _schedule = await context
+    final schedule = await context
             .read<KonselorViewModel>()
             .fetchSchedule(_args.konselor.id) ??
         [];
+    setState(() {
+      _schedule = schedule;
+    });
   }
 
   @override

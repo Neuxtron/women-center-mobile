@@ -65,12 +65,12 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   final LoginViewModel _loginViewModel = LoginViewModel(); //import login api
 
-  @override
-  void initState() {
-    super.initState();
-    _emailController.text = "agung123@gmail.com";
-    _passwordController.text = "agung123";
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _emailController.text = "arman123@gmail.com";
+  //   _passwordController.text = "Arman123";
+  // }
 
   @override
   Widget build(BuildContext context) {

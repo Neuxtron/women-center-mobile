@@ -137,9 +137,9 @@ class _MingguItemState extends State<MingguItem> {
       lastDate: DateTime(DateTime.now().year + 1),
     );
 
-    // log(tgl?.weekday.toString() ?? "");
-    // log(widget.schedule.toString());
-    // log(widget.schedule.contains(tgl?.weekday).toString());
+    log(tgl?.weekday.toString() ?? "");
+    log(widget.schedule.toString());
+    log(widget.schedule.contains(tgl?.weekday).toString());
 
     if (tgl != null && widget.schedule.contains(tgl.weekday)) {
       setState(() {
