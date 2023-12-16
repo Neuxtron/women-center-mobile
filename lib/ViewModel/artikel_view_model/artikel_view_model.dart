@@ -4,22 +4,17 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
-import 'package:women_center_mobile/Models/source/dummy_artikel.dart';
 import 'package:women_center_mobile/Models/utils/auth_service.dart';
 
 class ArtikelViewModel extends ChangeNotifier {
   final String _baseUrl = "https://api-ferminacare.tech/api/v1";
 
-  // TODO: uncomment
-  // List<ArtikelModel> _listArtikel = [];
-  // TODO: dihapus atau comment
-  List<ArtikelModel> _listArtikel = [DummyArtikel.artikelUntukmu];
+  List<ArtikelModel> _listArtikel = [];
   ArtikelModel? _latestArtikel;
   ArtikelModel? get latestArtikel => _latestArtikel;
 
   List<ArtikelModel> get listArtikel => _listArtikel;
 
-  // TODO: token sementara
   String get token => AuthService.token;
 
   Future fetchAlllArtikel() async {
