@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/career_model/career.dart';
+import '../../Models/utils/auth_service.dart';
 
 class JobViewModel extends ChangeNotifier {
   List<Job> _jobs = [];
+   String get token => AuthService.token;
 
   List<Job> get jobs => _jobs;
 
@@ -12,10 +14,7 @@ class JobViewModel extends ChangeNotifier {
     try {
       final response = await http.get(
         Uri.parse('https://api-ferminacare.tech/api/v1/careers'),
-        headers: {
-          'Authorization':
-              'Bearer '
-        },
+         headers: {'Authorization': 'Bearer $token'},
       );
 
       if (response.statusCode == 200) {

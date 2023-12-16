@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/Models/career_model/filter_career.dart';
+import '../../Models/utils/auth_service.dart';
 
 class FilterJobTypesViewModel extends ChangeNotifier {
   List<FilterJobType> _filterjob = [];
@@ -20,14 +21,12 @@ class FilterJobTypesViewModel extends ChangeNotifier {
     // Implementasikan logika untuk mengganti status filter
     // Misalnya, lakukan panggilan API untuk mengubah filter
   }
-
+  String get token => AuthService.token;
   Future<void> fetchFilterJobTypes() async {
   try {
     final response = await http.get(
       Uri.parse('https://api-ferminacare.tech/api/v1/filter-job-types'),
-      headers: {
-        'Authorization': 'Bearer '
-      },
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response.statusCode == 200) {
