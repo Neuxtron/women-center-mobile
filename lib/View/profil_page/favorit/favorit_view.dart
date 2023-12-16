@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:women_center_mobile/View/profil_page/favorit/artikel_favorit.dart';
 
+import 'konselor_favorit.dart';
+
 void main() {
   runApp(FavoritView());
 }
@@ -113,9 +115,9 @@ class ContentBasedOnDropdown extends StatelessWidget {
         child: Text('Konten untuk $dropdownValue belum diimplementasikan'),
       );
     } else if (dropdownValue == 'Konselor') {
-      return Container(
-        alignment: Alignment.center,
-        child: Text('Konten untuk $dropdownValue belum diimplementasikan'),
+  return Container(
+        height: 700,
+        child: KonselorFav(),
       );
     } else if (dropdownValue == 'Karier') {
       return Container(
