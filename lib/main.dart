@@ -30,6 +30,7 @@ import 'package:women_center_mobile/View/sesi_konseling/sesi_konseling.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/detail_career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/filter_carrerr.dart';
+import 'package:women_center_mobile/ViewModel/paket_view_model/paket_view_model.dart';
 import 'View/career/detail_job.dart';
 import 'View/career/career.dart';
 import 'View/login/login_view.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => JobViewModel()),
         ChangeNotifierProvider(create: (context) => DetailJobViewModel()),
         ChangeNotifierProvider(create: (context) => FilterJobTypesViewModel()),
+        ChangeNotifierProvider(create: (context) => PaketViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
