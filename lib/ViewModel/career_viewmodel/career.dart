@@ -6,7 +6,7 @@ import '../../Models/utils/auth_service.dart';
 
 class JobViewModel extends ChangeNotifier {
   List<Job> _jobs = [];
-  String get token => AuthService.token;
+   String get token => AuthService.token;
 
   List<Job> get jobs => _jobs;
 

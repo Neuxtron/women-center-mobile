@@ -33,26 +33,9 @@ class _CareerState extends State<Career> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.pink[100],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Center(
-          child: Text(
-            "Karir",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.grey[200],
+          color: Color(0xFFF8E8EE),
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
@@ -111,16 +94,6 @@ class _CareerState extends State<Career> {
                     },
                   )
                 ],
-              ),
-              Divider(),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "For you",
-                  style: TextStyle(
-                    fontSize: 16.0,
-                  ),
-                ),
               ),
               SizedBox(height: 15),
               Divider(),
