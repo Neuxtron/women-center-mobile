@@ -1,11 +1,18 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
 
-import '../../metode_pembayaran/metode_pembayaran_1.dart';
-
 class TentangPsikolog extends StatefulWidget {
-  const TentangPsikolog({super.key});
+  final String description;
+  final List<int> schedule;
+
+  const TentangPsikolog({
+    super.key,
+    required this.description,
+    required this.schedule,
+  });
 
   @override
   State<TentangPsikolog> createState() => _TentangPsikologState();
@@ -30,8 +37,9 @@ class _TentangPsikologState extends State<TentangPsikolog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-            "Stefanie Russel merupakan seorang Psikolog Klinis Dewasa lulusan Universitas Indonesia (S1) yang memiliki pengalaman menangani kasus seperti depresi, kecemasan, trauma, hubungan dan dll."),
+        // const Text(
+        //     "Stefanie Russel merupakan seorang Psikolog Klinis Dewasa lulusan Universitas Indonesia (S1) yang memiliki pengalaman menangani kasus seperti depresi, kecemasan, trauma, hubungan dan dll."),
+        Text(widget.description),
         const Text("Topik Keahlian"),
         SizedBox(
           height: 30,
@@ -49,14 +57,17 @@ class _TentangPsikologState extends State<TentangPsikolog> {
         MingguItem(
           index: 0,
           onChange: updateTanggal,
+          schedule: widget.schedule,
         ),
         MingguItem(
           index: 1,
           onChange: updateTanggal,
+          schedule: widget.schedule,
         ),
         MingguItem(
           index: 2,
           onChange: updateTanggal,
+          schedule: widget.schedule,
         ),
         MaterialButton(
           minWidth: double.infinity,
@@ -101,12 +112,14 @@ class TopikKeahlianItem extends StatelessWidget {
 
 class MingguItem extends StatefulWidget {
   final int index;
+  final List<int> schedule;
   final Function(int index, DateTime tgl) onChange;
 
   const MingguItem({
     super.key,
     required this.index,
     required this.onChange,
+    required this.schedule,
   });
 
   @override
@@ -124,7 +137,11 @@ class _MingguItemState extends State<MingguItem> {
       lastDate: DateTime(DateTime.now().year + 1),
     );
 
-    if (tgl != null) {
+    // log(tgl?.weekday.toString() ?? "");
+    // log(widget.schedule.toString());
+    // log(widget.schedule.contains(tgl?.weekday).toString());
+
+    if (tgl != null && widget.schedule.contains(tgl.weekday)) {
       setState(() {
         _tglController.text = DateFormat("EEEE, d MMMM yyyy").format(tgl);
       });

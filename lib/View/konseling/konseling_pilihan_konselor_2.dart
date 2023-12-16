@@ -1,68 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:women_center_mobile/Models/konselor_model/konselor_model.dart';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
+import 'package:women_center_mobile/View/booking/booking.dart';
+import 'package:women_center_mobile/ViewModel/konselor_view_model/konselor_view_model.dart';
 
 import '../../Models/utils/auth_service.dart';
 
 class KonselingPilihanKonselor2 extends StatefulWidget {
+  final int idPaket;
+  const KonselingPilihanKonselor2({super.key, required this.idPaket});
+
   @override
-  _KonselingPilihanKonselor2State createState() =>
+  State<KonselingPilihanKonselor2> createState() =>
       _KonselingPilihanKonselor2State();
 }
 
 class _KonselingPilihanKonselor2State extends State<KonselingPilihanKonselor2> {
-  List<dynamic> counselorData = [];
+  List<KonselorModel> get counselorData =>
+      context.watch<KonselorViewModel>().listKonselor;
+  String get token => AuthService.token;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchData(); // Panggil fungsi untuk memuat data ketika widget pertama kali dibuat
-  }
- String get token => AuthService.token;
-
-  Future<void> fetchData() async {
-    final url = Uri.parse('https://api-ferminacare.tech/api/v1/counselors');
-   
-    final response = await http.get(
-      url,
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        counselorData = json.decode(response.body)['data'];
-      });
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchData(); // Panggil fungsi untuk memuat data ketika widget pertama kali dibuat
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: counselorData.map<Widget>((counselor) {
-        return CardData(
-          judul: '${counselor['first_name']} ${counselor['last_name']}',
-          subtitleKanan: counselor[
-              'status'], //Ini nanti diubah ke data universitas karna belum ada di BE
-          imagePath: counselor['profile_picture'],
-        );
-      }).toList(),
+    context.read<KonselorViewModel>().fetchAllKonselor();
+
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: counselorData.length,
+      itemBuilder: (context, index) {
+        final counselor = counselorData[index];
+        return CardData(konselor: counselor, idPaket: widget.idPaket);
+      },
     );
   }
 }
 
 class CardData extends StatelessWidget {
-  final String judul;
-  final String subtitleKanan;
-  final String imagePath;
+  final KonselorModel konselor;
+  final int idPaket;
 
   const CardData({
     Key? key,
-    required this.judul,
-    required this.subtitleKanan,
-    required this.imagePath,
+    required this.konselor,
+    required this.idPaket,
   }) : super(key: key);
 
   @override
@@ -72,6 +60,7 @@ class CardData extends StatelessWidget {
         Navigator.pushNamed(
           NavigationService.navigatorKey.currentContext ?? context,
           "/booking",
+          arguments: BookingArgs(konselor: konselor, idPaket: idPaket),
         );
       },
       child: SizedBox(
@@ -92,14 +81,14 @@ class CardData extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
                     child: Image.network(
-                      imagePath,
+                      konselor.profilePicture,
                       loadingBuilder: (context, child, progress) {
                         return progress == null
                             ? child
-                            : Center(child: CircularProgressIndicator());
+                            : const Center(child: CircularProgressIndicator());
                       },
                       errorBuilder: (context, error, stackTrace) =>
-                          Icon(Icons.error),
+                          const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -111,7 +100,7 @@ class CardData extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        judul,
+                        konselor.firstName + konselor.lastName,
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -121,7 +110,7 @@ class CardData extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              subtitleKanan,
+                              konselor.status,
                               style: const TextStyle(fontSize: 16),
                             ),
                           ),

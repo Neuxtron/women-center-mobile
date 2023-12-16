@@ -1,12 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:women_center_mobile/Models/konselor_model/konselor_model.dart';
 import 'package:women_center_mobile/View/booking/tabs/review.dart';
 import 'package:women_center_mobile/View/booking/tabs/tentang_psikolog.dart';
+import 'package:women_center_mobile/ViewModel/konselor_view_model/konselor_view_model.dart';
 
-class Booking extends StatelessWidget {
+class BookingArgs {
+  final KonselorModel konselor;
+  final int idPaket;
+
+  BookingArgs({
+    required this.konselor,
+    required this.idPaket,
+  });
+}
+
+class Booking extends StatefulWidget {
   const Booking({super.key});
 
   @override
+  State<Booking> createState() => _BookingState();
+}
+
+class _BookingState extends State<Booking> {
+  late BookingArgs _args;
+  List<int> _schedule = [];
+
+  void fetchSchedule() async {
+    _schedule = await context
+            .read<KonselorViewModel>()
+            .fetchSchedule(_args.konselor.id) ??
+        [];
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _args = ModalRoute.of(context)!.settings.arguments as BookingArgs;
+    fetchSchedule();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -22,7 +53,7 @@ class Booking extends StatelessWidget {
               margin: const EdgeInsets.only(top: 433),
               child: Column(
                 children: [
-                  const Text("Stenafie Russel, M.Psi., Psikolog"),
+                  Text(_args.konselor.firstName + _args.konselor.lastName),
                   const Text("Psikologi • Universitas Indonesia"),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +65,10 @@ class Booking extends StatelessWidget {
                       const Text("@stefaniersl"),
                     ],
                   ),
-                  const PsikologTabView(),
+                  PsikologTabView(
+                    description: _args.konselor.description,
+                    schedule: _schedule,
+                  ),
                 ],
               ),
             ),
@@ -46,7 +80,14 @@ class Booking extends StatelessWidget {
 }
 
 class PsikologTabView extends StatefulWidget {
-  const PsikologTabView({super.key});
+  final String description;
+  final List<int> schedule;
+
+  const PsikologTabView({
+    super.key,
+    required this.description,
+    required this.schedule,
+  });
 
   @override
   State<PsikologTabView> createState() => _PsikologTabViewState();
@@ -61,10 +102,13 @@ class _PsikologTabViewState extends State<PsikologTabView> {
       child: Text("Review"),
     ),
   ];
-  final List<Widget> _views = [
-    const TentangPsikolog(),
-    const Review(),
-  ];
+  List<Widget> get _views => [
+        TentangPsikolog(
+          description: widget.description,
+          schedule: widget.schedule,
+        ),
+        const Review(),
+      ];
 
   int _selectedIndex = 0;
 

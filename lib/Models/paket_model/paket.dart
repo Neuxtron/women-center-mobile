@@ -1,4 +1,5 @@
 class PaketModel {
+  final int id;
   final String judul;
   final int sesi;
   final List daftar;
@@ -6,6 +7,7 @@ class PaketModel {
   final int hargaDiskon;
 
   PaketModel({
+    required this.id,
     required this.judul,
     required this.sesi,
     this.daftar = const [
@@ -25,6 +27,7 @@ class PaketModel {
 
   factory PaketModel.fromJson(Map<String, dynamic> json) {
     return PaketModel(
+      id: json["id"],
       judul: json["title"],
       sesi: json["session_per_week"],
       hargaAsli: int.tryParse(json["price"]) ?? 0 + 100000,

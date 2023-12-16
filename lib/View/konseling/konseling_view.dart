@@ -4,7 +4,8 @@ import 'konseling_pilihan_konselor_1.dart';
 import 'konseling_pilihan_konselor_2.dart';
 
 class KonselingSection extends StatelessWidget {
-  const KonselingSection({super.key});
+  final int idPaket;
+  const KonselingSection({super.key, required this.idPaket});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class KonselingSection extends StatelessWidget {
         child: Column(
           children: [
             konseling_pilihan_konselor_1(),
-            KonselingPilihanKonselor2(),
+            KonselingPilihanKonselor2(idPaket: idPaket),
           ],
         ),
       ),

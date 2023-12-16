@@ -217,7 +217,9 @@ class Paket extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => KonselingSection(),
+                      builder: (context) => KonselingSection(
+                        idPaket: model.id,
+                      ),
                     ),
                   );
                 },
