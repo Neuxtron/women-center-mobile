@@ -15,7 +15,7 @@ class _KalenderEventState extends State<KalenderEvent> {
   List<DateTime> selectedDates = [];
   bool isEditing = false;
   List<Event> events = [];
-   final ApiKalender _apiKalender = ApiKalender();
+  final ApiKalender _apiKalender = ApiKalender();
   Map<String, dynamic> _userProfile = {};
 
   @override
@@ -25,28 +25,27 @@ class _KalenderEventState extends State<KalenderEvent> {
   }
 
   Future<void> _fetchEventData() async {
-  try {
-    final response = await _apiKalender.getUserProfile();
-    final eventData = response['data'];
+    try {
+      final response = await _apiKalender.getUserProfile();
+      final eventData = response['data'];
 
-    setState(() {
-      events.add(
-        Event(
-          id: eventData['id'],
-          title: eventData['title'],
-          date: eventData['date'],
-          timeStart: eventData['time_start'],
-          timeFinish: eventData['time_finish'],
-          eventUrl: eventData['event_url'],
-        ),
-      );
-      dummyEvents = [DateFormat('dd MMM yyyy').parse(eventData['date'])];
-    });
-  } catch (error) {
-    print('Error fetching user profile: $error');
+      setState(() {
+        events.add(
+          Event(
+            id: eventData['id'],
+            title: eventData['title'],
+            date: eventData['date'],
+            timeStart: eventData['time_start'],
+            timeFinish: eventData['time_finish'],
+            eventUrl: eventData['event_url'],
+          ),
+        );
+        dummyEvents = [DateFormat('dd MMM yyyy').parse(eventData['date'])];
+      });
+    } catch (error) {
+      print('Error fetching user profile: $error');
+    }
   }
-}
-
 
   List<DateTime> dummyEvents = [];
 
@@ -54,17 +53,17 @@ class _KalenderEventState extends State<KalenderEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-  backgroundColor: Color(0xFFFDCEDF),
-  title: Text(
-    'Kalender',
-    style: TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-  centerTitle: true,
-  iconTheme: IconThemeData(color: Colors.black),
-),
+        backgroundColor: Color(0xFFFDCEDF),
+        title: Text(
+          'Kalender',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       backgroundColor: Color(0xFFF8E8EE),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,15 +72,18 @@ class _KalenderEventState extends State<KalenderEvent> {
           children: [
             if (!isEditing)
               Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  children: [
-    Padding(
-      padding: EdgeInsets.only(left: 25),
-      child: Text(
-        'Wed, ${DateFormat('MMM d').format(dummyEvents[0])}',
-        style: GoogleFonts.roboto(fontSize: 32, fontWeight: FontWeight.w400),
-      ),
-    ),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 25),
+                    child: Text(
+                      dummyEvents.isNotEmpty
+                          ? DateFormat('EEE, MMM d').format(dummyEvents[0])
+                          : "",
+                      style: GoogleFonts.roboto(
+                          fontSize: 32, fontWeight: FontWeight.w400),
+                    ),
+                  ),
                   IconButton(
                     onPressed: () {
                       setState(() {
@@ -92,8 +94,7 @@ class _KalenderEventState extends State<KalenderEvent> {
                   ),
                 ],
               ),
-                if (!isEditing)
-  Divider(),
+            if (!isEditing) Divider(),
             SizedBox(height: 16),
             if (isEditing)
               Column(
@@ -118,7 +119,8 @@ class _KalenderEventState extends State<KalenderEvent> {
                         onPressed: () {
                           setState(() {});
                         },
-                        child: Text('Save', style: TextStyle(color: Color(0xFFf4518d))),
+                        child: Text('Save',
+                            style: TextStyle(color: Color(0xFFf4518d))),
                       ),
                     ],
                   ),
@@ -126,11 +128,12 @@ class _KalenderEventState extends State<KalenderEvent> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-      padding: EdgeInsets.only(left: 55),
-                      child: Text(
-                        'Depart - Return Dates',
-                        style: GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.normal),
-                      ),
+                        padding: EdgeInsets.only(left: 55),
+                        child: Text(
+                          'Depart - Return Dates',
+                          style: GoogleFonts.roboto(
+                              fontSize: 16, fontWeight: FontWeight.normal),
+                        ),
                       ),
                     ],
                   ),
@@ -138,11 +141,14 @@ class _KalenderEventState extends State<KalenderEvent> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-      padding: EdgeInsets.only(left: 55),
-                      child: Text(
-                        '${DateFormat('MMM d').format(dummyEvents[0])}',
-                        style: GoogleFonts.roboto(fontSize: 26, fontWeight: FontWeight.w400),
-                      ),
+                        padding: EdgeInsets.only(left: 55),
+                        child: Text(
+                          dummyEvents.isNotEmpty
+                              ? DateFormat('EEE, MMM d').format(dummyEvents[0])
+                              : "",
+                          style: GoogleFonts.roboto(
+                              fontSize: 26, fontWeight: FontWeight.w400),
+                        ),
                       ),
                       IconButton(
                         onPressed: () {
@@ -158,89 +164,93 @@ class _KalenderEventState extends State<KalenderEvent> {
               alignment: Alignment.topLeft,
               child: isEditing
                   ? CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.range,
-                  selectedDayHighlightColor: Color(0xFFf4518d),
-                ),
-                value: dummyEvents,
-              )
+                      config: CalendarDatePicker2Config(
+                        calendarType: CalendarDatePicker2Type.range,
+                        selectedDayHighlightColor: Color(0xFFf4518d),
+                      ),
+                      value: dummyEvents,
+                    )
                   : CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.single,
-                  selectedDayHighlightColor: Color(0xFFf4518d),
-                ),
-                value: dummyEvents,
-              ),
+                      config: CalendarDatePicker2Config(
+                        calendarType: CalendarDatePicker2Type.single,
+                        selectedDayHighlightColor: Color(0xFFf4518d),
+                      ),
+                      value: dummyEvents,
+                    ),
             ),
             SizedBox(height: 30),
             Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  mainAxisAlignment: MainAxisAlignment.start,
-  children: [
-   if (!isEditing)
-  Padding(
-    padding: EdgeInsets.only(left: 15, top: 0, bottom: 0), // Sesuaikan nilai top dan bottom sesuai kebutuhan
-    child: Text(
-      'Acara',
-      style: GoogleFonts.raleway(
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-        color: Colors.black,
-      ),
-    ),
-  ),
-],
-),
-if (!isEditing)
-  Expanded(
-    child: Padding(
-      padding: const EdgeInsets.only(top: 0), // Sesuaikan nilai top sesuai kebutuhan
-      child: ListView.builder(
-        itemCount: events.length,
-        itemBuilder: (context, index) {
-          Event currentEvent = events[index];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Row(
-                  children: [
-                    Text(
-                      currentEvent.timeStart,
-                      style: TextStyle(fontSize: 13),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                if (!isEditing)
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 15,
+                        top: 0,
+                        bottom:
+                            0), // Sesuaikan nilai top dan bottom sesuai kebutuhan
+                    child: Text(
+                      'Acara',
+                      style: GoogleFonts.raleway(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
                     ),
-                    SizedBox(width: 15),
-                    Text(
-                      currentEvent.title,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ],
-                ),
-                subtitle: Row(
-                  children: [
-                    Text(
-                      currentEvent.timeFinish,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                    SizedBox(width: 15),
-                    Text(
-                      currentEvent.eventUrl,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ],
+                  ),
+              ],
+            ),
+            if (!isEditing)
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0), // Sesuaikan nilai top sesuai kebutuhan
+                  child: ListView.builder(
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      Event currentEvent = events[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            title: Row(
+                              children: [
+                                Text(
+                                  currentEvent.timeStart,
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                                SizedBox(width: 15),
+                                Text(
+                                  currentEvent.title,
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                              ],
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  currentEvent.timeFinish,
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                                SizedBox(width: 15),
+                                Text(
+                                  currentEvent.eventUrl,
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Color(0xFFf4518d),
+                            height: 0,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
-              Divider(
-                color: Color(0xFFf4518d),
-                height: 0,
-              ),
-
-                      ],
-                    );
-                  },
-                ),
-              ),
-  ),
           ],
         ),
       ),
