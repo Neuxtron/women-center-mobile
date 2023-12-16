@@ -1,41 +1,48 @@
 import 'package:flutter/material.dart';
+// import 'package:women_center_mobile/View/metode_pembayaran/1.dart';
+
+void main() {
+  runApp(PembayaranSukses());
+}
 
 class PembayaranSukses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        centerTitle: true,
-        elevation: 0,
-        title: const Text(
-          'Pembayaran',
-          style: TextStyle(
-            color: Color(0xFF1F1F1F),
-            fontSize: 16,
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.w700,
-            height: 0,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 60,
+          centerTitle: true,
+          elevation: 0,
+          title: const Text(
+            'Pembayaran',
+            style: TextStyle(
+              color: Color(0xFF1F1F1F),
+              fontSize: 16,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w700,
+              height: 0,
+            ),
+          ),
+          backgroundColor: const Color(0xFFFDCEDF),
+          leading: IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              // Navigator.of(context).pop();
+            },
           ),
         ),
-        backgroundColor: const Color(0xFFFDCEDF),
-        leading: IconButton(
-          color: Colors.black,
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ImageContainerpembayaran(),
-            const SizedBox(
-              height: 35,
-            ),
-            InfoSukses()
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ImageContainerpembayaran(),
+              const SizedBox(
+                height: 35,
+              ),
+              InfoSukses()
+            ],
+          ),
         ),
       ),
     );

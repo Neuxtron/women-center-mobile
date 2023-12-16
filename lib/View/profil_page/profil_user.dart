@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:women_center_mobile/Models/utils/auth_service.dart';
 import 'dart:ui';
 
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
@@ -155,15 +154,8 @@ class _ProfilPageState extends State<ProfilPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      buildOption(
-                        context,
-                        Icons.history,
-                        'Riwayat Konseling',
-                        AuthService.role == "user"
-                            ? '/riwayat'
-                            : "/riwayat_konselor",
-                        null,
-                      ),
+                      buildOption(context, Icons.history, 'Riwayat Konseling',
+                          '/riwayat', null),
                       buildOption(context, CupertinoIcons.bell, 'Notifikasi',
                           '/notifikasi', null),
                       buildOption(context, CupertinoIcons.checkmark_shield,

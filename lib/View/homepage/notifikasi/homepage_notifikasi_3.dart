@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:women_center_mobile/View/bottomnavigationbar/bottom_navigation_bar.dart';
+import 'package:women_center_mobile/View/widgets/bottom_navigation_bar.dart';
 
 class HomepageNotifikasi3 extends StatefulWidget {
   @override
