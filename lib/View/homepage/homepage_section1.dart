@@ -556,7 +556,9 @@ class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
                           ),
                         ],
                       ),
-                      Expanded(child: SizedBox()),
+                      const SizedBox(
+                        width: 140,
+                      ),
                       IconButton(
                         icon: const Icon(
                           Icons.notifications_none_outlined,
@@ -565,7 +567,6 @@ class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
                         ),
                         onPressed: () {
                           ///onpress ke notifikasi
-                          Navigator.pushNamed(context, '/notifikasi');
                         },
                       ),
                     ],
