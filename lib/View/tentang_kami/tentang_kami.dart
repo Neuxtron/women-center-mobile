@@ -1,27 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'My App Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class TentangKami extends StatelessWidget {
+  const TentangKami({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +10,6 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color(0xFFF9F5F6),
         elevation: 0,
-        leading: IconButton(
-          color: Colors.black,
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Tambahkan fungsi untuk kembali ke halaman sebelumnya
-          },
-        ),
         title: Text(
           'Tentang Kami',
           style: TextStyle(
