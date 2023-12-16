@@ -5,8 +5,6 @@ import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 import 'package:women_center_mobile/ViewModel/career_view_model/career_view_model.dart';
 
-import '../career/detail_job.dart';
-
 class Home2 extends StatefulWidget {
   final Function(int index) pindahHalaman;
   const Home2({super.key, required this.pindahHalaman});
@@ -43,7 +41,6 @@ class _Home2State extends State<Home2> {
             itemBuilder: (context, index) {
               final model = listKarir[index];
               return KarirItem(
-                id: model.id,
                 titleJob: model.titleJob,
                 logo: model.logo,
                 companyName: model.companyName,
@@ -60,7 +57,6 @@ class _Home2State extends State<Home2> {
 }
 
 class KarirItem extends StatelessWidget {
-  final int id;
   final String titleJob;
   final String logo;
   final String companyName;
@@ -70,7 +66,6 @@ class KarirItem extends StatelessWidget {
     required this.titleJob,
     required this.logo,
     required this.companyName,
-    required this.id,
   });
 
   @override
@@ -78,12 +73,6 @@ class KarirItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //isi halaman saat di tekan gambarnya
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailJob(jobId: id),
-          ),
-        );
       },
       child: Column(
         children: [
