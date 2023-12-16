@@ -179,7 +179,7 @@ class _ProfilPageState extends State<ProfilPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       buildOption(context, Icons.feedback_outlined,
-                          'Tentang Kami', '/tentang', null),
+                          'Tentang Kami', '/about', null),
                       buildOption(context, Icons.live_help_outlined,
                           'Bantuan dan FAQ', '/bantuan', null),
                       buildOption(context, Icons.headset_mic_outlined,

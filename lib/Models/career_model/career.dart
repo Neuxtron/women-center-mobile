@@ -5,6 +5,7 @@ class Job {
   final String companyName;
   final String publishedAt;
   final String location;
+  List<String> jobTypes;
 
   Job({
     required this.id,
@@ -13,6 +14,7 @@ class Job {
     required this.companyName,
     required this.publishedAt,
     required this.location,
+    this.jobTypes = const [],
   });
 
   factory Job.fromJson(Map<String, dynamic> json) {

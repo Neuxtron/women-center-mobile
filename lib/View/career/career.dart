@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/View/career/detail_job.dart';
+import 'package:women_center_mobile/View/career/filter_item.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/detail_career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/filter_carrerr.dart';
@@ -19,6 +22,8 @@ class _CareerState extends State<Career> {
   late JobViewModel _jobViewModel;
   bool isFilter = false;
   late FilterJobTypesViewModel _filterjobtypesviewmodel;
+  List<String> _filters = [];
+
   @override
   void initState() {
     super.initState();
@@ -30,18 +35,29 @@ class _CareerState extends State<Career> {
     _filterjobtypesviewmodel.fetchFilterJobTypes();
   }
 
+  void onFilter(String jobName) {
+    if (_filters.contains(jobName)) {
+      setState(() {
+        _filters.removeWhere((filterItem) => filterItem == jobName);
+      });
+    } else {
+      setState(() => _filters.add(jobName));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    context.read<JobViewModel>().fetchAllDetails();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          color: Color(0xFFF8E8EE),
-          padding: EdgeInsets.all(16.0),
+          color: const Color(0xFFF8E8EE),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               Column(
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Filter",
@@ -52,52 +68,27 @@ class _CareerState extends State<Career> {
                   ),
                   Consumer<FilterJobTypesViewModel>(
                     builder: (context, filterJobTypesViewModel, _) {
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children:
-                              filterJobTypesViewModel.filterjob.map((filter) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    // Perform actions when the button is pressed
-                                    // Misalnya, toggle filter pada view model
-                                    filterJobTypesViewModel
-                                        .toggleFilter(filter.name);
-                                    isButtonPressed = !isButtonPressed;
-                                    print(filter.name);
-                                  });
-                                },
-                                child: Text(
-                                  filter.name,
-                                  style: TextStyle(
-                                    color: isButtonPressed
-                                        ? Colors.white
-                                        : Color(0xFFF4518D),
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: isButtonPressed
-                                      ? Color(0xFFF4518D)
-                                      : null,
-                                  onPrimary: Colors
-                                      .white, // Warna teks ketika tombol ditekan
-                                ),
-                              ),
-                            );
-                          }).toList(),
+                      return SizedBox(
+                        height: 60,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: filterJobTypesViewModel.filterjob.length,
+                          itemBuilder: (context, index) {
+                            final jobType =
+                                filterJobTypesViewModel.filterjob[index];
+                            return FilterItem(
+                                jobType: jobType, onChange: onFilter);
+                          },
                         ),
                       );
                     },
                   )
                 ],
               ),
-              SizedBox(height: 15),
-              Divider(),
-              Align(
+              const SizedBox(height: 15),
+              const Divider(),
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "For you",
@@ -106,111 +97,15 @@ class _CareerState extends State<Career> {
                   ),
                 ),
               ),
-              SizedBox(height: 7),
-              Divider(),
+              const SizedBox(height: 7),
+              const Divider(),
 
-              // setiap job dipasang inkwell seperti ini ya, juhar
-              InkWell(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => DetailJob(),
-                  //   ),
-                  // );
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Widget Consumer yang menampilkan daftar pekerjaan
-                    Consumer<JobViewModel>(
-                      builder: (context, jobViewModel, child) {
-                        if (jobViewModel.jobs.isEmpty) {
-                          // Menampilkan indikator loading jika data masih dimuat
-                          return CircularProgressIndicator();
-                        } else {
-                          // Menampilkan data pekerjaan dengan ListView.separated
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: jobViewModel.jobs.length,
-                            separatorBuilder: (context, index) => Divider(),
-                            itemBuilder: (context, index) {
-                              final job = jobViewModel.jobs[index];
-                              return GestureDetector(
-                                onTap: () async {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailJob(jobId: job.id),
-                                    ),
-                                  );
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 61,
-                                      height: 61,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(job
-                                              .logo), // Menggunakan logo dari data pekerjaan
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        width:
-                                            15.0), // Jarak antara gambar dan teks
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          job.title, // Menggunakan title dari data pekerjaan
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFFF4518D),
-                                          ),
-                                        ),
-                                        Text(
-                                          job.companyName, // Menggunakan companyName dari data pekerjaan
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Text(
-                                          job.location, // Menggunakan location dari data pekerjaan
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        Text(
-                                          job.publishedAt, // Menggunakan publishedAt dari data pekerjaan
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Divider(),
-              Align(
+              // Tampilan list karir
+              ListJobsView(filters: _filters),
+              //
+
+              const Divider(),
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Other job",
@@ -219,97 +114,12 @@ class _CareerState extends State<Career> {
                   ),
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Widget Consumer yang menampilkan daftar pekerjaan
-                  Consumer<JobViewModel>(
-                    builder: (context, jobViewModel, child) {
-                      if (jobViewModel.jobs.isEmpty) {
-                        // Menampilkan indikator loading jika data masih dimuat
-                        return CircularProgressIndicator();
-                      } else {
-                        // Menampilkan data pekerjaan dengan ListView.separated
-                        return ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: jobViewModel.jobs.length,
-                          separatorBuilder: (context, index) =>
-                              Divider(), // Menambahkan Divider di antara setiap item
-                          itemBuilder: (context, index) {
-                            final job = jobViewModel.jobs[index];
-                            return GestureDetector(
-                              onTap: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailJob(jobId: job.id),
-                                  ),
-                                );
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 61,
-                                    height: 61,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(job
-                                            .logo), // Menggunakan logo dari data pekerjaan
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          15.0), // Jarak antara gambar dan teks
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        job.title, // Menggunakan title dari data pekerjaan
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFFF4518D),
-                                        ),
-                                      ),
-                                      Text(
-                                        job.companyName, // Menggunakan companyName dari data pekerjaan
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text(
-                                        job.location, // Menggunakan location dari data pekerjaan
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      Text(
-                                        job.publishedAt, // Menggunakan publishedAt dari data pekerjaan
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 7),
+
+              // Tampilan list karir
+              ListJobsView(filters: _filters),
+              //
+
+              const SizedBox(height: 7),
             ],
           ),
         ),
@@ -319,8 +129,8 @@ class _CareerState extends State<Career> {
           // Handle button tap
         },
         backgroundColor: const Color.fromARGB(255, 245, 63, 126),
-        shape: CircleBorder(),
-        child: Column(
+        shape: const CircleBorder(),
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Open', style: TextStyle(color: Colors.white)),
@@ -328,6 +138,110 @@ class _CareerState extends State<Career> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ListJobsView extends StatelessWidget {
+  final List<String> filters;
+  const ListJobsView({super.key, required this.filters});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<JobViewModel>(
+      builder: (context, jobViewModel, child) {
+        if (jobViewModel.jobs.isEmpty) {
+          // Menampilkan indikator loading jika data masih dimuat
+          return const CircularProgressIndicator();
+        } else {
+          // Menampilkan data pekerjaan dengan ListView.separated
+          final allJobs = context.watch<JobViewModel>().jobs;
+
+          // Filter pekerjaan
+          final filteredJobs = allJobs.where((job) {
+            // log("-------");
+            // log(filters.toString());
+            // log(job.jobTypes.toString());
+            for (var filterText in filters) {
+              if (!job.jobTypes.contains(filterText)) return false;
+            }
+            return true;
+          }).toList();
+          // final filteredJobs = allJobs;
+
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: filters.isEmpty ? allJobs.length : filteredJobs.length,
+            separatorBuilder: (context, index) => const Divider(),
+            itemBuilder: (context, index) {
+              final job =
+                  filters.isEmpty ? allJobs[index] : filteredJobs[index];
+              return GestureDetector(
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailJob(jobId: job.id),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 61,
+                      height: 61,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              job.logo), // Menggunakan logo dari data pekerjaan
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 15.0), // Jarak antara gambar dan teks
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          job.title, // Menggunakan title dari data pekerjaan
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFF4518D),
+                          ),
+                        ),
+                        Text(
+                          job.companyName, // Menggunakan companyName dari data pekerjaan
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          job.location, // Menggunakan location dari data pekerjaan
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          job.publishedAt, // Menggunakan publishedAt dari data pekerjaan
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      },
     );
   }
 }
