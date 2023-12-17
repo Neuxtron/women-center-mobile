@@ -61,6 +61,7 @@ class _HomepageSectionState extends State<HomepageSection> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           toolbarHeight: 70,
+          automaticallyImplyLeading: false,
           flexibleSpace: ClipRect(
             child: BackdropFilter(
               filter: ImageFilter.blur(

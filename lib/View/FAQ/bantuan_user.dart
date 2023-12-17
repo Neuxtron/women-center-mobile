@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class FAQUSER extends StatefulWidget {
   @override
-   _FAQUSERState createState() => _FAQUSERState();
+  _FAQUSERState createState() => _FAQUSERState();
 }
 
 class _FAQUSERState extends State<FAQUSER> {
@@ -22,16 +22,11 @@ class _FAQUSERState extends State<FAQUSER> {
   bool isExpanded5 = false;
   bool isExpanded6 = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
-        ),
         title: Center(
           child: Text(
             "Bantuan dan FAQ",
@@ -72,14 +67,12 @@ class _FAQUSERState extends State<FAQUSER> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _warna1 =
-                              (_warna1 == Colors.white)
-                                  ? const Color.fromRGBO(244, 81, 141, 1)
-                                  : Colors.white;
-                          _textColor1 =
-                              (_textColor1 == Colors.white)
-                                  ? Colors.black
-                                  : Colors.white;
+                          _warna1 = (_warna1 == Colors.white)
+                              ? const Color.fromRGBO(244, 81, 141, 1)
+                              : Colors.white;
+                          _textColor1 = (_textColor1 == Colors.white)
+                              ? Colors.black
+                              : Colors.white;
                         });
                       },
                       child: Text('Informasi Umum',
@@ -90,14 +83,12 @@ class _FAQUSERState extends State<FAQUSER> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _warna2 =
-                              (_warna2 == Colors.white)
-                                  ? const Color.fromRGBO(244, 81, 141, 1)
-                                  : Colors.white;
-                          _textColor2 =
-                              (_textColor2 == Colors.white)
-                                  ? Colors.black
-                                  : Colors.white;
+                          _warna2 = (_warna2 == Colors.white)
+                              ? const Color.fromRGBO(244, 81, 141, 1)
+                              : Colors.white;
+                          _textColor2 = (_textColor2 == Colors.white)
+                              ? Colors.black
+                              : Colors.white;
                         });
                       },
                       child: Text('Akun',
@@ -108,14 +99,12 @@ class _FAQUSERState extends State<FAQUSER> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _warna3 =
-                              (_warna3 == Colors.white)
-                                  ? const Color.fromRGBO(244, 81, 141, 1)
-                                  : Colors.white;
-                          _textColor3 =
-                              (_textColor3 == Colors.white)
-                                  ? Colors.black
-                                  : Colors.white;
+                          _warna3 = (_warna3 == Colors.white)
+                              ? const Color.fromRGBO(244, 81, 141, 1)
+                              : Colors.white;
+                          _textColor3 = (_textColor3 == Colors.white)
+                              ? Colors.black
+                              : Colors.white;
                         });
                       },
                       child: Text('Jam Opersional',
@@ -126,14 +115,12 @@ class _FAQUSERState extends State<FAQUSER> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _warna4 =
-                              (_warna4 == Colors.white)
-                                  ? const Color.fromRGBO(244, 81, 141, 1)
-                                  : Colors.white;
-                          _textColor4 =
-                              (_textColor4 == Colors.white)
-                                  ? Colors.black
-                                  : Colors.white;
+                          _warna4 = (_warna4 == Colors.white)
+                              ? const Color.fromRGBO(244, 81, 141, 1)
+                              : Colors.white;
+                          _textColor4 = (_textColor4 == Colors.white)
+                              ? Colors.black
+                              : Colors.white;
                         });
                       },
                       child: Text('Customer Service',
@@ -161,11 +148,13 @@ class _FAQUSERState extends State<FAQUSER> {
                   ListTile(
                     title: Text(
                       'Apa itu Women Center?',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     trailing: IconButton(
-                      icon: Icon(isExpanded ? Icons.remove : Icons.add, color: Color.fromRGBO(244, 81, 141, 1)),
+                      icon: Icon(isExpanded ? Icons.remove : Icons.add,
+                          color: Color.fromRGBO(244, 81, 141, 1)),
                       onPressed: () {
                         setState(() {
                           isExpanded = !isExpanded;
@@ -201,11 +190,13 @@ class _FAQUSERState extends State<FAQUSER> {
                   ListTile(
                     title: Text(
                       'Apakah saya dapat terhubung dengan konselor?',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     trailing: IconButton(
-                      icon: Icon(isExpanded2 ? Icons.remove : Icons.add, color: Color.fromRGBO(244, 81, 141, 1)),
+                      icon: Icon(isExpanded2 ? Icons.remove : Icons.add,
+                          color: Color.fromRGBO(244, 81, 141, 1)),
                       onPressed: () {
                         setState(() {
                           isExpanded2 = !isExpanded2;
@@ -241,11 +232,13 @@ class _FAQUSERState extends State<FAQUSER> {
                   ListTile(
                     title: Text(
                       'Berapa lama saya akan mendapat diagnosa dari konselor?',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     trailing: IconButton(
-                      icon: Icon(isExpanded3 ? Icons.remove : Icons.add, color: Color.fromRGBO(244, 81, 141, 1)),
+                      icon: Icon(isExpanded3 ? Icons.remove : Icons.add,
+                          color: Color.fromRGBO(244, 81, 141, 1)),
                       onPressed: () {
                         setState(() {
                           isExpanded3 = !isExpanded3;
@@ -281,11 +274,13 @@ class _FAQUSERState extends State<FAQUSER> {
                   ListTile(
                     title: Text(
                       'Apakah saya akan mendapatkan resep dari Konselor?',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     trailing: IconButton(
-                      icon: Icon(isExpanded4 ? Icons.remove : Icons.add, color: Color.fromRGBO(244, 81, 141, 1)),
+                      icon: Icon(isExpanded4 ? Icons.remove : Icons.add,
+                          color: Color.fromRGBO(244, 81, 141, 1)),
                       onPressed: () {
                         setState(() {
                           isExpanded4 = !isExpanded4;
@@ -321,11 +316,13 @@ class _FAQUSERState extends State<FAQUSER> {
                   ListTile(
                     title: Text(
                       'Apa saja layanan yang ada di Women Center?',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
                     trailing: IconButton(
-                      icon: Icon(isExpanded6 ? Icons.remove : Icons.add, color: Color.fromRGBO(244, 81, 141, 1)),
+                      icon: Icon(isExpanded6 ? Icons.remove : Icons.add,
+                          color: Color.fromRGBO(244, 81, 141, 1)),
                       onPressed: () {
                         setState(() {
                           isExpanded6 = !isExpanded6;

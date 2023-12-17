@@ -180,12 +180,6 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // Tambahkan fungsi untuk kembali ke layar sebelumnya
-          },
-        ),
         title: Row(
           children: [
             CircleAvatar(

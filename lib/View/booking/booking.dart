@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/konselor_model/konselor_model.dart';
@@ -44,7 +46,11 @@ class _BookingState extends State<Booking> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset("Assets/images/booking.png"),
+          Image.network(
+            _args.konselor.profilePicture,
+            width: double.infinity,
+            fit: BoxFit.contain,
+          ),
           SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
@@ -57,7 +63,7 @@ class _BookingState extends State<Booking> {
               child: Column(
                 children: [
                   Text(_args.konselor.firstName + _args.konselor.lastName),
-                  const Text("Psikologi • Universitas Indonesia"),
+                  Text(_args.konselor.education),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
