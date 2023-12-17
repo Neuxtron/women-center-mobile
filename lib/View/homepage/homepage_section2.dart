@@ -176,55 +176,61 @@ class _LatestArtikelState extends State<LatestArtikel> {
 
   Widget fromAPI() {
     if (_artikel == null) return const SizedBox();
-    return Column(
-      children: [
-        ClipRRect(
-            borderRadius: BorderRadius.circular(50.0),
-            child: Image.network(
-              _artikel!.thumbnail,
-              width: 200.0, // Atur lebar gambar
-              height: 200.0, // Atur tinggi gambar
-              fit: BoxFit.cover,
-            )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              _artikel!.author.name,
-              style: TextStyle(
-                color: Color(0xFF787878),
-                fontFamily: 'Poppins',
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Expanded(
-              child: SizedBox(),
-            ),
-            Text(
-              _artikel!.formatJam(),
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 16.0,
-                fontWeight: FontWeight.normal,
-                color: Color(0xFFA5A5A5),
-              ),
-            ),
-          ],
-        ), 
-        Row(
-         crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _artikel!.title,
+    return Padding(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Column(
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.network(
+                _artikel!.thumbnail,
+                width: double.infinity, // Atur lebar gambar
+                height: 200.0, // Atur tinggi gambar
+                fit: BoxFit.fill,
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                _artikel!.author.name,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF787878),
                   fontFamily: 'Poppins',
-                  fontSize: 25,
-                )),
-          ],
-        ),
-      ],
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Expanded(
+                child: SizedBox(),
+              ),
+              Text(
+                _artikel!.formatJam(),
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.normal,
+                  color: Color(0xFFA5A5A5),
+                ),
+              ),
+            ],
+          ), 
+          Row(
+           crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  _artikel!.title,
+                  softWrap: true,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 25,
+                    )),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
