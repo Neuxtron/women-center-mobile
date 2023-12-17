@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:women_center_mobile/ViewModel/konseling_konselor_view_model.dart/konseling_konselor_view_model.dart';
 
 import '../../Models/konseling_model/konseling_model.dart';
 import 'detail_sesi_konseling.dart';
@@ -10,37 +14,58 @@ class SesiKonseling extends StatefulWidget {
 
 class _SesiKonselingState extends State<SesiKonseling> {
   KonselingModel? _selectedKonseling;
-  KonselingModel _dummyKonseling = KonselingModel(
-    id: "8912yv12v",
-    nama: "Aurel Adisti",
-    email: "aureladisti@gmail.com",
-    paket: "Voice Call",
-    jadwalSesi: [
-      JadwalKonseling(
-        jadwal: DateTime.parse("2023-10-03 09:00:00"),
-        selesai: true,
-      ),
-      JadwalKonseling(
-        jadwal: DateTime.parse("2023-10-14 09:00:00"),
-        selesai: false,
-      ),
-      JadwalKonseling(
-        jadwal: DateTime.parse("2023-10-17 09:00:00"),
-        selesai: false,
-      ),
-    ],
-  );
+  List<KonselingModel> get _listKonseling =>
+      context.read<KonselingKonselorViewModel>().listKonseling;
+  // final KonselingModel _dummyKonseling = KonselingModel(
+  //   id: "8912yv12v",
+  //   nama: "Aurel Adisti",
+  //   email: "aureladisti@gmail.com",
+  //   paket: "Voice Call",
+  //   jadwalSesi: [
+  //     JadwalKonseling(
+  //       tanggal: DateTime.parse("2023-10-03"),
+  //       jamAwal: const TimeOfDay(hour: 9, minute: 0),
+  //       jamAkhir: const TimeOfDay(hour: 10, minute: 0),
+  //     ),
+  //     JadwalKonseling(
+  //       tanggal: DateTime.parse("2024-10-14"),
+  //       jamAwal: const TimeOfDay(hour: 9, minute: 0),
+  //       jamAkhir: const TimeOfDay(hour: 10, minute: 0),
+  //     ),
+  //     JadwalKonseling(
+  //       tanggal: DateTime.parse("2024-10-17"),
+  //       jamAwal: const TimeOfDay(hour: 9, minute: 0),
+  //       jamAkhir: const TimeOfDay(hour: 10, minute: 0),
+  //     ),
+  //   ],
+  // );
 
-  void bukaDetail(KonselingModel? konseling) {
+  void bukaDetail(KonselingModel? konseling) async {
     setState(() => _selectedKonseling = konseling);
+    if (konseling != null) {
+      KonselingModel? modelBaru = await context
+          .read<KonselingKonselorViewModel>()
+          .fetchDetail(konseling.id);
+      if (modelBaru != null) {
+        setState(() {
+          konseling.jadwalSesi = modelBaru.jadwalSesi;
+          konseling.email = modelBaru.email;
+        });
+      }
+    }
+  }
+
+  void fetchData() {
+    context.read<KonselingKonselorViewModel>().fetchAllKonseling();
   }
 
   @override
   Widget build(BuildContext context) {
+    fetchData();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFFDCEDF),
-        title: Center(
+        backgroundColor: const Color(0xFFFDCEDF),
+        title: const Center(
           child: Text(
             "Riwayat Konseling",
             style: TextStyle(
@@ -54,7 +79,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -67,16 +92,18 @@ class _SesiKonselingState extends State<SesiKonseling> {
                 ),
                 InkWell(
                   onTap: () {
-                    bukaDetail(_dummyKonseling);
+                    // TODO: Masih data dummy yaaaa
+                    bukaDetail(
+                        _listKonseling.isEmpty ? null : _listKonseling[0]);
                   },
                   child: Card(
                     color: Colors.white,
-                    margin: EdgeInsets.only(left: 13, right: 13),
+                    margin: const EdgeInsets.only(left: 13, right: 13),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          Column(
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -110,8 +137,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Row(
+                          const SizedBox(height: 10),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -131,7 +158,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -151,8 +178,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
-                          Row(
+                          const SizedBox(height: 15),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -171,35 +198,35 @@ class _SesiKonselingState extends State<SesiKonseling> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '09.00 - 10.00',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xFFF4518D)),
                                   ),
-                                  SizedBox(width: 138),
+                                  const SizedBox(width: 138),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon chat ditekan
                                     },
-                                    child: Icon(Icons.chat_bubble,
+                                    child: const Icon(Icons.chat_bubble,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon videocam ditekan
                                     },
-                                    child: Icon(Icons.videocam,
+                                    child: const Icon(Icons.videocam,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon call ditekan
                                     },
-                                    child: Icon(Icons.call,
+                                    child: const Icon(Icons.call,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
                                 ],
@@ -213,16 +240,18 @@ class _SesiKonselingState extends State<SesiKonseling> {
                 ),
                 InkWell(
                   onTap: () {
-                    bukaDetail(_dummyKonseling);
+                    // TODO: Masih data dummy yaaaa
+                    bukaDetail(
+                        _listKonseling.isEmpty ? null : _listKonseling[0]);
                   },
                   child: Card(
                     color: Colors.white,
-                    margin: EdgeInsets.only(left: 13, right: 13, top: 15),
+                    margin: const EdgeInsets.only(left: 13, right: 13, top: 15),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          Column(
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -255,8 +284,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Row(
+                          const SizedBox(height: 10),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -276,7 +305,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -296,8 +325,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
-                          Row(
+                          const SizedBox(height: 15),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -316,35 +345,35 @@ class _SesiKonselingState extends State<SesiKonseling> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '13.00 - 14.00',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xFFF4518D)),
                                   ),
-                                  SizedBox(width: 138),
+                                  const SizedBox(width: 138),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon chat ditekan
                                     },
-                                    child: Icon(Icons.chat_bubble,
+                                    child: const Icon(Icons.chat_bubble,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon videocam ditekan
                                     },
-                                    child: Icon(Icons.videocam,
+                                    child: const Icon(Icons.videocam,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon call ditekan
                                     },
-                                    child: Icon(Icons.call,
+                                    child: const Icon(Icons.call,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
                                 ],
@@ -358,16 +387,18 @@ class _SesiKonselingState extends State<SesiKonseling> {
                 ),
                 InkWell(
                   onTap: () {
-                    bukaDetail(_dummyKonseling);
+                    // TODO: Masih data dummy yaaaa
+                    bukaDetail(
+                        _listKonseling.isEmpty ? null : _listKonseling[0]);
                   },
                   child: Card(
                     color: Colors.white,
-                    margin: EdgeInsets.only(left: 13, right: 13, top: 15),
+                    margin: const EdgeInsets.only(left: 13, right: 13, top: 15),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          Column(
+                          const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -400,8 +431,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Row(
+                          const SizedBox(height: 10),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -421,7 +452,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -441,8 +472,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
-                          Row(
+                          const SizedBox(height: 15),
+                          const Row(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -461,35 +492,35 @@ class _SesiKonselingState extends State<SesiKonseling> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '09.00 - 10.00',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                         color: Color(0xFFF4518D)),
                                   ),
-                                  SizedBox(width: 138),
+                                  const SizedBox(width: 138),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon chat ditekan
                                     },
-                                    child: Icon(Icons.chat_bubble,
+                                    child: const Icon(Icons.chat_bubble,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon videocam ditekan
                                     },
-                                    child: Icon(Icons.videocam,
+                                    child: const Icon(Icons.videocam,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   InkWell(
                                     onTap: () {
                                       // Tindakan ketika ikon call ditekan
                                     },
-                                    child: Icon(Icons.call,
+                                    child: const Icon(Icons.call,
                                         color: Color(0xFFF4518D), size: 27),
                                   ),
                                 ],
