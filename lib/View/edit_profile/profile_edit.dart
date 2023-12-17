@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:women_center_mobile/View/edit_profile/profile_edit.dart';
+import 'package:women_center_mobile/View/edit_profile/edit_form.dart';
 import 'package:women_center_mobile/ViewModel/profie_edit/profile_edit.dart';
-import 'package:intl/intl.dart';
+import 'dart:ui';
 
 class CustomShapeClipper extends CustomClipper<Path> {
   @override
@@ -22,27 +23,17 @@ class CustomShapeClipper extends CustomClipper<Path> {
   }
 }
 
-class EditDataProfile extends StatefulWidget {
+class ProfileEdit extends StatefulWidget {
   @override
-  _EditDataProfileState createState() => _EditDataProfileState();
+  _ProfileEditState createState() => _ProfileEditState();
 }
 
-class _EditDataProfileState extends State<EditDataProfile> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _fullNameController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _birthdayController = TextEditingController();
-
-  String _usernameError = '';
-  String _fullnameError = '';
-  String _emailError = '';
-  String _birthdayError = '';
-
+class _ProfileEditState extends State<ProfileEdit> {
   Color iconColor = const Color(0xFFF4518D);
   final ApiProfil _apiProfil = ApiProfil();
   Map<String, dynamic> _userProfile = {};
+
+  
 
   @override
   void initState() {
@@ -50,109 +41,41 @@ class _EditDataProfileState extends State<EditDataProfile> {
     _fetchUserProfile();
   }
 
+  
+
   Future<void> _fetchUserProfile() async {
     try {
       final response = await _apiProfil.getUserProfile();
+      print('Profile Picture URL: ${_userProfile['profile_picture']}');
       setState(() {
         _userProfile = response['data'];
-
-        // Set nilai awal pada controller berdasarkan data yang diambil
-        _usernameController.text = _userProfile['username'] ?? '';
-        _fullNameController.text = _userProfile['full_name'] ?? '';
-        _emailController.text = _userProfile['email'] ?? '';
-// Parse the birthday to a DateTime object and format it to 'yyyy-mm-dd'
-        var birthday = _userProfile['birthday'];
-        print('tampilkan birthday1: $birthday');
-        if (birthday != null) {
-          var inputFormat = DateFormat(
-              'dd MMM yyyy'); // Replace 'dd MMM yyyy' with the format of your date string
-          var parsedDate = inputFormat.parse(birthday);
-          var formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
-          _birthdayController.text = formattedDate;
-          print('tampilkan birthday2: $_birthdayController');
-        } else {
-          print('tampilkan birthday3');
-
-          _birthdayController.text = '';
-        }
+        print('userprofile $_userProfile');
       });
     } catch (error) {
       print('Error fetching user profile: $error');
     }
   }
 
-  Future<void> _showDatePicker() async {
-    DateTime? selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
+  // Future<void> _navigateToEditProfile() async {
+  //   var updatedData = await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => EditDataProfile(),
+  //     ),
+  //   );
 
-    if (selectedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
-      setState(() {
-        _birthdayController.text = formattedDate;
-      });
-    }
-  }
+  //   // Print updatedData for debugging
 
-  Future<void> _saveChanges() async {
-    var fullName = _fullNameController.text;
-    var nameParts = fullName.split(' ');
-    var firstName = nameParts[0];
-
-    // Mengambil semua elemen mulai dari indeks ke-1 dan menggabungkannya menjadi satu string
-    String birthday = _birthdayController.text;
-    String formatedBirthday = birthday.replaceAll(' ', '-');
-
-    var lastName = nameParts.sublist(1).join(' ');
-
-    var username = _usernameController.text;
-    if (username.isEmpty) {
-      setState(() {
-        _usernameError = 'Username tidak boleh kosong';
-      });
-      return; // Menghentikan eksekusi metode jika ada kesalahan
-    }
-
-    var email = _emailController.text;
-    if (email.isEmpty) {
-      setState(() {
-        _emailError = 'Email tidak boleh kosong';
-      });
-      return; // Menghentikan eksekusi metode jika ada kesalahan
-    }
-
-    if (fullName.isEmpty) {
-      setState(() {
-        _fullnameError = 'Full Name tidak boleh kosong';
-      });
-      return; // Menghentikan eksekusi metode jika ada kesalahan
-    }
-
-    if (birthday.isEmpty) {
-      setState(() {
-        _birthdayError = 'Birthday tidak boleh kosong';
-      });
-      return; // Menghentikan eksekusi metode jika ada kesalahan
-    }
-
-    Map<String, dynamic> updatedData = {
-      'Username': username,
-      'first_name': firstName,
-      'Last_name': lastName,
-      'Email': email,
-      'birthday': formatedBirthday,
-    };
-    await _apiProfil.updateUserProfile(updatedData);
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileEdit(),
-      ),
-    );
-  }
+  //   if (updatedData != null) {
+  //     _fetchUserProfile();
+  //     // setState(() {
+  //     //   _userProfile = updatedData;
+  //     // });
+  //     print('Received Updated Data: $updatedData');
+  //   } else {
+  //     print('No updated data received.');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +111,7 @@ class _EditDataProfileState extends State<EditDataProfile> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons
-                .ios_share_outlined), // Ganti dengan ikon notifikasi yang diinginkan
+            icon: Icon(Icons.ios_share_outlined),
             onPressed: () {
               // Aksi yang ingin diambil ketika tombol notifikasi ditekan
             },
@@ -232,7 +154,12 @@ class _EditDataProfileState extends State<EditDataProfile> {
                           right: 5,
                           child: InkWell(
                             onTap: () {
-                              // Aksi yang ingin diambil ketika lingkaran edit ditekan
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditDataProfile(),
+                                ),
+                              );
                             },
                             child: Container(
                               width: 30,
@@ -301,34 +228,14 @@ class _EditDataProfileState extends State<EditDataProfile> {
                           border: Border.all(color: Colors.pink),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                        child: TextField(
-                          controller: _usernameController,
+                        child: Text(
+                          _userProfile['username'] ?? 'username',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              _usernameError = '';
-                            });
-                            // Handle perubahan teks pada username
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none, // hilangkan border
-                          ),
                         ),
                       ),
-                      if (_usernameError.isNotEmpty)
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(
-                            _usernameError,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
                       //--------------------FULL NAME------------------
                       SizedBox(height: 15),
                       Text(
@@ -346,33 +253,14 @@ class _EditDataProfileState extends State<EditDataProfile> {
                           border: Border.all(color: Colors.pink),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                        child: TextField(
-                          controller: _fullNameController,
+                        child: Text(
+                          _userProfile['full_name'] ?? 'full name',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              _fullnameError = '';
-                            });
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none, // hilangkan border
-                          ),
                         ),
                       ),
-                      if (_fullnameError.isNotEmpty)
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(
-                            _fullnameError,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
                       //--------------------EMAIL----------------
                       SizedBox(height: 15),
                       Text(
@@ -390,33 +278,14 @@ class _EditDataProfileState extends State<EditDataProfile> {
                           border: Border.all(color: Colors.pink),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                        child: TextField(
-                          controller: _emailController,
+                        child: Text(
+                          _userProfile['email'] ?? 'examp@le.com',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              _emailError = '';
-                            });
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none, // hilangkan border
-                          ),
                         ),
                       ),
-                      if (_emailError.isNotEmpty)
-                        Padding(
-                          padding: EdgeInsets.only(top: 8),
-                          child: Text(
-                            _emailError,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
                       //-------------BIRTHDAY----------
                       SizedBox(height: 15),
                       Text(
@@ -434,62 +303,17 @@ class _EditDataProfileState extends State<EditDataProfile> {
                           border: Border.all(color: Colors.pink),
                           borderRadius: BorderRadius.all(Radius.circular(5.0)),
                         ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: TextField(
-                                controller: _birthdayController,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                onChanged: (value) {},
-                                decoration: InputDecoration(
-                                  border: InputBorder.none, // hilangkan border
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: _showDatePicker,
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                child: Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.pink,
-                                ),
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          _userProfile['birthday'] ?? 'dd/mm/yy',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
-              ),
-            ),
-            SizedBox(height: 30),
-            Align(
-              alignment: Alignment.center,
-              child: Transform.translate(
-                offset: Offset(0.0, -20.0),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 1),
-                  child: Container(
-                    margin: EdgeInsets.only(top: 1.0, bottom: 0.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print('cek tombol');
-                        _saveChanges();
-                        print('cek tombol2');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.pink,
-                        onPrimary: Colors.white,
-                      ),
-                      child: Text('Simpan Perubahan'),
-                    ),
-                  ),
-                ),
               ),
             ),
           ],

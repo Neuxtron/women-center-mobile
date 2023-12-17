@@ -67,10 +67,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           if (response.statusCode == 201) {
                             viewModel.register();
                             // Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Onboarding()));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => Onboarding()));
+                            Navigator.pushNamed(context, '/onboarding');
                           } else if (response.statusCode == 409) {
                             print('email sama');
                             final errorMessage = response.data['message'];
