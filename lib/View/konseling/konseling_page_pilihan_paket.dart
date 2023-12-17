@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/paket_model/paket.dart';
 
@@ -20,6 +21,24 @@ class _PilihanPaketState extends State<PilihanPaket> {
     context.read<PaketViewModel>().fetchAllPaket();
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0,
+        title: Text(
+          'Konseling',
+          style: GoogleFonts.roboto(
+            textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 19.5,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        backgroundColor: const Color(0xFFFDCEDF),
+      ),
       body: Column(
         children: [
           Expanded(
@@ -29,6 +48,9 @@ class _PilihanPaketState extends State<PilihanPaket> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 8,
+                    ),
                     Text(
                       "Pilih Paket Anda!",
                       style: TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/View/career/detail_job.dart';
 import 'package:women_center_mobile/View/career/filter_item.dart';
@@ -49,6 +50,24 @@ class _CareerState extends State<Career> {
   Widget build(BuildContext context) {
     context.read<JobViewModel>().fetchAllDetails();
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+        centerTitle: true,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0,
+        title: Text(
+          'Karir',
+          style: GoogleFonts.roboto(
+            textStyle: TextStyle(
+              color: Colors.black,
+              fontSize: 19.5,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        backgroundColor: const Color(0xFFFDCEDF),
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color(0xFFF8E8EE),
