@@ -65,6 +65,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   final LoginViewModel _loginViewModel = LoginViewModel(); //import login api
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -279,7 +280,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     LoginData loginData =
                         LoginData(email: email, password: password);
                     _loginViewModel.loginUser(loginData).then((loginResponse) {
-                      if (loginResponse.sucess == true) {
+                      if (loginResponse.sucess) {
                         print('ke halaman on boarding');
                         AuthService.token = loginResponse.token;
                         AuthService.role = loginResponse.role;
