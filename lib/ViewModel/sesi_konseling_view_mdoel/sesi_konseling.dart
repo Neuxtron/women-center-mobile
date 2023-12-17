@@ -1,32 +1,35 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:women_center_mobile/Models/konseling_model/konseling_model.dart';
 import 'dart:convert';
 
-import 'package:women_center_mobile/Models/sesi_konseling_model/sesi_konseling.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 
 class CounselingSessionViewModel extends ChangeNotifier {
-  List<CounselingSession> _counselingsession = [];
-
-  List<CounselingSession> get conseling => _counselingsession;
+  List<KonselingModel> _counselingsession = [];
+  List<KonselingModel> get conseling => _counselingsession;
+  String get _token => AuthService.token;
 
   Future<void> fetchcounselingsession() async {
     try {
       final response = await http.get(
-        Uri.parse('https://api-ferminacare.tech/api/v1/counselors/counseling-session'),
-        headers: {
-          'Authorization':
-              'Bearer '
-        },
+        Uri.parse(
+            'https://api-ferminacare.tech/api/v1/counselors/counseling-session'),
+        headers: {'Authorization': 'Bearer $_token'},
       );
 
       if (response.statusCode == 200) {
         final dynamic jsonResponse = json.decode(response.body);
 
-        if (jsonResponse['code'] == 200 && jsonResponse['data'] is List<dynamic>) {
+        if (jsonResponse['code'] == 200 &&
+            jsonResponse['data'] is List<dynamic>) {
           final List<dynamic> data = jsonResponse['data'];
-          
+
           if (data.isNotEmpty) {
-            _counselingsession = data.map((item) => CounselingSession.fromJson(item)).toList();
+            _counselingsession =
+                data.map((item) => KonselingModel.fromJson(item)).toList();
             notifyListeners();
           } else {
             print('No CounselingSession available.');
@@ -35,10 +38,45 @@ class CounselingSessionViewModel extends ChangeNotifier {
           throw Exception('Invalid response format');
         }
       } else {
-        throw Exception('Failed to load CounselingSession. Status code: ${response.statusCode}');
+        throw Exception(
+            'Failed to load CounselingSession. Status code: ${response.statusCode}');
       }
     } catch (error) {
       print('Error fetching CounselingSession: $error');
     }
+  }
+
+  Future<KonselingModel?> fetchDetail(String id) async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            "https://api-ferminacare.tech/api/v1/counselors/counseling-session/$id"),
+        headers: {
+          "Authorization": "Bearer $_token",
+        },
+      );
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.body)["data"];
+        final jsonJadwal = jsonData["schedules"] as List;
+
+        String email = jsonData["email"];
+        List<JadwalKonseling> jadwalSesi =
+            jsonJadwal.map((e) => JadwalKonseling.fromJson(e)).toList();
+
+        for (var konseling in _counselingsession) {
+          if (konseling.id == id) {
+            konseling.email = email;
+            konseling.jadwalSesi = jadwalSesi;
+          }
+        }
+        notifyListeners();
+        return _counselingsession.firstWhere((konseling) => konseling.id == id);
+      } else {
+        log("status code:${response.statusCode}\n${response.body}");
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    return null;
   }
 }

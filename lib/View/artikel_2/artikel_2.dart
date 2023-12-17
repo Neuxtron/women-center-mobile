@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class Artikel2 extends StatefulWidget {
   final ArtikelModel model;
@@ -111,7 +110,7 @@ class _ContentState extends State<Content> {
       crossAxisAlignment: CrossAxisAlignment.start,
       // mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Html(data: _loading ? "loading..." : _model.content ?? ""),
+        Text(_loading ? "loading..." : _model.content ?? ""),
         Text("${_model.comments.length} Komentar"),
         const Divider(color: Colors.black, thickness: 1),
         const Row(

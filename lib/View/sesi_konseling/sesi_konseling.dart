@@ -47,7 +47,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
     setState(() => _selectedKonseling = konseling);
     if (konseling != null) {
       KonselingModel? modelBaru = await context
-          .read<KonselingKonselorViewModel>()
+          .read<CounselingSessionViewModel>()
           .fetchDetail(konseling.id);
       if (modelBaru != null) {
         setState(() {
