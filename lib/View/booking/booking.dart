@@ -77,6 +77,8 @@ class _BookingState extends State<Booking> {
                   PsikologTabView(
                     description: _args.konselor.description,
                     schedule: _schedule,
+                    konselorId: _args.konselor.id,
+                    paketId: _args.idPaket,
                   ),
                 ],
               ),
@@ -91,11 +93,13 @@ class _BookingState extends State<Booking> {
 class PsikologTabView extends StatefulWidget {
   final String description;
   final List<int> schedule;
+  final int konselorId;
+  final int paketId;
 
   const PsikologTabView({
     super.key,
     required this.description,
-    required this.schedule,
+    required this.schedule, required this.konselorId, required this.paketId,
   });
 
   @override
@@ -115,6 +119,8 @@ class _PsikologTabViewState extends State<PsikologTabView> {
         TentangPsikolog(
           description: widget.description,
           schedule: widget.schedule,
+          konselorId: widget.konselorId,
+          paketId: widget.paketId,
         ),
         const Review(),
       ];

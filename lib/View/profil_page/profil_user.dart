@@ -96,24 +96,6 @@ class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: 50,
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   automaticallyImplyLeading: false,
-      //   scrolledUnderElevation: 0,
-      //   title: Text(
-      //     'Artikel',
-      //     style: GoogleFonts.roboto(
-      //       textStyle: TextStyle(
-      //         color: Colors.black,
-      //         fontSize: 19.5,
-      //         fontWeight: FontWeight.w500,
-      //       ),
-      //     ),
-      //   ),
-      //   backgroundColor: const Color(0xFFFDCEDF),
-      // ),
       appBar: AppBar(
         backgroundColor: Color(0xFFFDCEDF),
         toolbarHeight: 60,

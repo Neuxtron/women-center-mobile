@@ -34,6 +34,7 @@ class _artikelKonselorState extends State<artikelKonselor> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.pink[100],

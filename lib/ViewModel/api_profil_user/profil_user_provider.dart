@@ -1,16 +1,17 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-
 import 'package:women_center_mobile/Models/utils/auth_service.dart';
+import 'package:flutter/material.dart';
 
-class ApiProfil {
+class ProfilUserViewModel with ChangeNotifier {
+
+  void updateToken(String newToken) {
+    AuthService.token = newToken;
+    notifyListeners();
+  }
+}
+
+class ApiProfilUser {
   final Dio _dio = Dio();
-  final String _authToken =
-      // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImZ1bGxfbmFtZSI6ImFndW5nYmhhc2thcmEiLCJlbWFpbCI6ImFndW5nMTIzQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzAyNzczNDgyfQ.3HK59qgOrPm_Uxx9OE_NrfoFK_UeUvpQSnsc7cxoKPc';
-      AuthService.token;
-  // void setAuthToken(String token) {
-  //   _authToken = token;
-  // }
 
   Future<Map<String, dynamic>> getUserProfile() async {
     try {
@@ -21,7 +22,11 @@ class ApiProfil {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = response.data;
-        print(data);
+        print('User Profile Data:');
+        print('ID: ${data['id']}');
+        print('Username: ${data['username']}');
+        print('Full Name: ${data['full_name']}');
+        print('Email: ${data['email']}');
         return data;
       } else {
         throw Exception('Failed to load user profile');

@@ -2,16 +2,23 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:women_center_mobile/Models/utils/navigation_service.dart';
+import 'package:women_center_mobile/ViewModel/konselor_view_model/konselor_view_model.dart';
 
 class TentangPsikolog extends StatefulWidget {
   final String description;
   final List<int> schedule;
+  final int konselorId;
+  final int paketId;
 
   const TentangPsikolog({
     super.key,
     required this.description,
     required this.schedule,
+    required this.konselorId,
+    required this.paketId,
   });
 
   @override
@@ -26,7 +33,7 @@ class _TentangPsikologState extends State<TentangPsikolog> {
     "Hubungan",
   ];
 
-  List<DateTime?> _listTanggal = [null, null, null];
+  final List<DateTime?> _listTanggal = [null, null, null];
 
   void updateTanggal(int index, DateTime tgl) {
     _listTanggal[index] = tgl;
@@ -71,11 +78,27 @@ class _TentangPsikologState extends State<TentangPsikolog> {
         ),
         MaterialButton(
           minWidth: double.infinity,
-          onPressed: () {
-            Navigator.pushNamed(
-              NavigationService.navigatorKey.currentContext ?? context,
-              "/pembayaran1",
-            );
+          onPressed: () async {
+            // TODO: post ke api
+            final response = await context.read<KonselorViewModel>().booking(
+                  widget.konselorId,
+                  widget.paketId,
+                  _listTanggal,
+                );
+
+            if (response) {
+              final orderIdviewModel = context.read<KonselorViewModel>().order_id;
+              log("di view model: $orderIdviewModel");
+              
+              final prefs = await SharedPreferences.getInstance();
+              final orderIdLocalStorage = prefs.getString("order_id");
+              log("di localstorage: $orderIdLocalStorage");
+              
+              Navigator.pushNamed(
+                NavigationService.navigatorKey.currentContext ?? context,
+                "/pembayaran1",
+              );
+            }
           },
           color: Color(0xFFF4518D),
           shape: RoundedRectangleBorder(
@@ -134,7 +157,7 @@ class _MingguItemState extends State<MingguItem> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(DateTime.now().year + 1),
+      lastDate: DateTime(DateTime.now().year + 1, DateTime.now().month),
     );
 
     log(tgl?.weekday.toString() ?? "");
