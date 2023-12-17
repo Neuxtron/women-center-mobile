@@ -66,15 +66,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   final LoginViewModel _loginViewModel = LoginViewModel(); //import login api
 
   @override
-  void initState() {
-    super.initState();
-    // _emailController.text = "arman123@gmail.com";
-    // _passwordController.text = "Arman123";
-    _emailController.text = "vr46@gmail.com";
-    _passwordController.text = "rossi123";
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -288,7 +279,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     LoginData loginData =
                         LoginData(email: email, password: password);
                     _loginViewModel.loginUser(loginData).then((loginResponse) {
-                      if (loginResponse.sucess) {
+                      if (loginResponse.sucess == true) {
                         print('ke halaman on boarding');
                         AuthService.token = loginResponse.token;
                         AuthService.role = loginResponse.role;
