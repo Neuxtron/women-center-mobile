@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 
 class ApiProfilKonselor {
   final Dio _dio = Dio();
-  String _authToken = 
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImZ1bGxfbmFtZSI6IlZhbGVudGlubyBSb3NzaSIsImVtYWlsIjoidnI0NkBnbWFpbC5jb20iLCJyb2xlIjoiY291bnNlbG9yIiwiZXhwIjoxNzAyNzgyNjU1fQ.jIY07Q7nGHwd1gHT02DAIFGDFyYpCMCpdD0wc4KHhC8';
+  final String _authToken =
+      // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImZ1bGxfbmFtZSI6IlZhbGVudGlubyBSb3NzaSIsImVtYWlsIjoidnI0NkBnbWFpbC5jb20iLCJyb2xlIjoiY291bnNlbG9yIiwiZXhwIjoxNzAyNzgyNjU1fQ.jIY07Q7nGHwd1gHT02DAIFGDFyYpCMCpdD0wc4KHhC8';
+      AuthService.token;
 
-  void setAuthToken(String token) {
-    _authToken = token;
-  }
+  // void setAuthToken(String token) {
+  //   _authToken = token;
+  // }
 
   Future<Map<String, dynamic>> getUserProfile() async {
     try {

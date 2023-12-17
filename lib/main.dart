@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
           '/editprofile': (context) => ProfileEdit(),
           '/editdataprofile': (context) => EditDataProfile(),
           '/pembayaran2': (context) => const Payment2(),
-          '/editprofile': (context) => EditDataProfile(),
+          // '/editprofile': (context) => EditDataProfile(),
           '/chatbots': (context) => ChatScreen(),
           '/topik_konseling': (context) => KonselingTopikKonseling(),
           '/riwayat_konseling': (context) => const RiwayatKonseling(),

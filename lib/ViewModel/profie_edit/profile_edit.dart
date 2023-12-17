@@ -1,13 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 
 class ApiProfil {
   final Dio _dio = Dio();
-  String _authToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjYsImZ1bGxfbmFtZSI6InB1dHJpZGlhbmEiLCJlbWFpbCI6InB1dHJpZGlhbmFoZnN5d3RAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDI3NTQ3Mjh9.dQfM-AJC2CV4S71uQ39GLz-R2Yxx09VvFPVRLmdL8DU';
+  final String _authToken =
+      // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjYsImZ1bGxfbmFtZSI6InB1dHJpZGlhbmEiLCJlbWFpbCI6InB1dHJpZGlhbmFoZnN5d3RAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJleHAiOjE3MDI3NTQ3Mjh9.dQfM-AJC2CV4S71uQ39GLz-R2Yxx09VvFPVRLmdL8DU';
+      AuthService.token;
+
   // Set the authentication token
-  void setAuthToken(String token) {
-    _authToken = token;
-  }
+  // void setAuthToken(String token) {
+  //   _authToken = token;
+  // }
 
   Future<Map<String, dynamic>> getUserProfile() async {
     try {
@@ -53,7 +56,6 @@ class ApiProfil {
 
       if (responseUpdate.statusCode == 201) {
         print('Perubahan profil disimpan dengan sukses');
-        
       } else {
         print(
             'Gagal menyimpan perubahan profil. Status code: ${responseUpdate.statusCode}');

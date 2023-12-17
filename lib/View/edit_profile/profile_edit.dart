@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:women_center_mobile/Models/utils/auth_service.dart';
 import 'package:women_center_mobile/View/edit_profile/edit_form.dart';
+import 'package:women_center_mobile/ViewModel/api_profil_konselor/profil_konselor_api.dart';
 import 'package:women_center_mobile/ViewModel/profie_edit/profile_edit.dart';
 import 'dart:ui';
 
@@ -31,9 +33,8 @@ class ProfileEdit extends StatefulWidget {
 class _ProfileEditState extends State<ProfileEdit> {
   Color iconColor = const Color(0xFFF4518D);
   final ApiProfil _apiProfil = ApiProfil();
+  final ApiProfilKonselor _apiProfilKonselor = ApiProfilKonselor();
   Map<String, dynamic> _userProfile = {};
-
-  
 
   @override
   void initState() {
@@ -41,11 +42,11 @@ class _ProfileEditState extends State<ProfileEdit> {
     _fetchUserProfile();
   }
 
-  
-
   Future<void> _fetchUserProfile() async {
     try {
-      final response = await _apiProfil.getUserProfile();
+      final response = AuthService.role == "counselor"
+          ? await _apiProfilKonselor.getUserProfile()
+          : await _apiProfil.getUserProfile();
       print('Profile Picture URL: ${_userProfile['profile_picture']}');
       setState(() {
         _userProfile = response['data'];

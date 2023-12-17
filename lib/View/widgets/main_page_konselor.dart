@@ -4,7 +4,7 @@ import 'package:women_center_mobile/View/artikel/artikel_konselor/artikel_konsel
 import 'package:women_center_mobile/View/homepage/homepage_konselor.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
-import '../profil_page/profil_user.dart';
+import '../profil_page/profil_konselor.dart';
 import '../sesi_konseling/sesi_konseling.dart';
 import 'bottom_navigation_bar_konselor.dart';
 
@@ -41,7 +41,7 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
         ), // 0
         const artikelKonselor(), // 1
         SesiKonseling(), // 2
-        ProfilPage(), // 3
+        ProfilKonselor(), // 3
       ];
 
   List<String?> listAppBarTitle = [null, null, "Konseling", "Profil"];

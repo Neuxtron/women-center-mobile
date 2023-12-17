@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-void main(List<String> args) {
-  runApp(const Review());
-}
-
 class Review extends StatefulWidget {
   const Review({super.key});
 
@@ -20,30 +16,25 @@ class Review extends StatefulWidget {
 class _ReviewState extends State<Review> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9F5F6),
-      ),
-      home: Scaffold(
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ImageContainer(),
-                  const SizedBox(height: 38),
-                  DownloadHasilTes(),
-                  const SizedBox(height: 24),
-                  Kolom(),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Button()
-                ],
-              ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ImageContainer(),
+                const SizedBox(height: 38),
+                DownloadHasilTes(),
+                const SizedBox(height: 24),
+                Kolom(),
+                const SizedBox(
+                  height: 15,
+                ),
+                Button()
+              ],
             ),
           ),
         ),
