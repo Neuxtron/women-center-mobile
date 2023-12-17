@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_model/artikel_model.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 class Artikel2 extends StatefulWidget {
   final ArtikelModel model;
@@ -18,42 +17,25 @@ class _Artikel2State extends State<Artikel2> {
   @override
   Widget build(BuildContext context) {
     // TODO: kalo halaman artikel 1 udah pake model, ini di uncommment
-    //final ArtikelModel model = ModalRoute.of(context)!.settings.arguments as ArtikelModel;
+    // final ArtikelModel model = ModalRoute.of(context)!.settings.arguments as ArtikelModel;
 
     // TODO: kalo halaman artikel 1 udah pake model, ini dihapus atau dicomment
     // final ArtikelModel model = DummyArtikel.artikelUntukmu;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-            style: TextStyle(fontWeight: FontWeight.bold), "Artikel"),
+        title: const Text("Artikel"),
         backgroundColor: const Color(0XFFFDCEDF),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              widget.model.title,
-              style: TextStyle(
-                  fontFamily: 'Raleway',
-                  color: Color(0xFF1F1F1F),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30),
-            ),
+            Text(widget.model.title),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.model.author.name,
-                  style: TextStyle(
-                      fontFamily: 'Raleway', color: Color(0xffA5A5A5)),
-                ),
-                Text(
-                  widget.model.formatJam(),
-                  style: TextStyle(
-                      fontFamily: 'Raleway', color: Color(0xffA5A5A5)),
-                ),
+                Text(widget.model.author.name),
+                Text(widget.model.formatJam()),
               ],
             ),
             Align(
@@ -108,10 +90,8 @@ class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Html(data: _loading ? "loading..." : _model.content ?? ""),
+        Text(_loading ? "loading..." : _model.content ?? ""),
         Text("${_model.comments.length} Komentar"),
         const Divider(color: Colors.black, thickness: 1),
         const Row(
@@ -216,8 +196,7 @@ class CommentsListView extends StatelessWidget {
                 ),
               ],
             ),
-            Text(comment.content,
-                softWrap: true, style: TextStyle(fontSize: 16)),
+            Text(comment.content, softWrap: true, style: TextStyle(fontSize: 16)),
             CommentsListView(comments: comment.replies),
           ],
         );

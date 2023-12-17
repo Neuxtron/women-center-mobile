@@ -9,7 +9,6 @@ import 'package:women_center_mobile/ViewModel/career_viewmodel/career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/detail_career.dart';
 import 'package:women_center_mobile/ViewModel/career_viewmodel/filter_carrerr.dart';
 
-import '../chatbot/chatbot_cs_view.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import 'detail_job.dart';
 
@@ -146,12 +145,7 @@ class _CareerState extends State<Career> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ChatScreen()), 
-          );
+          // Handle button tap
         },
         backgroundColor: const Color.fromARGB(255, 245, 63, 126),
         shape: const CircleBorder(),

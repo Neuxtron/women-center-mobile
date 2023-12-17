@@ -79,8 +79,7 @@ class DetailSesiKonseling extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
+                                padding: EdgeInsets.symmetric(vertical: 12),
                                 child: Text(
                                   ": ${model!.id}",
                                   style: const TextStyle(
@@ -92,8 +91,7 @@ class DetailSesiKonseling extends StatelessWidget {
                               Text(": ${model!.nama}"),
                               Text(": ${model!.email}"),
                               Text(": ${model!.paket}"),
-                              Text(
-                                  ": ${model!.jadwalSesi.length - model!.jadwalSelesai().length}"),
+                              Text(": ${3 - model!.jadwalSelesai().length}"),
                               Text(": ${model!.jadwalSelesai().length}"),
                             ],
                           )
@@ -121,13 +119,13 @@ class DetailSesiKonseling extends StatelessWidget {
                             )
                           : const SizedBox(),
                       MaterialButton(
-                        color: const Color(0xFFF4518D),
+                        color: Color(0xFFF4518D),
                         onPressed: onBack,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100),
                         ),
                         textColor: Colors.white,
-                        child: const Text("Kembali"),
+                        child: Text("Kembali"),
                       ),
                     ],
                   )
@@ -169,11 +167,15 @@ class JadwalView extends StatelessWidget {
             itemCount: listJadwal.length,
             itemBuilder: (context, index) {
               final jadwal = listJadwal[index];
-              final pos = jadwalSesi.indexOf(jadwal) + 1;
+              final pos = jadwalSesi.indexOf(jadwal);
               final formatTgl =
-                  DateFormat("EEEE, dd MMMM yyyy").format(jadwal.tanggal);
-              final jamAwal = "${jadwal.jamAwal.hour}.00";
-              final jamAkhir = "${jadwal.jamAkhir.hour}.00";
+                  DateFormat("EEEE, dd MMMM yyyy").format(jadwal.jadwal);
+              final jamAwal = DateFormat("hh.00").format(jadwal.jadwal);
+              final jamAkhir = DateFormat("hh.00").format(
+                jadwal.jadwal.add(
+                  const Duration(days: 1),
+                ),
+              );
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -185,10 +187,10 @@ class JadwalView extends StatelessWidget {
                   Text(
                     "$jamAwal - $jamAkhir",
                     style: TextStyle(
-                      color: selesai ? Colors.grey : const Color(0xFFF4518D),
+                      color: selesai ? Colors.grey : Color(0xFFF4518D),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                 ],
               );
             },
