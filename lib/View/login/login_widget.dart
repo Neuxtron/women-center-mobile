@@ -288,7 +288,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     LoginData loginData =
                         LoginData(email: email, password: password);
                     _loginViewModel.loginUser(loginData).then((loginResponse) {
-                      if (loginResponse.sucess) {
+                      if (loginResponse.sucess == true) {
                         print('ke halaman on boarding');
                         AuthService.token = loginResponse.token;
                         AuthService.role = loginResponse.role;
