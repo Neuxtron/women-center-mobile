@@ -133,8 +133,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                           ),
                                           SizedBox(width: 175),
                                           Text(
-                                            formatScheduleDate(
-                                                conseling.dateSchedule),
+                                            formatScheduleDate(conseling
+                                                .jadwalSesi[0].tanggal),
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 color: Colors.green),
@@ -151,7 +151,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        conseling.bookingId,
+                                        conseling.id,
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             color: Color(0xFFF4518D)),
@@ -174,7 +174,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                       ),
                                       SizedBox(width: 5),
                                       Text(
-                                        conseling.fullname,
+                                        conseling.nama,
                                         style: TextStyle(fontSize: 16.0),
                                       ),
                                     ],
@@ -194,7 +194,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                       ),
                                       SizedBox(width: 5),
                                       Text(
-                                        conseling.packageType,
+                                        conseling.paket,
                                         style: TextStyle(fontSize: 16.0),
                                       ),
                                     ],
@@ -209,7 +209,7 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                     children: [
                                       Text(
                                         formatDateWithDay(
-                                            conseling.dateSchedule),
+                                            conseling.jadwalSesi[0].tanggal),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold),
@@ -223,7 +223,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                   Row(
                                     children: [
                                       Text(
-                                        formatTime(conseling.timeStart),
+                                        formatTime(conseling
+                                            .jadwalSesi[0].jamAwal.hour),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold,
@@ -237,7 +238,8 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                             color: Color(0xFFF4518D)),
                                       ),
                                       Text(
-                                        formatTime(conseling.timeFinish),
+                                        formatTime(conseling
+                                            .jadwalSesi[0].jamAkhir.hour),
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.bold,
