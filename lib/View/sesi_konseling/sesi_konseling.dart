@@ -81,206 +81,63 @@ class _SesiKonselingState extends State<SesiKonseling> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Row(
-                        children: [Text('Jadwal Terdekat')],
-                      ),
-                    )
-                  ],
-                ),
-                Consumer<CounselingSessionViewModel>(
-                  builder: (context, counselingsessionviewmodel, _) {
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: counselingsessionviewmodel.conseling.length,
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 20),
-                      itemBuilder: (context, index) {
-                        final conseling =
-                            counselingsessionviewmodel.conseling[index];
-                        return GestureDetector(
-                          onTap: () {
-                            bukaDetail(conseling);
-                          },
-                          child: Card(
-                            color: Colors.white,
-                            margin: EdgeInsets.only(left: 13, right: 13),
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Column(
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    children: [Text('Jadwal Terdekat')],
+                  ),
+                )
+              ],
+            ),
+            Consumer<CounselingSessionViewModel>(
+                builder: (context, counselingsessionviewmodel, _) {
+              return ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: counselingsessionviewmodel.conseling.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 20),
+                  itemBuilder: (context, index) {
+                    final conseling =
+                        counselingsessionviewmodel.conseling[index];
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Card(
+                        color: Colors.white,
+                        margin: EdgeInsets.only(left: 13, right: 13),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Booking id:',
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(width: 175),
-                                              Text(
-                                                formatScheduleDate(conseling
-                                                    .jadwalSesi[0].tanggal),
-                                                style: TextStyle(
-                                                    fontSize: 16.0,
-                                                    color: Colors.green),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            conseling.id,
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                color: Color(0xFFF4518D)),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
                                   Row(
                                     children: [
                                       Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Nama:',
+                                            'Booking id:',
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          SizedBox(width: 5),
+                                          SizedBox(width: 175),
                                           Text(
-                                            conseling.nama,
-                                            style: TextStyle(fontSize: 16.0),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Paket:',
+                                            formatScheduleDate(
+                                                conseling.dateSchedule),
                                             style: TextStyle(
                                                 fontSize: 16.0,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            conseling.paket,
-                                            style: TextStyle(fontSize: 16.0),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            formatDateWithDay(conseling
-                                                .jadwalSesi[0].tanggal),
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            formatTime(conseling
-                                                .jadwalSesi[0].jamAwal.hour),
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFFF4518D)),
-                                          ),
-                                          Text(
-                                            ' - ',
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFFF4518D)),
-                                          ),
-                                          Text(
-                                            formatTime(conseling
-                                                .jadwalSesi[0].jamAkhir.hour),
-                                            style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFFF4518D)),
-                                          ),
-                                          SizedBox(width: 140),
-                                          InkWell(
-                                            onTap: () {
-                                              // Tindakan ketika ikon chat ditekan
-                                            },
-                                            child: Icon(Icons.chat_bubble,
-                                                color: Color(0xFFF4518D),
-                                                size: 27),
-                                          ),
-                                          SizedBox(width: 15),
-                                          InkWell(
-                                            onTap: () {
-                                              // Tindakan ketika ikon videocam ditekan
-                                            },
-                                            child: Icon(Icons.videocam,
-                                                color: Color(0xFFF4518D),
-                                                size: 27),
-                                          ),
-                                          SizedBox(width: 15),
-                                          InkWell(
-                                            onTap: () {
-                                              // Tindakan ketika ikon call ditekan
-                                            },
-                                            child: Icon(Icons.call,
-                                                color: Color(0xFFF4518D),
-                                                size: 27),
+                                                color: Colors.green),
                                           ),
                                         ],
                                       )
@@ -288,21 +145,141 @@ class _SesiKonselingState extends State<SesiKonseling> {
                                   )
                                 ],
                               ),
-                            ),
+                              Row(
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        conseling.bookingId,
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Color(0xFFF4518D)),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Nama:',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        conseling.fullname,
+                                        style: TextStyle(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Paket:',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        conseling.packageType,
+                                        style: TextStyle(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                              Row(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        formatDateWithDay(
+                                            conseling.dateSchedule),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        formatTime(conseling.timeStart),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFFF4518D)),
+                                      ),
+                                      Text(
+                                        ' - ',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFFF4518D)),
+                                      ),
+                                      Text(
+                                        formatTime(conseling.timeFinish),
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFFF4518D)),
+                                      ),
+                                      SizedBox(width: 140),
+                                      InkWell(
+                                        onTap: () {
+                                          // Tindakan ketika ikon chat ditekan
+                                        },
+                                        child: Icon(Icons.chat_bubble,
+                                            color: Color(0xFFF4518D), size: 27),
+                                      ),
+                                      SizedBox(width: 15),
+                                      InkWell(
+                                        onTap: () {
+                                          // Tindakan ketika ikon videocam ditekan
+                                        },
+                                        child: Icon(Icons.videocam,
+                                            color: Color(0xFFF4518D), size: 27),
+                                      ),
+                                      SizedBox(width: 15),
+                                      InkWell(
+                                        onTap: () {
+                                          // Tindakan ketika ikon call ditekan
+                                        },
+                                        child: Icon(Icons.call,
+                                            color: Color(0xFFF4518D), size: 27),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
                           ),
-                        );
-                      },
+                        ),
+                      ),
                     );
-                  },
-                ),
-              ],
-            ),
-          ),
-          DetailSesiKonseling(
-            model: _selectedKonseling,
-            onBack: () => bukaDetail(null),
-          ),
-        ],
+                  });
+            }),
+          ],
+        ),
       ),
     );
   }

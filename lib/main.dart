@@ -84,6 +84,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CreateArticleViewModel()),
         ChangeNotifierProvider(
             create: (context) => CounselingSessionViewModel()),
+        ChangeNotifierProvider(
+            create: (context) => CounselingSessionViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
