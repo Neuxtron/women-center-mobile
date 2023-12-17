@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:women_center_mobile/Models/artikel_konselor_model/artikel_konselor_model.dart';
+import 'package:women_center_mobile/View/artikel/buat_artikel.dart';
 import 'package:women_center_mobile/View/homepage/homepage_section1.dart';
 import 'package:women_center_mobile/ViewModel/artikel_konselor_model/artikel_konselor_get.dart';
-import 'package:women_center_mobile/View/artikel/artikel_konselor/buat_artikel.dart';
 
 //widget search
 class Search extends StatefulWidget {

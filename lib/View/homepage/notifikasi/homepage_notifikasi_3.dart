@@ -74,19 +74,19 @@ class _HomepageNotifikasi3State extends State<HomepageNotifikasi3> {
           ),
         ],
       ),
-      // bottomNavigationBar: MyBottomNavigationBar(
-      //   selectedIndex: _selectedIndex,
-      //   onItemTapped: (index) {
-      //     setState(() {
-      //       _selectedIndex = index;
-      //       // if (_selectedIndex == 0) {
-      //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      //       // } else if (_selectedIndex == 1) {
-      //       //   Navigator.push(context, MaterialPageRoute(builder: (context) => ArtikelScreen()));
-      //       // }
-      //     });
-      //   },
-      // ),
+      bottomNavigationBar: MyBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: (index) {
+          setState(() {
+            _selectedIndex = index;
+            // if (_selectedIndex == 0) {
+            //   Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // } else if (_selectedIndex == 1) {
+            //   Navigator.push(context, MaterialPageRoute(builder: (context) => ArtikelScreen()));
+            // }
+          });
+        },
+      ),
     );
   }
 

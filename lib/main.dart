@@ -26,6 +26,11 @@ import 'package:women_center_mobile/View/metode_pembayaran/metode_pembayaran_2.d
 import 'package:women_center_mobile/View/metode_pembayaran/pembayaran_widget_tabBar.dart';
 import 'package:women_center_mobile/View/login/login_view.dart';
 import 'package:women_center_mobile/View/onboarding/onboarding.dart';
+// import 'package:women_center_mobile/View/splash_screen/splash_screen.dart';
+import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
+import 'package:women_center_mobile/View/riwayat/batal.dart';
+import 'package:women_center_mobile/View/sesi_konseling/sesi_konseling.dart';
+import 'package:women_center_mobile/ViewModel/artikel_view_model/buat_artikel_viewmodel.dart';
 import 'package:women_center_mobile/View/profil_page/pengaturan_privasi/pengaturan_privasi.dart';
 import 'package:women_center_mobile/View/profil_page/pengaturan_privasi/perbarui_kata_sandi.dart';
 import 'package:women_center_mobile/View/profil_page/profil_konselor.dart';
@@ -41,6 +46,7 @@ import 'package:women_center_mobile/ViewModel/career_viewmodel/filter_carrerr.da
 import 'package:women_center_mobile/ViewModel/konseling_konselor_view_model.dart/konseling_konselor_view_model.dart';
 import 'package:women_center_mobile/ViewModel/konselor_view_model/konselor_view_model.dart';
 import 'package:women_center_mobile/ViewModel/paket_view_model/paket_view_model.dart';
+import 'package:women_center_mobile/ViewModel/sesi_konseling_view_mdoel/sesi_konseling.dart';
 import 'View/career/detail_job.dart';
 import 'View/career/career.dart';
 import 'View/login/login_view.dart';
@@ -51,6 +57,7 @@ import 'View/widgets/main_page.dart';
 import 'View/konseling/konseling_topik_konseling.dart';
 import 'View/register/register.dart';
 import 'View/welcome_page/welcome_page.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,6 +81,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => KonselorViewModel()),
         ChangeNotifierProvider(
             create: (context) => KonselingKonselorViewModel()),
+        ChangeNotifierProvider(create: (context) => CreateArticleViewModel()),
+        ChangeNotifierProvider(
+            create: (context) => CounselingSessionViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

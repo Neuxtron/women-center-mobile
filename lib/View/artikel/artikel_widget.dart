@@ -184,7 +184,7 @@ class _ArtikelWidgetState extends State<ArtikelWidget> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: widget.artikelList.length,
                         itemBuilder: (context, index) {
-                          return buildArtikelCard(widget.artikelList[index]);
+                          // return buildArtikelCard(widget.artikelList[index]);
                         },
                       ),
                     ),
