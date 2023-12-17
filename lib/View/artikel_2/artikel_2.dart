@@ -17,25 +17,42 @@ class _Artikel2State extends State<Artikel2> {
   @override
   Widget build(BuildContext context) {
     // TODO: kalo halaman artikel 1 udah pake model, ini di uncommment
-    // final ArtikelModel model = ModalRoute.of(context)!.settings.arguments as ArtikelModel;
+    //final ArtikelModel model = ModalRoute.of(context)!.settings.arguments as ArtikelModel;
 
     // TODO: kalo halaman artikel 1 udah pake model, ini dihapus atau dicomment
     // final ArtikelModel model = DummyArtikel.artikelUntukmu;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Artikel"),
+        title: const Text(
+            style: TextStyle(fontWeight: FontWeight.bold), "Artikel"),
         backgroundColor: const Color(0XFFFDCEDF),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(widget.model.title),
+            Text(
+              widget.model.title,
+              style: TextStyle(
+                  fontFamily: 'Raleway',
+                  color: Color(0xFF1F1F1F),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30),
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.model.author.name),
-                Text(widget.model.formatJam()),
+                Text(
+                  widget.model.author.name,
+                  style: TextStyle(
+                      fontFamily: 'Raleway', color: Color(0xffA5A5A5)),
+                ),
+                Text(
+                  widget.model.formatJam(),
+                  style: TextStyle(
+                      fontFamily: 'Raleway', color: Color(0xffA5A5A5)),
+                ),
               ],
             ),
             Align(
@@ -90,6 +107,8 @@ class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(_loading ? "loading..." : _model.content ?? ""),
         Text("${_model.comments.length} Komentar"),
@@ -196,7 +215,8 @@ class CommentsListView extends StatelessWidget {
                 ),
               ],
             ),
-            Text(comment.content, softWrap: true, style: TextStyle(fontSize: 16)),
+            Text(comment.content,
+                softWrap: true, style: TextStyle(fontSize: 16)),
             CommentsListView(comments: comment.replies),
           ],
         );
