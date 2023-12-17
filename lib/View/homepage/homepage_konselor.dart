@@ -75,92 +75,89 @@ class _HomepageSectionKonselorState extends State<HomepageSectionKonselor> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           )),
-      home: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            toolbarHeight: 70,
-            flexibleSpace: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                    sigmaX: 20, sigmaY: 30), // Ubah nilai untuk tingkat blur
-                child: Container(
-                  color: Colors.white
-                      .withOpacity(0.1), // Warna latar belakang AppBar
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 68, left: 19),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '👋',
-                          style: TextStyle(fontSize: 32),
-                        ),
-                        const SizedBox(width: 8),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              getGreeting(),
-                              style: const TextStyle(
-                                color: Color(0xFF636363),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Raleway',
-                                height: 0,
-                              ),
+      home: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          toolbarHeight: 70,
+          flexibleSpace: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                  sigmaX: 20, sigmaY: 30), // Ubah nilai untuk tingkat blur
+              child: Container(
+                color: Colors.white
+                    .withOpacity(0.1), // Warna latar belakang AppBar
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 68, left: 19),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '👋',
+                        style: TextStyle(fontSize: 32),
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            getGreeting(),
+                            style: const TextStyle(
+                              color: Color(0xFF636363),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Raleway',
+                              height: 0,
                             ),
-                            const Text(
-                              'Sherly Prameswari',
-                              style: TextStyle(
-                                color: Color(
-                                    0xFF0B0B0B), // Ubah warna sesuai kebutuhan Anda
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Raleway',
-                                height: 0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 140,
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.notifications_none_outlined,
-                            color: Color(0xFF0B0B0B),
-                            size: 29,
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/notifikasi');
-                          },
+                          const Text(
+                            'Sherly Prameswari',
+                            style: TextStyle(
+                              color: Color(
+                                  0xFF0B0B0B), // Ubah warna sesuai kebutuhan Anda
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Raleway',
+                              height: 0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 140,
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.notifications_none_outlined,
+                          color: Color(0xFF0B0B0B),
+                          size: 29,
                         ),
-                      ],
-                    ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/notifikasi');
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  //homepage 1
-                  const WidgetHomeKonselor(),
-                  //homepage 2
-                  LatestArtikel(
-                    pindahHalaman: widget.pindahHalaman,
-                  )
-                ],
-              ),
+        ),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                //homepage 1
+                const WidgetHomeKonselor(),
+                //homepage 2
+                LatestArtikel(
+                  pindahHalaman: widget.pindahHalaman,
+                )
+              ],
             ),
           ),
         ),

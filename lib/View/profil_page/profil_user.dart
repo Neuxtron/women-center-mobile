@@ -210,7 +210,9 @@ class _ProfilPageState extends State<ProfilPage> {
                   child: Container(
                     margin: EdgeInsets.only(top: 1.0, bottom: 0.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/editprofile');
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink,
                         onPrimary: Colors.white,
