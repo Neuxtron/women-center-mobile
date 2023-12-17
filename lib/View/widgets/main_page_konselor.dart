@@ -5,6 +5,10 @@ import 'package:women_center_mobile/View/widgets/bottom_navigation_bar_konselor.
 import 'package:women_center_mobile/View/homepage/homepage_konselor.dart';
 import 'package:women_center_mobile/ViewModel/artikel_view_model/artikel_view_model.dart';
 
+import '../profil_page/profil_konselor.dart';
+import '../sesi_konseling/sesi_konseling.dart';
+import 'bottom_navigation_bar_konselor.dart';
+
 class MainPageKonselor extends StatefulWidget {
   const MainPageKonselor({super.key});
 
@@ -28,14 +32,10 @@ class _MainPageKonselorState extends State<MainPageKonselor> {
   List get screens => [
         HomepageSectionKonselor(
           pindahHalaman: pindahHalaman,
-        ),
-        artikelKonselor(),
-        Center(
-          child: Text("Konseling"),
-        ),
-        Center(
-          child: Text("Profil"),
-        ),
+        ), // 0
+        const artikelKonselor(), // 1
+        SesiKonseling(), // 2
+        ProfilKonselor(), // 3
       ];
 
   List<String?> listAppBarTitle = [null, "Artikel", "Konseling", "Profil"];

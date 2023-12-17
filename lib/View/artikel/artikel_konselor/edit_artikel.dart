@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Edit_Artikel(),
-  ));
-}
-
 class Edit_Artikel extends StatefulWidget {
   @override
   _Edit_ArtikelState createState() => _Edit_ArtikelState();

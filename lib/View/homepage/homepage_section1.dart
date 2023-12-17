@@ -1,8 +1,9 @@
 //rafi taufiqurahman
 import 'package:flutter/material.dart';
-import 'package:glassmorphism_widgets/glassmorphism_widgets.dart';
+// import 'package:glassmorphism_widgets/glassmorphism_widgets.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui';
+import 'package:intl/date_symbol_data_local.dart'; // Import library untuk lokal
 
 class WidgetHome1 extends StatefulWidget {
   final Function(int index) pindahHalaman;
@@ -13,92 +14,112 @@ class WidgetHome1 extends StatefulWidget {
 }
 
 class _WidgetHome1State extends State<WidgetHome1> {
-  String getGreeting() {
-    var currentTime = DateTime.now();
-    var formattedTime = DateFormat.H().format(currentTime);
+  // String getGreeting() {
+  //   var currentTime = DateTime.now();
+  //   var formattedTime = DateFormat.H().format(currentTime);
 
-    if (currentTime.hour >= 5 && currentTime.hour < 11) {
-      return 'Selamat Pagi';
-    } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
-      return 'Selamat Siang';
-    } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
-      return 'Selamat Sore';
-    } else {
-      return 'Selamat Malam';
-    }
-  }
+  //   if (currentTime.hour >= 5 && currentTime.hour < 11) {
+  //     return 'Selamat Pagi';
+  //   } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
+  //     return 'Selamat Siang';
+  //   } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
+  //     return 'Selamat Sore';
+  //   } else {
+  //     return 'Selamat Malam';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    ///method hari,tanngal dan bulan saat ini
+    initializeDateFormatting(
+        'id_ID', null); // Inisialisasi lokal bahasa Indonesia
+
+    String getCurrentDay() {
+      var format = DateFormat(
+          'EEEE', 'id_ID'); // Menggunakan lokal bahasa Indonesia (id_ID)
+      return format.format(DateTime.now());
+    }
+
+    String getCurrentDate() {
+      var format = DateFormat('d', 'id_ID');
+      return format.format(DateTime.now());
+    }
+
+    String getCurrentMonth() {
+      var format = DateFormat('MMMM', 'id_ID');
+      return format.format(DateTime.now());
+    }
+
     return Column(
       children: [
-        AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          toolbarHeight: 70,
-          automaticallyImplyLeading: false,
-          flexibleSpace: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 20,
-                sigmaY: 30,
-              ),
-              child: Container(
-                color: Colors.white.withOpacity(0.1),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 68, left: 19),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '👋',
-                        style: TextStyle(fontSize: 32),
-                      ),
-                      const SizedBox(width: 8),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            getGreeting(),
-                            style: const TextStyle(
-                              color: Color(0xFF636363),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Raleway',
-                              height: 0,
-                            ),
-                          ),
-                          const Text(
-                            'Sherly Prameswari',
-                            style: TextStyle(
-                              color: Color(0xFF0B0B0B),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Raleway',
-                              height: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Expanded(child: SizedBox()),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.notifications_none_outlined,
-                          color: Color(0xFF0B0B0B),
-                          size: 29,
-                        ),
-                        onPressed: () {
-                          ///onpress ke notifikasi
-                          Navigator.pushNamed(context, '/notifikasi');
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        //   toolbarHeight: 70,
+        //   automaticallyImplyLeading: false,
+        //   flexibleSpace: ClipRect(
+        //     child: BackdropFilter(
+        //       filter: ImageFilter.blur(
+        //         sigmaX: 20,
+        //         sigmaY: 30,
+        //       ),
+        //       child: Container(
+        //         color: Colors.white.withOpacity(0.1),
+        //         child: Padding(
+        //           padding: const EdgeInsets.only(top: 68, left: 19),
+        //           child: Row(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               const Text(
+        //                 '👋',
+        //                 style: TextStyle(fontSize: 32),
+        //               ),
+        //               const SizedBox(width: 8),
+        //               Column(
+        //                 crossAxisAlignment: CrossAxisAlignment.start,
+        //                 children: [
+        //                   Text(
+        //                     getGreeting(),
+        //                     style: const TextStyle(
+        //                       color: Color(0xFF636363),
+        //                       fontSize: 16,
+        //                       fontWeight: FontWeight.w500,
+        //                       fontFamily: 'Raleway',
+        //                       height: 0,
+        //                     ),
+        //                   ),
+        //                   const Text(
+        //                     'Sherly Prameswari',
+        //                     style: TextStyle(
+        //                       color: Color(0xFF0B0B0B),
+        //                       fontSize: 16,
+        //                       fontWeight: FontWeight.w700,
+        //                       fontFamily: 'Raleway',
+        //                       height: 0,
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //               Expanded(child: SizedBox()),
+        //               IconButton(
+        //                 icon: const Icon(
+        //                   Icons.notifications_none_outlined,
+        //                   color: Color(0xFF0B0B0B),
+        //                   size: 29,
+        //                 ),
+        //                 onPressed: () {
+        //                   ///onpress ke notifikasi
+        //                   Navigator.pushNamed(context, '/notifikasi');
+        //                 },
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(height: 40),
         Container(
           width: 360,
@@ -166,7 +187,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              child: const Column(
+                              child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +196,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                      'Jumat',
+                                      getCurrentDay(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 10,
@@ -188,7 +209,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                      '15',
+                                      getCurrentDate(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 40,
@@ -204,7 +225,7 @@ class _WidgetHome1State extends State<WidgetHome1> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                      'September',
+                                      getCurrentMonth(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 10,
@@ -486,93 +507,113 @@ class WidgetHomeKonselor extends StatefulWidget {
 }
 
 class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
-  String getGreeting() {
-    var currentTime = DateTime.now();
-    var formattedTime = DateFormat.H().format(currentTime);
+  // String getGreeting() {
+  //   var currentTime = DateTime.now();
+  //   var formattedTime = DateFormat.H().format(currentTime);
 
-    if (currentTime.hour >= 5 && currentTime.hour < 11) {
-      return 'Selamat Pagi';
-    } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
-      return 'Selamat Siang';
-    } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
-      return 'Selamat Sore';
-    } else {
-      return 'Selamat Malam';
-    }
-  }
+  //   if (currentTime.hour >= 5 && currentTime.hour < 11) {
+  //     return 'Selamat Pagi';
+  //   } else if (currentTime.hour >= 11 && currentTime.hour < 15) {
+  //     return 'Selamat Siang';
+  //   } else if (currentTime.hour >= 15 && currentTime.hour < 18) {
+  //     return 'Selamat Sore';
+  //   } else {
+  //     return 'Selamat Malam';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    ///method hari,tanngal dan bulan saat ini
+    initializeDateFormatting(
+        'id_ID', null); // Inisialisasi lokal bahasa Indonesia
+
+    String getCurrentDay() {
+      var format = DateFormat(
+          'EEEE', 'id_ID'); // Menggunakan lokal bahasa Indonesia (id_ID)
+      return format.format(DateTime.now());
+    }
+
+    String getCurrentDate() {
+      var format = DateFormat('d', 'id_ID');
+      return format.format(DateTime.now());
+    }
+
+    String getCurrentMonth() {
+      var format = DateFormat('MMMM', 'id_ID');
+      return format.format(DateTime.now());
+    }
+
     return Column(
       children: [
-        AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          toolbarHeight: 70,
-          automaticallyImplyLeading: false,
-          flexibleSpace: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 20,
-                sigmaY: 30,
-              ),
-              child: Container(
-                color: Colors.white.withOpacity(0.1),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 68, left: 19),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '👋',
-                        style: TextStyle(fontSize: 32),
-                      ),
-                      const SizedBox(width: 8),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            getGreeting(),
-                            style: const TextStyle(
-                              color: Color(0xFF636363),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Raleway',
-                              height: 0,
-                            ),
-                          ),
-                          const Text(
-                            'Sherly Prameswari',
-                            style: TextStyle(
-                              color: Color(0xFF0B0B0B),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Raleway',
-                              height: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 140,
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.notifications_none_outlined,
-                          color: Color(0xFF0B0B0B),
-                          size: 29,
-                        ),
-                        onPressed: () {
-                          ///onpress ke notifikasi
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // AppBar(
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        //   toolbarHeight: 70,
+        //   automaticallyImplyLeading: false,
+        //   flexibleSpace: ClipRect(
+        //     child: BackdropFilter(
+        //       filter: ImageFilter.blur(
+        //         sigmaX: 20,
+        //         sigmaY: 30,
+        //       ),
+        //       child: Container(
+        //         color: Colors.white.withOpacity(0.1),
+        //         child: Padding(
+        //           padding: const EdgeInsets.only(top: 68, left: 19),
+        //           child: Row(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               const Text(
+        //                 '👋',
+        //                 style: TextStyle(fontSize: 32),
+        //               ),
+        //               const SizedBox(width: 8),
+        //               Column(
+        //                 crossAxisAlignment: CrossAxisAlignment.start,
+        //                 children: [
+        //                   Text(
+        //                     getGreeting(),
+        //                     style: const TextStyle(
+        //                       color: Color(0xFF636363),
+        //                       fontSize: 16,
+        //                       fontWeight: FontWeight.w500,
+        //                       fontFamily: 'Raleway',
+        //                       height: 0,
+        //                     ),
+        //                   ),
+        //                   const Text(
+        //                     'Sherly Prameswari',
+        //                     style: TextStyle(
+        //                       color: Color(0xFF0B0B0B),
+        //                       fontSize: 16,
+        //                       fontWeight: FontWeight.w700,
+        //                       fontFamily: 'Raleway',
+        //                       height: 0,
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //               const SizedBox(
+        //                 width: 140,
+        //               ),
+        //               IconButton(
+        //                 icon: const Icon(
+        //                   Icons.notifications_none_outlined,
+        //                   color: Color(0xFF0B0B0B),
+        //                   size: 29,
+        //                 ),
+        //                 onPressed: () {
+        //                   ///onpress ke notifikasi
+        //                 },
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(height: 40),
         Container(
           width: 360,
@@ -640,16 +681,16 @@ class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              child: const Column(
+                              child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 // textDirection: TextDirection.ltr,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 9),
+                                    padding: EdgeInsets.only(left: 9),
                                     child: Text(
-                                      'Jumat',
+                                      getCurrentDay(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 10,
@@ -662,7 +703,7 @@ class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                      '15',
+                                      getCurrentDate(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 40,
@@ -678,7 +719,7 @@ class _WidgetHomeKonselorState extends State<WidgetHomeKonselor> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 9),
                                     child: Text(
-                                      'September',
+                                      getCurrentMonth(),
                                       style: TextStyle(
                                         color: Color(0xFFF4518D),
                                         fontSize: 10,

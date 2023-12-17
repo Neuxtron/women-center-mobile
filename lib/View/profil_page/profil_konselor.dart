@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 
-import '../../ViewModel/api_profil_user/profil_user_api_get.dart';
-import 'package:women_center_mobile/Models/utils/navigation_service.dart';
+import 'package:women_center_mobile/ViewModel/api_profil_konselor/profil_konselor_api.dart';
 
 class CustomShapeClipper extends CustomClipper<Path> {
   @override
@@ -24,55 +23,15 @@ class CustomShapeClipper extends CustomClipper<Path> {
   }
 }
 
-class ProfilPage extends StatefulWidget {
-  static PreferredSizeWidget get getAppBar {
-    return AppBar(
-      backgroundColor: Color(0xFFFDCEDF),
-      toolbarHeight: 80,
-      leading: Padding(
-        padding: const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 4.0),
-        child: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {},
-        ),
-      ),
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 3.0),
-            child: Text(
-              'Profil',
-              style: GoogleFonts.roboto(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons
-              .notifications_none_outlined), // Ganti dengan ikon notifikasi yang diinginkan
-          onPressed: () {
-            // Aksi yang ingin diambil ketika tombol notifikasi ditekan
-          },
-        ),
-      ],
-    );
-  }
-
+class ProfilKonselor extends StatefulWidget {
   @override
-  _ProfilPageState createState() => _ProfilPageState();
+  _ProfilKonselorState createState() => _ProfilKonselorState();
 }
 
-class _ProfilPageState extends State<ProfilPage> {
+class _ProfilKonselorState extends State<ProfilKonselor> {
   bool isNotificationEnabled = true;
   Color iconColor = const Color(0xFFF4518D);
-  final ApiProfil _apiProfil = ApiProfil();
+  final ApiProfilKonselor _apiProfilKonselor = ApiProfilKonselor();
   Map<String, dynamic> _userProfile = {};
 
   @override
@@ -83,7 +42,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
   Future<void> _fetchUserProfile() async {
     try {
-      final response = await _apiProfil.getUserProfile();
+      final response = await _apiProfilKonselor.getUserProfile();
       print('Profile Picture URL: ${_userProfile['profile_picture']}');
       setState(() {
         _userProfile = response['data'];
@@ -96,51 +55,28 @@ class _ProfilPageState extends State<ProfilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: 50,
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   automaticallyImplyLeading: false,
-      //   scrolledUnderElevation: 0,
-      //   title: Text(
-      //     'Artikel',
-      //     style: GoogleFonts.roboto(
-      //       textStyle: TextStyle(
-      //         color: Colors.black,
-      //         fontSize: 19.5,
-      //         fontWeight: FontWeight.w500,
-      //       ),
-      //     ),
-      //   ),
-      //   backgroundColor: const Color(0xFFFDCEDF),
-      // ),
       appBar: AppBar(
         backgroundColor: Color(0xFFFDCEDF),
-        toolbarHeight: 60,
-        automaticallyImplyLeading: false,
-        scrolledUnderElevation: 0,
-        // leading: Padding(
-        //   padding: const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 4.0),
-        //   child: IconButton(
-        //     icon: Icon(Icons.arrow_back),
-        //     onPressed: () {},
-        //   ),
-        // ),
+        toolbarHeight: 80,
+        leading: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 4.0),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {},
+          ),
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding:
-                  const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 60.0),
+                  const EdgeInsets.only(bottom: 10.0, right: 16.0, left: 3.0),
               child: Text(
                 'Profil',
                 style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 19.5,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -236,16 +172,14 @@ class _ProfilPageState extends State<ProfilPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        buildOption(context, Icons.history, 'Riwayat Konseling',
-                            '/riwayat', null),
-                        buildOption(context, CupertinoIcons.bell, 'Notifikasi',
-                            '/notifikasi', null),
-                        buildOption(context, CupertinoIcons.checkmark_shield,
-                            'Pengaturan Privasi', '/pengaturan', null),
                         buildOption(
-                            context, Icons.language, 'Bahasa', '/bahasa', null),
-                        buildOption(context, Icons.favorite_outline, 'Favorit',
-                            '/favorit', null),
+                            context, Icons.history, 'Riwayat User', '/riwayat'),
+                        buildOption(context, CupertinoIcons.bell, 'Notifikasi',
+                            '/notifikasi'),
+                        buildOption(context, CupertinoIcons.checkmark_shield,
+                            'Pengaturan Privasi', '/pengaturan'),
+                        buildOption(
+                            context, Icons.language, 'Bahasa', '/bahasa'),
                       ],
                     ),
                   ),
@@ -261,11 +195,11 @@ class _ProfilPageState extends State<ProfilPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         buildOption(context, Icons.feedback_outlined,
-                            'Tentang Kami', '/about', null),
+                            'Tentang Kami', '/tentang'),
                         buildOption(context, Icons.live_help_outlined,
-                            'Bantuan dan FAQ', '/bantuan', null),
+                            'Bantuan dan FAQ', '/bantuan'),
                         buildOption(context, Icons.headset_mic_outlined,
-                            'Layanan Pelanggan', '/chatbots', null),
+                            'Layanan Pelanggan', '/layanan'),
                       ],
                     ),
                   ),
@@ -280,11 +214,8 @@ class _ProfilPageState extends State<ProfilPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        buildOption(
-                            context, Icons.logout_outlined, 'Keluar', null, () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/', (route) => false);
-                        }),
+                        buildOption(context, Icons.logout_outlined, 'Keluar',
+                            '/favorit'),
                       ],
                     ),
                   ),
@@ -297,20 +228,15 @@ class _ProfilPageState extends State<ProfilPage> {
     );
   }
 
-  Widget buildOption(BuildContext context, IconData icon, String label,
-      String? route, Function()? onPressed) {
+  Widget buildOption(
+      BuildContext context, IconData icon, String label, String route) {
     return InkWell(
       onTap: () {
         if (route == '/notifikasi') {
           // Tambahkan aksi untuk menangani ketika bagian notifikasi ditekan
           // Anda dapat menampilkan dialog atau halaman pengaturan notifikasi di sini
-        } else if (route != null) {
-          Navigator.pushNamed(
-            NavigationService.navigatorKey.currentContext ?? context,
-            route,
-          );
-        } else if (onPressed != null) {
-          onPressed();
+        } else {
+          Navigator.pushNamed(context, route);
         }
       },
       child: Padding(
