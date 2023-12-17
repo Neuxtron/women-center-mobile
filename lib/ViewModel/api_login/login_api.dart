@@ -47,13 +47,13 @@ class LoginViewModel {
         } else {
           // Jika verifikasi gagal
           print('salah email dan password');
-          return LoginResponse(sucess: true, token: "", role: "");
+          return LoginResponse(sucess: false, token: "", role: "");
         }
       } else {
         // Penanganan jika status code bukan 200
         print(
             'Response Status code bukan 200: tapi bernilai ${response.statusCode}');
-        return LoginResponse(sucess: true, token: "", role: "");
+        return LoginResponse(sucess: false, token: "", role: "");
       }
     } catch (e) {
       // Tangani error yang terjadi selama pemanggilan API
